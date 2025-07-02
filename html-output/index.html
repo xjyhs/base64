@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base64工具 - 静态HTML版本</title>
+  <meta name="description" content="专业的Base64编码解码工具，支持图片、PDF等多种格式">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['selector', '[data-theme="dark"]']
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-white text-gray-900 font-sans antialiased [data-theme='dark']:bg-gray-900 [data-theme='dark']:text-white">
+  <div class="flex flex-col min-h-screen">
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200 [data-theme='dark']:bg-gray-900/80 [data-theme='dark']:border-gray-800">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center gap-2 text-xl font-semibold text-gray-900 [data-theme='dark']:text-white">
+            <span class="text-2xl">🔗</span>
+            <span>Base64工具</span>
+          </div>
+          <button 
+            id="theme-toggle" 
+            class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200 hover:scale-105 [data-theme='dark']:bg-gray-800 [data-theme='dark']:hover:bg-gray-700 [data-theme='dark']:text-gray-400 [data-theme='dark']:hover:text-white"
+            aria-label="切换主题"
+          >
+            <span class="theme-icon text-lg">🌙</span>
+          </button>
+        </div>
+      </div>
+    </header>
+    
+    <main class="flex-1 bg-white [data-theme='dark']:bg-gray-900">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center mb-16">
+          <h1 class="text-4xl font-bold text-gray-900 mb-4 [data-theme='dark']:text-white">
+            专业 Base64 工具集合
+          </h1>
+          <p class="text-xl text-gray-600 [data-theme='dark']:text-gray-400">
+            本地处理，保护隐私安全
+          </p>
+        </div>
+        
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <a href="/base64-image/index.html" class="group block p-8 bg-white rounded-2xl shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300 hover:scale-105 [data-theme='dark']:bg-gray-800 [data-theme='dark']:border-gray-700">
+            <div class="text-4xl mb-4">🖼️</div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 [data-theme='dark']:text-white [data-theme='dark']:group-hover:text-blue-400">
+              图片 Base64 转换器
+            </h3>
+            <p class="text-gray-600 [data-theme='dark']:text-gray-400">
+              支持图片与Base64编码互相转换，支持多种图片格式
+            </p>
+          </a>
+        </div>
+      </div>
+    </main>
+    
+    <footer class="border-t border-gray-200 bg-gray-50 [data-theme='dark']:border-gray-800 [data-theme='dark']:bg-gray-800">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="text-center">
+          <p class="text-sm text-gray-600 [data-theme='dark']:text-gray-400">
+            © 2024 Base64工具. 本地处理，保护隐私安全.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // 主题系统
+    function initTheme() {
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = themeToggle?.querySelector('.theme-icon');
+      
+      // 获取系统偏好或保存的主题
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+      
+      document.documentElement.setAttribute('data-theme', initialTheme);
+      updateThemeIcon(initialTheme);
+      
+      // 主题切换
+      themeToggle?.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+        
+        // 图标旋转动画
+        if (themeIcon) {
+          themeIcon.style.transform = 'rotateY(180deg) scale(0.8)';
+          setTimeout(() => {
+            themeIcon.style.transform = 'rotateY(0deg) scale(1)';
+          }, 150);
+        }
+      });
+      
+      // 监听系统主题变化
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+          const newTheme = e.matches ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', newTheme);
+          updateThemeIcon(newTheme);
+        }
+      });
+      
+      function updateThemeIcon(theme) {
+        if (themeIcon) {
+          themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+          themeIcon.setAttribute('aria-label', theme === 'dark' ? '切换到亮色模式' : '切换到暗色模式');
+        }
+      }
+    }
+    
+    // 初始化主题系统
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTheme);
+    } else {
+      initTheme();
+    }
+  </script>
+</body>
+</html>
