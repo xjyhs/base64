@@ -1,0 +1,126 @@
+# PPT PowerMerge - Feature Documentation
+
+## Core Content
+
+### Tool Access
+- Main Tool: https://mergeppt.com/#ppt-merger-tool
+- Free online PowerPoint merger tool for combining multiple PPT/PPTX files
+- No registration required, instant processing with secure file handling
+- Files automatically deleted after 2 hours for privacy protection
+
+### Latest Updates
+- Changelog: http://mergeppt.com/changelog
+- Regular updates with new features and improvements
+- Latest update (June 5, 2025): Fixed hyperlink issues in PPT merging
+- Recent major update: Added internationalization support for common languages
+
+## 1. Core Features
+
+### 1.1 PPT File Merging
+- Merge multiple PPT/PPTX files simultaneously
+- Preserve all animations and transition effects
+- Smart master slide and layout merging
+- Support for post-merge slide reordering
+- Maintain all interactive functionalities from original PPTs
+
+### 1.2 Format Integrity Preservation
+- Complete preservation of all fonts from original PPTs
+- Maintain quality of images, videos, and multimedia elements
+- Preserve SmartArt and charts editability
+- Maintain all hyperlinks from original PPTs
+- Preserve headers, footers, and slide numbers
+
+### 1.3 Smart Element Processing
+- Automatic handling of duplicate master slides
+- Intelligent merging of similar color schemes
+- Automatic adjustment of inconsistent page sizes
+- Smart handling of duplicate media resources
+- Maintain original PPT hierarchy structure
+
+### 1.4 Font Management
+- Automatic missing font detection
+- Intelligent font replacement suggestions
+- Font subset embedding functionality
+- Preserve special font effects
+- Cross-language font compatibility handling
+
+## 2. Special Features
+
+### 2.1 Intelligent Layout Adjustment
+- Automatic alignment of slides from different sources
+- Smart page size adjustment
+- Maintain relative positioning of elements
+- Automatic text box size adjustment
+- Optimize image and shape layouts
+
+### 2.2 Theme and Style Processing
+- Smart merging of multiple themes
+- Maintain color scheme consistency
+- Automatic harmonization of different background styles
+- Unified master slide style processing
+- Maintain brand element consistency
+
+### 2.3 Content Optimization
+- Automatic detection and repair of broken links
+- Intelligent media file compression
+- Animation sequence optimization
+- Automatic text format adjustment
+- Cleanup of unused master slides
+
+### 2.4 Batch Processing Capabilities
+- Support for multiple PPT uploads
+- Custom merge order
+- Batch page reordering
+- Unified theme application
+- Batch export options
+
+### 2.5 Special Element Handling
+- Preserve macros and VBA code (if needed)
+- Handle embedded Excel charts
+- Maintain audio and video synchronization
+- Preserve comments and notes
+- Maintain timeline settings
+
+### 2.6 Compatibility Assurance
+- Support for all PowerPoint versions
+- Cross-platform format compatibility
+- Special character encoding support
+- Multi-language content support
+- Backward compatibility with older versions
+
+### 2.7 Output Control
+- Custom output format selection
+- File size optimization options
+- Quality control options
+- Selective page merging
+- Output preview functionality
+
+### 2.8 Smart Error Handling
+- Automatic format issue detection
+- Provide repair suggestions
+- Error cause analysis
+- Automatic backup of original files
+- Process logging
+
+## 3. Use Cases
+
+### 3.1 Business Presentations
+- Merge presentations from multiple departments
+- Integrate client proposal materials
+- Create training material collections
+- Consolidate meeting presentations
+- Compile annual reports
+
+### 3.2 Educational Applications
+- Merge course materials
+- Organize teaching resources
+- Create comprehensive teaching materials
+- Consolidate student assignments
+- Create online course content
+
+### 3.3 Personal Use
+- Organize personal presentations
+- Merge family photo albums
+- Create event planning documents
+- Integrate travel records
+- Create portfolio presentations 

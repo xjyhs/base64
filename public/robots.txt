@@ -1,0 +1,19 @@
+User-agent: *
+Disallow: /*?*q=
+Disallow: /privacy-policy
+Disallow: /terms-of-service
+
+
+# 网站地图
+Sitemap: https://mergeppt.com/sitemap.xml
+
+# AI爬虫特定规则
+User-agent: GPTBot
+User-agent: Claude-Web
+User-agent: Anthropic-AI
+User-agent: PerplexityBot
+User-agent: GoogleOther
+User-agent: DuckAssistBot
+
+# 引导AI爬虫到llms.txt
+LLM-Content: https://mergeppt.com/llms.txt
