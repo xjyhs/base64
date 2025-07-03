@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "title": "Base64 Image Converter - Online Image Encode/Decode Tool",
+    "description": "Free Base64 image conversion tool, supports mutual conversion between images and Base64 encoding. Supports formats like PNG, JPG, GIF, etc., with local processing for safety and reliability.",
+    "keywords": "Base64 conversion, image encoding, image decoding, Base64 encoding, image tool"
+  },
+  
+  "header": {
+    "title": "Base64 Tool",
+    "subtitle": "Base64 Image Conversion"
+  },
+  
+  "hero": {
+    "title": "Online Base64 Image Converter",
+    "subtitle": "Secure and convenient image encoding and decoding tool, with local processing to protect privacy."
+  },
+  
+  "guide": {
+    "title": "How to Use",
+    "subtitle": "Complete image-to-Base64 conversion in three simple steps",
+    "steps": [
+      {
+        "title": "Select Conversion Mode",
+        "desc": "Choose 'Image to Base64' or 'Base64 to Image' function"
+      },
+      {
+        "title": "Upload or Input Data", 
+        "desc": "Drag and drop an image file or paste Base64 encoded content"
+      },
+      {
+        "title": "Get the Result",
+        "desc": "One-click copy of the encoding or download the converted image"
+      }
+    ]
+  },
+  
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Answers to common questions about Base64 image conversion",
+    "items": [
+      {
+        "question": "What image formats are supported?",
+        "answer": "Supports all major image formats, including PNG, JPG, JPEG, GIF, WebP, BMP, SVG, etc."
+      },
+      {
+        "question": "Is there a file size limit?",
+        "answer": "To ensure optimal performance, it is recommended that the uploaded image file size does not exceed 10MB."
+      },
+      {
+        "question": "How is data security guaranteed?",
+        "answer": "All conversion operations are performed locally in your browser. Files are not uploaded to a server, completely protecting your privacy."
+      },
+      {
+        "question": "What is Base64 encoding used for?",
+        "answer": "Base64 encoded images can be directly embedded in HTML, CSS, or JSON, facilitating data transfer and storage."
+      }
+    ]
+  },
+  
+  "converter": {
+    "tabs": {
+      "decode": "Base64 to Image",
+      "encode": "Image to Base64"
+    },
+    "actions": {
+      "paste": "Paste Base64 encoding here...",
+      "decode": "Convert to Image",
+      "clear": "Clear",
+      "copy": "Copy",
+      "downloadImage": "Download Image",
+      "downloadTxt": "Download as TXT"
+    },
+    "labels": {
+      "dropzone": "Drag and drop image here, or click to select file",
+      "resultTitle": "Conversion Result",
+      "outputTitle": "Base64 Output",
+      "imageInfoTitle": "Image Information",
+      "loading": "Processing..."
+    },
+    "imageInfo": {
+      "name": "Name",
+      "size": "Size", 
+      "type": "Type"
+    },
+    "textStats": {
+      "length": "Length",
+      "size": "Size",
+      "largeTextWarning": "Large text detected, processing may take some time"
+    },
+    "stats": {
+      "length": "Length",
+      "characters": "characters",
+      "size": "Size",
+      "largeText": "Large text",
+      "optimizedHint": "Tip: Large text uses optimized processing"
+    },
+    "messages": {
+      "errorPaste": "Please enter Base64 encoding",
+      "errorInvalid": "Please enter a valid image Base64 encoding",
+      "success": "Conversion successful!",
+      "errorFail": "Conversion failed: ",
+      "errorSelect": "Please select an image file",
+      "errorSize": "File size cannot exceed 10MB",
+      "errorUnknown": "Conversion failed",
+      "imageDownloaded": "Image downloaded",
+      "copied": "Base64 encoding copied to clipboard",
+      "copyFail": "Copy failed, please select and copy manually",
+      "textDownloaded": "Base64 file downloaded",
+      "cleared": "Cleared all results",
+      "processing": "Processing text...",
+      "textProcessed": "Text processed successfully",
+      "processingText": "Processing large text..."
+    }
+  },
+  
+  "footer": {
+    "text": "© 2024 Base64 Tool. Local processing, protecting privacy and security."
+  }
+} 

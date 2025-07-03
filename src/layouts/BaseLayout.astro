@@ -50,16 +50,19 @@ const canonicalURL = Astro.site
         <div class="flex items-center justify-between h-16">
           <a href="/" class="flex items-center gap-2 text-xl font-semibold text-gray-900 hover:text-blue-600 transition-colors [data-theme='dark']:[&]:text-white [data-theme='dark']:[&]:hover:text-blue-400">
             <span class="text-2xl">🔗</span>
-            <span>Base64 工具</span>
+            <span>Base64 Tool</span>
           </a>
-          <button 
-            id="theme-toggle" 
-            class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200 hover:scale-105 [data-theme='dark']:[&]:bg-gray-800 [data-theme='dark']:[&]:hover:bg-gray-700 [data-theme='dark']:[&]:text-gray-400 [data-theme='dark']:[&]:hover:text-white"
-            aria-label="切换主题"
-            type="button"
-          >
-            <span class="theme-icon text-lg">🌙</span>
-          </button>
+          <div class="flex items-center gap-4">
+            <button 
+              id="theme-toggle" 
+              class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200 hover:scale-105 [data-theme='dark']:[&]:bg-gray-800 [data-theme='dark']:[&]:hover:bg-gray-700 [data-theme='dark']:[&]:text-gray-400 [data-theme='dark']:[&]:hover:text-white"
+              aria-label="切换主题"
+              type="button"
+            >
+              <span class="theme-icon text-lg">🌙</span>
+            </button>
+            <div id="lang-switcher-placeholder"></div>
+          </div>
         </div>
       </div>
     </header>
@@ -74,7 +77,7 @@ const canonicalURL = Astro.site
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="text-center">
           <p class="text-sm text-gray-600 [data-theme='dark']:[&]:text-gray-400">
-            © 2024 Base64 工具. 本地处理，保护隐私安全.
+            © 2024 Base64 Tool. Local processing, protecting privacy and security.
           </p>
         </div>
       </div>

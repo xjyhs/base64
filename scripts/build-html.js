@@ -11,11 +11,32 @@ const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const SUPPORTED_LANGUAGES = ['en', 'zh']; // Add supported languages here
+
 class HTMLBuilder {
   constructor() {
     this.rootDir = path.resolve(__dirname, '..');
     this.distDir = path.join(this.rootDir, 'dist');
     this.htmlDir = path.join(this.rootDir, 'html-output');
+    this.translations = {};
+  }
+
+  /**
+   * Load all translation files
+   */
+  async loadTranslations() {
+    console.log('🌍 Loading translations...');
+    for (const lang of SUPPORTED_LANGUAGES) {
+      // Load page-specific translations for base64-image
+      const pageTranslationPath = path.join(this.rootDir, 'src', 'i18n', 'pages', 'base64-image', `${lang}.json`);
+      if (await fs.pathExists(pageTranslationPath)) {
+        this.translations[lang] = await fs.readJson(pageTranslationPath);
+        console.log(`  ✅ Loaded page translation for ${lang}`);
+      } else {
+        console.warn(`  ⚠️  Page translation file not found for language: ${lang}`);
+      }
+    }
+    console.log('✅ Translations loaded');
   }
 
   /**
@@ -197,14 +218,28 @@ class HTMLBuilder {
             const inlineJS = `<script>${jsContent}</script>`;
             content = content.replace(match[0], inlineJS);
             console.log(`  ✅ 内联JS: ${jsPath}`);
+          } else {
+            // 保持大文件的外部引用，确保路径正确
+            console.log(`  ⚠️  保持外部引用 (文件过大): ${jsPath} (${this.formatFileSize(stat.size)})`);
           }
         } catch (error) {
-          console.warn(`  ⚠️  无法内联JS: ${jsPath}`, error.message);
+          console.warn(`  ⚠️  无法处理JS: ${jsPath}`, error.message);
         }
       }
     }
     
     return content;
+  }
+
+  /**
+   * 格式化文件大小
+   */
+  formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 
   /**
@@ -223,194 +258,139 @@ class HTMLBuilder {
   }
 
   /**
-   * 生成索引页面
+   * Translate HTML content, adjust paths, and inject scripts
    */
-  async generateIndexPage() {
-    console.log('📄 生成索引页面...');
-    
-    const htmlFiles = await this.findHTMLFiles(this.htmlDir);
-    const pages = htmlFiles
-      .filter(file => !file.includes('404.html'))
-      .map(file => ({
-        name: path.relative(this.htmlDir, file),
-        path: path.relative(this.htmlDir, file),
-        fullPath: file
-      }));
+  processAndTranslate(content, lang, destHtmlPath, pageOutputDir) {
+    let translatedContent = content;
+    const isDefaultLang = lang === SUPPORTED_LANGUAGES[0];
 
-    const indexContent = `<!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Base64工具 - 静态HTML版本</title>
-  <meta name="description" content="专业的Base64编码解码工具，支持图片、PDF等多种格式">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: ['selector', '[data-theme="dark"]']
-    }
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-</head>
-<body class="min-h-screen bg-white text-gray-900 font-sans antialiased [data-theme='dark']:bg-gray-900 [data-theme='dark']:text-white">
-  <div class="flex flex-col min-h-screen">
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200 [data-theme='dark']:bg-gray-900/80 [data-theme='dark']:border-gray-800">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-          <div class="flex items-center gap-2 text-xl font-semibold text-gray-900 [data-theme='dark']:text-white">
-            <span class="text-2xl">🔗</span>
-            <span>Base64工具</span>
-          </div>
-          <button 
-            id="theme-toggle" 
-            class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200 hover:scale-105 [data-theme='dark']:bg-gray-800 [data-theme='dark']:hover:bg-gray-700 [data-theme='dark']:text-gray-400 [data-theme='dark']:hover:text-white"
-            aria-label="切换主题"
-          >
-            <span class="theme-icon text-lg">🌙</span>
-          </button>
-        </div>
-      </div>
-    </header>
-    
-    <main class="flex-1 bg-white [data-theme='dark']:bg-gray-900">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="text-center mb-16">
-          <h1 class="text-4xl font-bold text-gray-900 mb-4 [data-theme='dark']:text-white">
-            专业 Base64 工具集合
-          </h1>
-          <p class="text-xl text-gray-600 [data-theme='dark']:text-gray-400">
-            本地处理，保护隐私安全
-          </p>
-        </div>
-        
-        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <a href="/base64-image/index.html" class="group block p-8 bg-white rounded-2xl shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300 hover:scale-105 [data-theme='dark']:bg-gray-800 [data-theme='dark']:border-gray-700">
-            <div class="text-4xl mb-4">🖼️</div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 [data-theme='dark']:text-white [data-theme='dark']:group-hover:text-blue-400">
-              图片 Base64 转换器
-            </h3>
-            <p class="text-gray-600 [data-theme='dark']:text-gray-400">
-              支持图片与Base64编码互相转换，支持多种图片格式
-            </p>
-          </a>
-        </div>
-      </div>
-    </main>
-    
-    <footer class="border-t border-gray-200 bg-gray-50 [data-theme='dark']:border-gray-800 [data-theme='dark']:bg-gray-800">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="text-center">
-          <p class="text-sm text-gray-600 [data-theme='dark']:text-gray-400">
-            © 2024 Base64工具. 本地处理，保护隐私安全.
-          </p>
-        </div>
-      </div>
-    </footer>
-  </div>
-
-  <script>
-    // 主题系统
-    function initTheme() {
-      const themeToggle = document.getElementById('theme-toggle');
-      const themeIcon = themeToggle?.querySelector('.theme-icon');
+    // 1. Translate text content using recursion - only if not default language
+    if (!isDefaultLang && this.translations[lang] && this.translations['en']) {
+      const enStrings = this.translations['en'];
+      const langStrings = this.translations[lang];
       
-      // 获取系统偏好或保存的主题
-      const savedTheme = localStorage.getItem('theme');
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-      
-      document.documentElement.setAttribute('data-theme', initialTheme);
-      updateThemeIcon(initialTheme);
-      
-      // 主题切换
-      themeToggle?.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
-        
-        // 图标旋转动画
-        if (themeIcon) {
-          themeIcon.style.transform = 'rotateY(180deg) scale(0.8)';
-          setTimeout(() => {
-            themeIcon.style.transform = 'rotateY(0deg) scale(1)';
-          }, 150);
+      const recursiveReplace = (source, target) => {
+        for (const key in source) {
+          if (Array.isArray(source[key]) && Array.isArray(target[key])) {
+            // Handle arrays (like FAQ items or guide steps)
+            for (let i = 0; i < Math.min(source[key].length, target[key].length); i++) {
+              if (typeof source[key][i] === 'object' && typeof target[key][i] === 'object') {
+                recursiveReplace(source[key][i], target[key][i]);
+              }
+            }
+          } else if (typeof source[key] === 'object' && source[key] !== null && target[key]) {
+            recursiveReplace(source[key], target[key]);
+          } else if (typeof source[key] === 'string' && typeof target[key] === 'string') {
+            if (source[key] && target[key] && source[key].trim() !== '' && target[key].trim() !== '') {
+              // Handle HTML encoded source first (since HTML may contain encoded characters)
+              const encodedSource = source[key]
+                .replace(/&/g, '&amp;')   // &符号要先处理，避免冲突
+                .replace(/'/g, '&#39;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+              
+              const encodedTarget = target[key]
+                .replace(/&/g, '&amp;')   // &符号要先处理，避免冲突
+                .replace(/'/g, '&#39;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+              
+              // Escape special regex characters for both versions
+              const escapedEncodedSource = encodedSource.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+              const escapedSource = source[key].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+              
+              // Replace HTML encoded version first, then original
+              const encodedRegex = new RegExp(escapedEncodedSource, 'g');
+              translatedContent = translatedContent.replace(encodedRegex, encodedTarget);
+              
+              const regex = new RegExp(escapedSource, 'g');
+              translatedContent = translatedContent.replace(regex, target[key]);
+            }
+          }
         }
-      });
+      };
       
-      // 监听系统主题变化
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-          const newTheme = e.matches ? 'dark' : 'light';
-          document.documentElement.setAttribute('data-theme', newTheme);
-          updateThemeIcon(newTheme);
-        }
-      });
-      
-      function updateThemeIcon(theme) {
-        if (themeIcon) {
-          themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
-          themeIcon.setAttribute('aria-label', theme === 'dark' ? '切换到亮色模式' : '切换到暗色模式');
-        }
-      }
+      recursiveReplace(enStrings, langStrings);
     }
     
-    // 初始化主题系统
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initTheme);
-    } else {
-      initTheme();
+    // 2. Adjust asset paths to be relative to the new scoped structure
+    const htmlFileDir = path.dirname(destHtmlPath);
+    const relativePathToPageRoot = path.relative(htmlFileDir, pageOutputDir);
+    const assetBasePath = relativePathToPageRoot ? relativePathToPageRoot.replace(/\\/g, '/') : '.';
+    
+    // Make all root links relative to the page root, e.g., href="/_astro/..." becomes href="../_astro/..."
+    translatedContent = translatedContent.replace(/(href|src)="\//g, (match, p1) => `${p1}="${assetBasePath}/`);
+
+    // Also adjust astro-island component and renderer URLs
+    translatedContent = translatedContent.replace(/(component-url|renderer-url)="\//g, (match, p1) => `${p1}="${assetBasePath}/`);
+
+    // 3. Inject translations for client-side components
+    if (this.translations[lang]) {
+      const script = `<script>window.translations = ${JSON.stringify(this.translations[lang])};</script>`;
+      translatedContent = translatedContent.replace('</head>', `${script}</head>`);
     }
-  </script>
-</body>
-</html>`;
 
-    await fs.writeFile(path.join(this.htmlDir, 'index.html'), indexContent, 'utf8');
-    console.log('✅ 索引页面生成完成');
-  }
+    // 4. Inject language switcher with relative paths
+    const currentLangName = lang === 'en' ? 'English' : '中文';
+    const otherLangs = SUPPORTED_LANGUAGES.filter(l => l !== lang).map(l => {
+        const isLDefault = l === SUPPORTED_LANGUAGES[0];
+        let targetPath = '';
 
-  /**
-   * 生成部署信息
-   */
-  async generateDeployInfo() {
-    console.log('📋 生成部署信息...');
-    
-    const deployInfo = {
-      buildTime: new Date().toISOString(),
-      version: '1.0.0',
-      description: '这是一个Base64工具的静态HTML版本',
-      files: [],
-    };
-    
-    function collectFiles(dir, basePath = '') {
-      const files = fs.readdirSync(dir);
-      
-      files.forEach(file => {
-        const filePath = path.join(dir, file);
-        const relativePath = path.join(basePath, file);
-        const stat = fs.statSync(filePath);
+        if (isDefaultLang && !isLDefault) { // From EN page to ZH page
+          targetPath = `./${l}/index.html`; 
+        } else if (!isDefaultLang && isLDefault) { // From ZH page to EN page
+          targetPath = `../index.html`;
+        }
         
-        if (stat.isDirectory()) {
-          collectFiles(filePath, relativePath);
-        } else {
-          deployInfo.files.push({
-            path: relativePath.replace(/\\/g, '/'),
-            size: stat.size,
-            modified: stat.mtime.toISOString(),
+        if (targetPath) {
+          const langName = l === 'en' ? 'English' : '中文';
+          return `<a href="${targetPath}" lang="${l}" hreflang="${l}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">${langName}</a>`;
+        }
+        return '';
+    }).join('');
+
+    const langSwitcher = `
+      <div class="relative">
+        <button id="lang-switcher-btn" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600">
+          <span>${currentLangName}</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div id="lang-switcher-menu" class="absolute right-0 mt-1 w-32 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg z-50 hidden">
+          ${otherLangs}
+        </div>
+      </div>
+      <script>
+        (function() {
+          const btn = document.getElementById('lang-switcher-btn');
+          const menu = document.getElementById('lang-switcher-menu');
+          
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            menu.classList.toggle('hidden');
           });
-        }
-      });
-    }
+          
+          document.addEventListener('click', function() {
+            menu.classList.add('hidden');
+          });
+          
+          menu.addEventListener('click', function(e) {
+            e.stopPropagation();
+          });
+        })();
+      </script>
+    `;
     
-    collectFiles(this.htmlDir);
-    
-    await fs.writeFile(
-      path.join(this.htmlDir, 'deploy-info.json'),
-      JSON.stringify(deployInfo, null, 2)
-    );
-    console.log('✅ 部署信息生成完成');
+    translatedContent = translatedContent.replace('<div id="lang-switcher-placeholder"></div>', langSwitcher);
+
+    // 5. Adjust main lang attribute
+    const langCode = lang === 'zh' ? 'zh-CN' : 'en';
+    translatedContent = translatedContent.replace(/<html lang="[^"]*"/, `<html lang="${langCode}"`);
+
+    return translatedContent;
   }
 
   /**
@@ -420,27 +400,68 @@ class HTMLBuilder {
     console.log('🚀 开始构建HTML静态版本...\n');
     
     try {
+      // 0. Load translations
+      await this.loadTranslations();
+
       // 1. 清理输出目录
       await this.cleanOutputDir();
       
       // 2. 构建Astro项目
       this.buildAstroProject();
       
-      // 3. 复制静态资源
-      await this.copyStaticAssets();
-      
-      // 4. 内联资源优化
-      await this.inlineAssets();
-      
-      // 5. 生成索引页面
-      await this.generateIndexPage();
-      
-      // 6. 生成部署信息
-      await this.generateDeployInfo();
+      const allDistFiles = await fs.readdir(this.distDir);
+      const rootFiles = allDistFiles.filter(f => !fs.statSync(path.join(this.distDir, f)).isDirectory());
+      const htmlFiles = await this.findHTMLFiles(this.distDir);
+      const pageDirs = [...new Set(htmlFiles.map(f => path.dirname(path.relative(this.distDir, f))))];
+
+      // 3. Create page structures and copy scoped assets
+      console.log('📦 Scoping assets per page...');
+      for (const pageDir of pageDirs) {
+        const outputPageDir = path.join(this.htmlDir, pageDir);
+        await fs.ensureDir(outputPageDir);
+        
+        // Copy _astro
+        const assetDir = path.join(this.distDir, '_astro');
+        if (await fs.pathExists(assetDir)) {
+            await fs.copy(assetDir, path.join(outputPageDir, '_astro'));
+        }
+        
+        // Copy other root files (favicon, etc.)
+        for (const rootFile of rootFiles) {
+          if (!rootFile.endsWith('.html')) { // Don't copy root html files here
+            await fs.copy(path.join(this.distDir, rootFile), path.join(outputPageDir, rootFile));
+          }
+        }
+      }
+      console.log('✅ Assets scoped.');
+
+      // 4. Process and translate HTML for each page and language
+      for (const htmlFile of htmlFiles) {
+        const relativeHtmlPath = path.relative(this.distDir, htmlFile);
+        const pageDir = path.dirname(relativeHtmlPath);
+
+        for (const lang of SUPPORTED_LANGUAGES) {
+          const isDefaultLang = lang === SUPPORTED_LANGUAGES[0];
+          const langSubDir = isDefaultLang ? '' : lang;
+          const destDir = path.join(this.htmlDir, pageDir, langSubDir);
+          await fs.ensureDir(destDir);
+          const destPath = path.join(destDir, path.basename(htmlFile));
+
+          console.log(`[${lang}] Processing ${relativeHtmlPath} -> ${path.relative(this.rootDir, destPath)}`);
+
+          let content = await fs.readFile(htmlFile, 'utf8');
+          content = this.processAndTranslate(content, lang, destPath, path.join(this.htmlDir, pageDir));
+          
+          content = await this.inlineCSS(content, destPath);
+          content = await this.inlineSmallJS(content, destPath);
+          content = this.optimizeHTML(content);
+          
+          await fs.writeFile(destPath, content, 'utf8');
+        }
+      }
       
       console.log('\n🎉 HTML静态版本构建完成！');
       console.log(`📁 输出目录: ${this.htmlDir}`);
-      console.log('🌐 可以直接部署到任何静态服务器');
       
     } catch (error) {
       console.error('\n❌ 构建失败:', error.message);

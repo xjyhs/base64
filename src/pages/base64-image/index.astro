@@ -1,25 +1,33 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Base64ImageConverter from '../../components/tools/Base64ImageConverter.tsx';
+import fs from 'fs';
+import path from 'path';
+
+// Load English translations (default)
+const translationsPath = path.resolve('src/i18n/pages/base64-image/en.json');
+const translations = JSON.parse(fs.readFileSync(translationsPath, 'utf-8'));
+
+const { meta, header, hero, guide, faq } = translations;
 ---
 
 <BaseLayout
-  title="Base64图片转换器 - 在线图片编码解码工具"
-  description="免费的Base64图片转换工具，支持图片与Base64编码互相转换。支持PNG、JPG、GIF等格式，本地处理安全可靠。"
-  keywords="Base64转换,图片编码,图片解码,Base64编码,图片工具"
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
 >
   <!-- Hero Section -->
   <section class="py-16 bg-gray-50 dark:bg-gray-900">
     <div class="max-w-4xl mx-auto px-4 text-center">
       <div class="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium mb-6">
         <span>🔄</span>
-        <span>Base64 图片转换</span>
+        <span>{header.subtitle}</span>
       </div>
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        在线Base64图片转换器
+        {hero.title}
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-        安全便捷的图片编码解码工具，本地处理保护隐私
+        {hero.subtitle}
       </p>
     </div>
   </section>
@@ -35,37 +43,21 @@ import Base64ImageConverter from '../../components/tools/Base64ImageConverter.ts
   <section class="py-16 bg-gray-50 dark:bg-gray-800">
     <div class="max-w-4xl mx-auto px-4">
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">使用指南</h2>
-        <p class="text-lg text-gray-600 dark:text-gray-400">简单三步完成图片与Base64编码的转换</p>
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{guide.title}</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400">{guide.subtitle}</p>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg">
-          <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center text-xl font-bold mb-4">
-            01
+        {guide.steps.map((step, index) => (
+          <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg">
+            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center text-xl font-bold mb-4">
+              {String(index + 1).padStart(2, '0')}
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{step.title}</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              {step.desc}
+            </p>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">选择转换模式</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            选择"图片转Base64"或"Base64转图片"功能
-          </p>
-        </div>
-        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg">
-          <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center text-xl font-bold mb-4">
-            02
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">上传或输入数据</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            拖拽图片文件或粘贴Base64编码内容
-          </p>
-        </div>
-        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg">
-          <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center text-xl font-bold mb-4">
-            03
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">获取转换结果</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            一键复制编码或下载转换后的图片
-          </p>
-        </div>
+        ))}
       </div>
     </div>
   </section>
@@ -74,46 +66,24 @@ import Base64ImageConverter from '../../components/tools/Base64ImageConverter.ts
   <section class="py-16 bg-white dark:bg-gray-900">
     <div class="max-w-4xl mx-auto px-4">
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">常见问题</h2>
-        <p class="text-lg text-gray-600 dark:text-gray-400">关于Base64图片转换的疑问解答</p>
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{faq.title}</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400">{faq.subtitle}</p>
       </div>
       <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="text-2xl">❓</span>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">支持哪些图片格式？</h3>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400">
-            支持所有主流图片格式，包括PNG、JPG、JPEG、GIF、WebP、BMP、SVG等。
-          </p>
-        </div>
-        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="text-2xl">📊</span>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">文件大小有限制吗？</h3>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400">
-            为确保最佳性能，建议上传的图片文件大小不超过10MB。
-          </p>
-        </div>
-        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="text-2xl">🔐</span>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">数据安全如何保障？</h3>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400">
-            所有转换操作在浏览器本地完成，文件不会上传到服务器，完全保护隐私。
-          </p>
-        </div>
-        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="text-2xl">💡</span>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Base64编码有什么用？</h3>
-          </div>
-          <p class="text-gray-600 dark:text-gray-400">
-            Base64编码的图片可以直接嵌入HTML、CSS或JSON中，方便数据传输和存储。
-          </p>
-        </div>
+        {faq.items.map((item, index) => {
+          const icons = ['❓', '📊', '🔐', '💡'];
+          return (
+            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-2xl">{icons[index] || '💡'}</span>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{item.question}</h3>
+              </div>
+              <p class="text-gray-600 dark:text-gray-400">
+                {item.answer}
+              </p>
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>

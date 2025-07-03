@@ -28,10 +28,172 @@ src/
 │   └── tools/          # 工具组件
 ├── utils/              # 工具函数
 │   └── base64.ts       # Base64处理工具
+├── i18n/               # 国际化文件
+│   └── pages/          # 页面级翻译
 └── styles/             # 样式文件
 scripts/                # 构建脚本
 └── build-html.js       # HTML构建脚本
 ```
+
+## 国际化(i18n)开发规范
+
+### 支持的语言
+- 默认语言: 英文 (en)
+- 支持语言: 中文简体 (zh)
+- 语言代码: 严格使用 ISO 639-1 标准
+
+### 翻译文件结构
+```
+src/i18n/
+├── pages/
+│   └── [page-name]/
+│       ├── en.json     # 英文翻译
+│       └── zh.json     # 中文翻译
+```
+
+### 翻译文件规范
+
+#### 1. 文件命名
+- 使用语言代码作为文件名: `en.json`, `zh.json`
+- 页面级翻译放在 `src/i18n/pages/[page-name]/` 目录下
+
+#### 2. JSON结构规范
+```json
+{
+  "meta": {
+    "title": "页面标题",
+    "description": "页面描述",
+    "keywords": "关键词"
+  },
+  "header": {
+    "title": "头部标题",
+    "subtitle": "副标题"
+  },
+  "componentName": {
+    "tabs": { "key": "value" },
+    "actions": { "key": "value" },
+    "labels": { "key": "value" },
+    "messages": { "key": "value" }
+  }
+}
+```
+
+#### 3. 翻译键命名规范
+- 使用小驼峰命名: `errorMessage`, `successText`
+- 按功能分组: `actions.*`, `labels.*`, `messages.*`
+- 避免深层嵌套，最多3层: `component.section.key`
+
+### React组件国际化规范
+
+#### 1. 可靠的翻译系统架构
+```typescript
+class TranslationManager {
+  private translations: any = null;
+  private fallbackTranslations: any = null; // 必须包含完整的英文翻译
+  private isReady: boolean = false;
+  private readyCallbacks: Array<() => void> = [];
+}
+```
+
+#### 2. 翻译Hook使用规范
+```typescript
+const useTranslation = () => {
+  const [isReady, setIsReady] = useState(false);
+  
+  useEffect(() => {
+    translationManager.init();
+    translationManager.onReady(() => {
+      setIsReady(true);
+    });
+  }, []);
+
+  return {
+    t: translationManager.t.bind(translationManager),
+    isReady,
+    isClient: translationManager.isClientSide()
+  };
+};
+```
+
+#### 3. 组件中的翻译使用
+```typescript
+const { t, isReady, isClient } = useTranslation();
+
+// 条件渲染确保翻译可用
+{isClient ? t('converter.actions.copy') : 'Copy'}
+```
+
+### 翻译系统可靠性要求
+
+#### 1. 多重保险机制
+- **第一层**: 立即检查 `window.translations`
+- **第二层**: 延迟检查，等待翻译脚本加载
+- **第三层**: 超时后使用内置英文fallback
+- **第四层**: 翻译查找失败时返回原始key
+
+#### 2. 零闪烁显示
+- 服务端渲染: 使用fallback翻译
+- 客户端水合: 异步加载翻译后重渲染
+- 失败处理: 自动使用fallback
+
+#### 3. 状态管理
+- 使用单例模式管理翻译状态
+- 支持异步回调机制
+- 提供翻译加载状态查询
+
+### 构建脚本国际化处理
+
+#### 1. 翻译注入
+```javascript
+// 在HTML头部注入翻译对象
+const script = `<script>window.translations = ${JSON.stringify(translations)};</script>`;
+content = content.replace('</head>', `${script}</head>`);
+```
+
+#### 2. 语言切换器
+- 自动生成语言切换器
+- 正确处理相对路径
+- 支持语言标识和hreflang属性
+
+#### 3. 路径结构
+```
+html-output/
+├── [page]/
+│   ├── index.html      # 英文版本
+│   └── zh/
+│       └── index.html  # 中文版本
+```
+
+### 开发注意事项
+
+#### 1. 必须遵循的规则
+- **禁止硬编码文本**: 所有用户可见文本必须通过翻译系统
+- **fallback机制**: 每个翻译管理器必须包含完整的英文fallback
+- **异步处理**: 翻译加载必须支持异步，避免阻塞渲染
+- **错误处理**: 必须处理翻译加载失败的情况
+
+#### 2. 性能优化
+- 使用防抖处理大量翻译请求
+- 缓存翻译结果避免重复计算
+- 延迟初始化减少启动时间
+
+#### 3. 测试要求
+- 测试所有语言版本的显示
+- 测试翻译加载失败情况
+- 测试服务端渲染和客户端水合
+- 测试语言切换功能
+
+### 调试和维护
+
+#### 1. 调试信息
+- 开发环境下提供详细的翻译加载日志
+- 标记未找到的翻译键
+- 监控翻译加载性能
+
+#### 2. 维护指南
+- 定期检查翻译文件完整性
+- 保持英文和其他语言翻译同步
+- 更新翻译时同时更新所有语言版本
 
 ## 构建规范
 
@@ -39,70 +201,19 @@ scripts/                # 构建脚本
 - 将Astro构建结果转换为纯静态HTML
 - 优化资源加载和内联小型资源
 - 生成部署信息
+- 处理多语言版本构建
 
 ### 构建命令
 - `pnpm build` - 构建Astro项目
 - `pnpm build:html` - 构建优化的HTML版本
 - `pnpm dev` - 开发模式
 
-## 代码规范
+## 配置
 
-### Astro组件规范
-1. **布局组件**
-   - 支持动态SEO配置
-   - 集成主题切换功能
+### 添加新的落地页
 
-2. **工具组件**
-   - 放置在components/tools/目录
-   - 使用TypeScript编写交互逻辑
-   - 支持文件上传和进度显示
-
-3. **页面组件**
-   - 使用布局组件包装工具组件
-   - 保持简洁的页面结构
-
-### TypeScript规范
-- 启用严格类型检查
-- 为工具函数定义完整的类型
-- 使用接口定义配置结构
-- 全局类型声明放在对应文件顶部
-
-
-## 工具开发规范
-
-### Base64工具类
-- 统一的工具类：Base64Utils
-- 支持文本和文件编码/解码
-- 错误处理和进度回调
-- 文件大小限制和格式验证
-
-### 组件交互规范
-- 使用防抖和节流优化性能
-- 提供用户友好的错误提示
-- 支持拖拽上传和剪贴板操作
-- 实时显示处理进度
-
-### 功能特性
-- 本地处理，数据不上传
-- 支持大文件分块处理
-- 一键复制和下载功能
-- 详细的统计信息显示
-
-## SEO优化规范
-
-### 页面优化
-- 精准的title和meta标签
-- 结构化数据标记（JSON-LD）
-- Open Graph和Twitter Card支持
-- 自动生成sitemap和robots.txt
-
-### 性能优化
-- 静态生成，零运行时JavaScript（可选）
-- 图片优化和懒加载
-- 服务端渲染SEO内容
-
-### 用户体验
-- 响应式设计，移动端友好
-- 暗色模式支持
-- 快速的页面加载速度
-- 直观的操作界面
+1. 在 `src/pages/` 中创建新的 `.astro` 文件
+2. 在 `src/i18n/pages/[page-name]/` 中添加对应的翻译文件
+3. 确保翻译文件包含所有必要的键值对
+4. 在组件中正确使用翻译系统
+5. 测试所有语言版本的显示效果

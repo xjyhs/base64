@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "title": "Base64图片转换器 - 在线图片编码解码工具",
+    "description": "免费的Base64图片转换工具，支持图片与Base64编码互相转换。支持PNG、JPG、GIF等格式，本地处理安全可靠。",
+    "keywords": "Base64转换,图片编码,图片解码,Base64编码,图片工具"
+  },
+  
+  "header": {
+    "title": "Base64 工具",
+    "subtitle": "Base64 图片转换"
+  },
+  
+  "hero": {
+    "title": "在线Base64图片转换器",
+    "subtitle": "安全便捷的图片编码解码工具，本地处理保护隐私"
+  },
+  
+  "guide": {
+    "title": "使用指南",
+    "subtitle": "简单三步完成图片与Base64编码的转换",
+    "steps": [
+      {
+        "title": "选择转换模式",
+        "desc": "选择\"图片转Base64\"或\"Base64转图片\"功能"
+      },
+      {
+        "title": "上传或输入数据",
+        "desc": "拖拽图片文件或粘贴Base64编码内容"
+      },
+      {
+        "title": "获取转换结果",
+        "desc": "一键复制编码或下载转换后的图片"
+      }
+    ]
+  },
+  
+  "faq": {
+    "title": "常见问题",
+    "subtitle": "关于Base64图片转换的疑问解答",
+    "items": [
+      {
+        "question": "支持哪些图片格式？",
+        "answer": "支持所有主流图片格式，包括PNG、JPG、JPEG、GIF、WebP、BMP、SVG等。"
+      },
+      {
+        "question": "文件大小有限制吗？",
+        "answer": "为确保最佳性能，建议上传的图片文件大小不超过10MB。"
+      },
+      {
+        "question": "数据安全如何保障？",
+        "answer": "所有转换操作在浏览器本地完成，文件不会上传到服务器，完全保护隐私。"
+      },
+      {
+        "question": "Base64编码有什么用？",
+        "answer": "Base64编码的图片可以直接嵌入HTML、CSS或JSON中，方便数据传输和存储。"
+      }
+    ]
+  },
+  
+  "converter": {
+    "tabs": {
+      "decode": "Base64转图片",
+      "encode": "图片转Base64"
+    },
+    "actions": {
+      "paste": "在此处粘贴Base64编码...",
+      "decode": "转换为图片",
+      "clear": "清除",
+      "copy": "复制",
+      "downloadImage": "下载图片",
+      "downloadTxt": "下载为TXT"
+    },
+    "labels": {
+      "dropzone": "将图片拖放到此处，或点击选择文件",
+      "resultTitle": "转换结果",
+      "outputTitle": "Base64编码输出",
+      "imageInfoTitle": "图片信息",
+      "loading": "处理中..."
+    },
+    "imageInfo": {
+      "name": "名称",
+      "size": "大小",
+      "type": "类型"
+    },
+    "textStats": {
+      "length": "长度",
+      "size": "大小",
+      "largeTextWarning": "检测到大文本，处理可能需要一些时间"
+    },
+    "stats": {
+      "length": "长度",
+      "characters": "字符",
+      "size": "大小",
+      "largeText": "大型文本",
+      "optimizedHint": "提示：大型文本使用优化处理"
+    },
+    "messages": {
+      "errorPaste": "请输入Base64编码",
+      "errorInvalid": "请输入有效的图片Base64编码",
+      "success": "转换成功！",
+      "errorFail": "转换失败：",
+      "errorSelect": "请选择图片文件",
+      "errorSize": "文件大小不能超过10MB",
+      "errorUnknown": "转换失败",
+      "imageDownloaded": "图片已下载",
+      "copied": "Base64编码已复制到剪贴板",
+      "copyFail": "复制失败，请手动选择并复制",
+      "textDownloaded": "Base64文件已下载",
+      "cleared": "已清空所有结果",
+      "processing": "正在处理文本...",
+      "textProcessed": "文本处理成功",
+      "processingText": "正在处理大型文本..."
+    }
+  },
+  
+  "footer": {
+    "text": "© 2024 Base64 工具. 本地处理，保护隐私安全."
+  }
+} 

@@ -1,107 +1,430 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { Base64Utils } from '../../utils/base64';
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { workerManager } from '../../utils/workerManager';
+
+// 防抖Hook
+const useDebounce = (value: string, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
+// 可靠的翻译系统
+class TranslationManager {
+  private translations: any = null;
+  private isClient: boolean = false;
+  private fallbackTranslations: any = null;
+  private isReady: boolean = false;
+  private readyCallbacks: Array<() => void> = [];
+
+  constructor() {
+    // 设置默认的英文翻译作为fallback
+    this.fallbackTranslations = {
+      converter: {
+        tabs: {
+          decode: "Base64 to Image",
+          encode: "Image to Base64"
+        },
+        actions: {
+          paste: "Paste Base64 encoding here...",
+          decode: "Convert to Image",
+          clear: "Clear",
+          copy: "Copy",
+          downloadImage: "Download Image",
+          downloadTxt: "Download as TXT"
+        },
+        labels: {
+          dropzone: "Drag and drop image here, or click to select file",
+          resultTitle: "Conversion Result",
+          outputTitle: "Base64 Output",
+          loading: "Processing..."
+        },
+        textStats: {
+          length: "Length",
+          size: "Size",
+          largeTextWarning: "Large text detected, processing may take some time"
+        },
+        messages: {
+          errorPaste: "Please enter Base64 encoding",
+          errorInvalid: "Please enter a valid image Base64 encoding",
+          success: "Conversion successful!",
+          errorFail: "Conversion failed: ",
+          errorSelect: "Please select an image file",
+          errorSize: "File size cannot exceed 10MB",
+          errorUnknown: "Conversion failed",
+          imageDownloaded: "Image downloaded",
+          copied: "Base64 encoding copied to clipboard",
+          copyFail: "Copy failed, please select and copy manually",
+          textDownloaded: "Base64 file downloaded",
+          cleared: "Cleared all results",
+          processing: "Processing text...",
+          textProcessed: "Text processed successfully"
+        }
+      }
+    };
+  }
+
+  init() {
+    if (typeof window !== 'undefined') {
+      this.isClient = true;
+      
+      // 检查翻译是否已经加载
+      if ((window as any).translations) {
+        this.translations = (window as any).translations;
+        this.isReady = true;
+        this.notifyReady();
+      } else {
+        // 如果翻译还未加载，等待一段时间后再检查
+        const checkTranslations = () => {
+          if ((window as any).translations) {
+            this.translations = (window as any).translations;
+            this.isReady = true;
+            this.notifyReady();
+          } else {
+            // 如果仍然没有翻译，使用fallback
+            setTimeout(() => {
+              if (!(window as any).translations) {
+                this.translations = this.fallbackTranslations;
+                this.isReady = true;
+                this.notifyReady();
+              }
+            }, 100);
+          }
+        };
+        
+        // 立即检查一次，然后延迟检查
+        setTimeout(checkTranslations, 0);
+      }
+    } else {
+      // 服务端渲染时使用fallback
+      this.translations = this.fallbackTranslations;
+      this.isReady = true;
+    }
+  }
+
+  private notifyReady() {
+    this.readyCallbacks.forEach(callback => callback());
+    this.readyCallbacks = [];
+  }
+
+  onReady(callback: () => void) {
+    if (this.isReady) {
+      callback();
+    } else {
+      this.readyCallbacks.push(callback);
+    }
+  }
+
+  t(key: string): string {
+    if (!this.translations) {
+      return key;
+    }
+
+    const keys = key.split('.');
+    let result = this.translations;
+    
+    for (const k of keys) {
+      if (result && typeof result === 'object' && k in result) {
+        result = result[k];
+      } else {
+        return key; // 如果找不到翻译，返回原始key
+      }
+    }
+    
+    return typeof result === 'string' ? result : key;
+  }
+
+  isClientSide(): boolean {
+    return this.isClient;
+  }
+}
+
+// 创建全局翻译管理器实例
+const translationManager = new TranslationManager();
+
+// 翻译Hook
+const useTranslation = () => {
+  const [isReady, setIsReady] = useState(false);
+  
+  useEffect(() => {
+    translationManager.init();
+    translationManager.onReady(() => {
+      setIsReady(true);
+    });
+  }, []);
+
+  return {
+    t: translationManager.t.bind(translationManager),
+    isReady,
+    isClient: translationManager.isClientSide()
+  };
+};
 
 interface ToastMessage {
   message: string;
   type: 'success' | 'error' | 'info';
 }
 
+interface ProgressState {
+  show: boolean;
+  progress: number;
+  message: string;
+}
+
 export default function Base64ImageConverter() {
+  const { t, isReady, isClient } = useTranslation();
   const [activeTab, setActiveTab] = useState<'encode' | 'decode'>('decode');
   const [base64Input, setBase64Input] = useState('');
   const [base64Output, setBase64Output] = useState('');
   const [convertedImageUrl, setConvertedImageUrl] = useState('');
-  const [imageInfo, setImageInfo] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const [toast, setToast] = useState<ToastMessage | null>(null);
+  const [progressState, setProgressState] = useState<ProgressState>({
+    show: false,
+    progress: 0,
+    message: ''
+  });
+  const [fileInfo, setFileInfo] = useState<{
+    name: string;
+    size: string;
+    type: string;
+  } | null>(null);
+  
+  // 新增：文本处理优化状态
+  const [isTextProcessing, setIsTextProcessing] = useState(false);
+  const [textStats, setTextStats] = useState<{
+    length: number;
+    sizeKB: number;
+    isLarge: boolean;
+  } | null>(null);
+  
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const converterRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // 使用防抖处理大型文本输入
+  const debouncedBase64Input = useDebounce(base64Input, 300);
+
+  // 计算文本统计信息
+  const textStatistics = useMemo(() => {
+    if (!base64Input) return null;
+    
+    const length = base64Input.length;
+    const sizeKB = Math.round((length * 0.75) / 1024 * 100) / 100; // Base64大约比原始数据大33%
+    const isLarge = length > 50000; // 50KB以上认为是大文本
+    
+    return { length, sizeKB, isLarge };
+  }, [debouncedBase64Input]);
+
+  // 更新文本统计
+  useEffect(() => {
+    setTextStats(textStatistics);
+  }, [textStatistics]);
+
+  // 组件初始化
+  useEffect(() => {
+    // 清理函数：组件卸载时销毁Worker
+    return () => {
+      workerManager.destroy();
+    };
+  }, []);
 
   const showToast = (message: string, type: ToastMessage['type'] = 'info') => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3000);
   };
 
-  const formatFileSize = (bytes: number): string => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  const updateProgress = (progress: number, message: string) => {
+    setProgressState({
+      show: true,
+      progress: Math.min(100, Math.max(0, progress)),
+      message
+    });
   };
 
-  const validateBase64Image = (base64String: string): boolean => {
-    try {
-      if (!base64String.includes('data:image/')) {
-        return false;
-      }
-      return true;
-    } catch {
-      return false;
+  const hideProgress = () => {
+    setProgressState({
+      show: false,
+      progress: 0,
+      message: ''
+    });
+  };
+
+  // 滚动到功能区顶部
+  const scrollToConverter = () => {
+    if (converterRef.current) {
+      // 考虑顶部菜单栏高度，预留80px空间
+      const yOffset = -80;
+      const element = converterRef.current;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      
+      window.scrollTo({
+        top: y,
+        behavior: 'smooth'
+      });
     }
   };
+
+  // 优化的文本输入处理
+  const handleTextInput = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    const length = value.length;
+    
+    // 对于大型文本，使用异步处理
+    if (length > 50000) {
+      setIsTextProcessing(true);
+      
+      // 使用setTimeout将处理推迟到下一个事件循环
+      setTimeout(() => {
+        setBase64Input(value);
+        setIsTextProcessing(false);
+      }, 0);
+    } else {
+      setBase64Input(value);
+    }
+  }, []);
+
+  // 优化的粘贴处理
+  const handlePaste = useCallback((e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    const pastedText = e.clipboardData.getData('text');
+    const length = pastedText.length;
+    
+    if (length > 100000) { // 100KB以上的大文本
+      e.preventDefault();
+      setIsTextProcessing(true);
+      
+      showToast(t('converter.messages.processing'), 'info');
+      
+      // 分批处理大型文本
+      const processLargeText = async () => {
+        try {
+          // 使用requestIdleCallback或setTimeout分批处理
+          const chunkSize = 50000;
+          let processedText = '';
+          
+          for (let i = 0; i < pastedText.length; i += chunkSize) {
+            const chunk = pastedText.slice(i, i + chunkSize);
+            processedText += chunk;
+            
+            // 给浏览器一些时间处理其他任务
+            await new Promise(resolve => setTimeout(resolve, 10));
+            
+            // 更新进度
+            const progress = Math.round((i / pastedText.length) * 100);
+            updateProgress(progress, t('converter.messages.processing'));
+          }
+          
+          setBase64Input(processedText);
+          hideProgress();
+          showToast(t('converter.messages.textProcessed'), 'success');
+        } catch (error) {
+          showToast(t('converter.messages.errorUnknown'), 'error');
+          hideProgress();
+        } finally {
+          setIsTextProcessing(false);
+        }
+      };
+      
+      processLargeText();
+    }
+  }, [t]);
 
   const convertBase64ToImage = useCallback(async () => {
     if (!base64Input.trim()) {
-      showToast('请输入Base64编码', 'error');
-      return;
-    }
-
-    if (!validateBase64Image(base64Input)) {
-      showToast('请输入有效的图片Base64编码', 'error');
+      showToast(t('converter.messages.errorPaste'), 'error');
       return;
     }
 
     setIsLoading(true);
+    setFileInfo(null);
+    
     try {
-      const blob = Base64Utils.base64ToBlob(base64Input);
-      const url = URL.createObjectURL(blob);
-      setConvertedImageUrl(url);
+      // 使用Worker进行转换
+      const result = await workerManager.base64ToBlob(
+        base64Input,
+        updateProgress
+      );
       
-      // 获取图片信息
-      const info = Base64Utils.getImageInfo(base64Input);
-      setImageInfo(info);
-      
-      showToast('转换成功！', 'success');
+      if (result.success && result.url) {
+        setConvertedImageUrl(result.url);
+        
+        // 设置文件信息
+        if (result.size) {
+          setFileInfo({
+            name: 'converted-image',
+            size: `${result.size.size} ${result.size.unit}`,
+            type: result.type || 'image/*'
+          });
+        }
+        
+        showToast(t('converter.messages.success'), 'success');
+        // 转换完成后滚动到功能区顶部
+        setTimeout(scrollToConverter, 100);
+      } else {
+        showToast(t('converter.messages.errorFail'), 'error');
+      }
     } catch (error) {
-      showToast('转换失败：' + (error as Error).message, 'error');
+      showToast(t('converter.messages.errorFail') + (error as Error).message, 'error');
     } finally {
       setIsLoading(false);
+      hideProgress();
     }
   }, [base64Input]);
 
   const convertImageToBase64 = useCallback(async (file: File) => {
     if (!file.type.startsWith('image/')) {
-      showToast('请选择图片文件', 'error');
+      showToast(t('converter.messages.errorSelect'), 'error');
       return;
     }
 
-    if (file.size > 10 * 1024 * 1024) {
-      showToast('文件大小不能超过10MB', 'error');
+    if (file.size > 100 * 1024 * 1024) { // 100MB限制
+      showToast('文件过大，请选择小于100MB的图片', 'error');
       return;
     }
 
     setIsLoading(true);
+    setFileInfo(null);
+    
     try {
-      const result = await Base64Utils.fileToBase64(file);
+      // 使用Worker进行转换
+      const result = await workerManager.fileToBase64(
+        file,
+        updateProgress
+      );
+      
       if (result.success && result.data) {
         setBase64Output(result.data);
         
-        // 设置图片信息
-        setImageInfo({
-          name: file.name,
-          size: formatFileSize(file.size),
-          type: file.type,
-        });
+        // 设置文件信息
+        if (result.sizeInfo) {
+          setFileInfo({
+            name: file.name,
+            size: `${result.sizeInfo.size} ${result.sizeInfo.unit}`,
+            type: file.type
+          });
+        }
         
-        showToast('转换成功！', 'success');
+        showToast(t('converter.messages.success'), 'success');
+        // 转换完成后滚动到功能区顶部
+        setTimeout(scrollToConverter, 100);
       } else {
-        showToast(result.error || '转换失败', 'error');
+        showToast(result.error || t('converter.messages.errorUnknown'), 'error');
       }
     } catch (error) {
-      showToast('转换失败：' + (error as Error).message, 'error');
+      showToast(t('converter.messages.errorFail') + (error as Error).message, 'error');
     } finally {
       setIsLoading(false);
+      hideProgress();
     }
   }, []);
 
@@ -132,14 +455,14 @@ export default function Base64ImageConverter() {
   };
 
   const downloadImage = () => {
-    if (convertedImageUrl) {
+    if (convertedImageUrl && fileInfo) {
       const link = document.createElement('a');
       link.href = convertedImageUrl;
-      link.download = imageInfo?.name || 'converted-image.png';
+      link.download = fileInfo.name + '.png';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      showToast('图片已下载', 'success');
+      showToast(t('converter.messages.imageDownloaded'), 'success');
     }
   };
 
@@ -148,9 +471,9 @@ export default function Base64ImageConverter() {
     if (textToCopy) {
       try {
         await navigator.clipboard.writeText(textToCopy);
-        showToast('Base64编码已复制到剪贴板', 'success');
+        showToast(t('converter.messages.copied'), 'success');
       } catch {
-        showToast('复制失败，请手动选择复制', 'error');
+        showToast(t('converter.messages.copyFail'), 'error');
       }
     }
   };
@@ -167,7 +490,7 @@ export default function Base64ImageConverter() {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      showToast('Base64文件已下载', 'success');
+      showToast(t('converter.messages.textDownloaded'), 'success');
     }
   };
 
@@ -175,15 +498,15 @@ export default function Base64ImageConverter() {
     setBase64Input('');
     setBase64Output('');
     setConvertedImageUrl('');
-    setImageInfo(null);
+    setFileInfo(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
-    showToast('已清除所有结果', 'info');
+    showToast(t('converter.messages.cleared'), 'info');
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4">
+    <div className="w-full max-w-4xl mx-auto p-4" ref={converterRef}>
       <style>{`
         [data-theme="dark"] .bg-white { background-color: rgb(31 41 55) !important; }
         [data-theme="dark"] .bg-gray-50 { background-color: rgb(55 65 81) !important; }
@@ -209,178 +532,188 @@ export default function Base64ImageConverter() {
         </div>
       )}
 
-      <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-200">
-        {/* 标签页切换 */}
-        <div className="flex bg-gray-100 rounded-xl p-1 mb-8">
+      {/* 进度条 */}
+      {progressState.show && (
+        <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 border border-gray-200 dark:border-gray-700 min-w-80">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <span className="text-sm font-medium text-gray-800 dark:text-white">
+              {progressState.message}
+            </span>
+          </div>
+          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+            <div 
+              className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${Math.min(100, Math.max(0, progressState.progress))}%` }}
+            ></div>
+          </div>
+          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 text-right">
+            {Math.round(progressState.progress)}%
+          </div>
+        </div>
+      )}
+
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        {/* Tabs */}
+        <div className="flex border-b border-gray-200 dark:border-gray-700">
           <button
-            className={`flex-1 flex items-center justify-center gap-2 py-3 px-6 rounded-lg text-sm font-medium transition-all duration-200 ease-out ${
-              activeTab === 'encode'
-                ? 'bg-white text-gray-900 shadow-sm' 
-                : 'text-gray-600 hover:text-gray-800'
-            }`}
-            onClick={() => {
-              setActiveTab('encode');
-              clearResults();
-            }}
+            onClick={() => setActiveTab('decode')}
+            className={`flex-1 p-4 text-lg font-semibold transition-colors duration-200 ${activeTab === 'decode' ? 'bg-blue-500 text-white' : 'bg-transparent text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
           >
-            <span className="text-lg">📷</span>
-            <span>图片转Base64</span>
+            {isClient ? t('converter.tabs.decode') : 'Base64 to Image'}
           </button>
           <button
-            className={`flex-1 flex items-center justify-center gap-2 py-3 px-6 rounded-lg text-sm font-medium transition-all duration-200 ease-out ${
-              activeTab === 'decode'
-                ? 'bg-white text-gray-900 shadow-sm' 
-                : 'text-gray-600 hover:text-gray-800'
-            }`}
-            onClick={() => {
-              setActiveTab('decode');
-              clearResults();
-            }}
+            onClick={() => setActiveTab('encode')}
+            className={`flex-1 p-4 text-lg font-semibold transition-colors duration-200 ${activeTab === 'encode' ? 'bg-blue-500 text-white' : 'bg-transparent text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
           >
-            <span className="text-lg">🖼️</span>
-            <span>Base64转图片</span>
+            {isClient ? t('converter.tabs.encode') : 'Image to Base64'}
           </button>
         </div>
 
-        <div>
-          {activeTab === 'encode' ? (
-            // 图片转Base64模式
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  选择图片文件
-                </h3>
-                <div
-                  className={`border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all duration-200 ease-out ${
-                    dragOver 
-                      ? 'border-blue-500 bg-blue-50' 
-                      : 'border-gray-300 bg-gray-50 hover:border-gray-400'
-                  }`}
-                  onDragOver={handleDragOver}
-                  onDragLeave={handleDragLeave}
-                  onDrop={handleDrop}
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <div className="text-5xl mb-4">📁</div>
-                  <div>
-                    <p className="text-lg font-medium text-gray-900 mb-2">
-                      点击选择图片或拖拽到此处
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      支持 PNG、JPG、GIF、WebP 等格式，最大 10MB
-                    </p>
-                  </div>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileSelect}
-                    className="hidden"
-                  />
-                </div>
-              </div>
-
-              {base64Output && (
-                <div>
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      Base64 编码结果
-                    </h3>
-                    <div className="flex gap-2">
-                      <button
-                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-colors"
-                        onClick={copyBase64}
-                      >
-                        <span>📋</span> 复制编码
-                      </button>
-                      <button
-                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-colors"
-                        onClick={downloadBase64Text}
-                      >
-                        <span>💾</span> 下载文件
-                      </button>
-                    </div>
-                  </div>
-                  <textarea
-                    className="w-full h-48 p-4 bg-gray-50 border border-gray-300 rounded-xl text-sm font-mono text-gray-900 resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                    value={base64Output}
-                    readOnly
-                    placeholder="Base64编码将显示在这里..."
-                  />
-                </div>
-              )}
-            </div>
-          ) : (
-            // Base64转图片模式
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  输入Base64编码
-                </h3>
-                <textarea
-                  className="w-full h-48 p-4 bg-gray-50 border border-gray-300 rounded-xl text-sm font-mono text-gray-900 resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                  value={base64Input}
-                  onChange={(e) => setBase64Input(e.target.value)}
-                  placeholder="请粘贴Base64编码内容..."
-                />
-                <div className="flex gap-3 mt-4">
-                  <button 
-                    className={`px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                      isLoading || !base64Input.trim()
-                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                        : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
-                    }`}
-                    onClick={convertBase64ToImage}
-                    disabled={isLoading || !base64Input.trim()}
-                  >
-                    {isLoading ? '转换中...' : '转换为图片'}
-                  </button>
-                  <button
-                    className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition-colors"
-                    onClick={() => setBase64Input('')}
-                  >
-                    清空内容
-                  </button>
-                </div>
-              </div>
-
-              {convertedImageUrl && (
-                <div>
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      图片预览
-                    </h3>
-                    <button
-                      className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors"
-                      onClick={downloadImage}
-                    >
-                      <span>⬇️</span> 下载图片
-                    </button>
-                  </div>
-                  <div className="border border-gray-300 rounded-xl p-4 bg-gray-50 text-center">
-                    <img 
-                      src={convertedImageUrl} 
-                      alt="转换后的图片" 
-                      className="max-w-full max-h-96 mx-auto rounded-lg shadow-lg"
-                    />
+        {/* Decode Tab */}
+        {activeTab === 'decode' && (
+          <div className="p-6">
+            <div className="relative">
+              <textarea
+                ref={textareaRef}
+                className="w-full h-32 p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                placeholder={isClient ? t('converter.actions.paste') : 'Paste Base64 encoding here...'}
+                value={base64Input}
+                onChange={handleTextInput}
+                onPaste={handlePaste}
+                disabled={isTextProcessing}
+              />
+              
+              {/* 文本处理状态指示器 */}
+              {isTextProcessing && (
+                <div className="absolute inset-0 bg-white/80 dark:bg-gray-800/80 rounded-lg flex items-center justify-center">
+                  <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                    <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <span className="text-sm font-medium">
+                      {isClient ? t('converter.messages.processingText') : '处理大型文本中...'}
+                    </span>
                   </div>
                 </div>
               )}
             </div>
-          )}
-
-          {/* 清除按钮区域 */}
-          {(base64Output || convertedImageUrl) && (
-            <div className="text-center pt-6 border-t border-gray-200 mt-6">
+            
+            {/* 文本统计信息 */}
+            {textStats && (
+              <div className="mt-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                <div className="flex items-center gap-4">
+                  <span>
+                    {isClient ? t('converter.stats.length') : '长度'}: {textStats.length.toLocaleString()} {isClient ? t('converter.stats.characters') : '字符'}
+                  </span>
+                  <span>
+                    {isClient ? t('converter.stats.size') : '大小'}: ~{textStats.sizeKB} KB
+                  </span>
+                  {textStats.isLarge && (
+                    <span className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded text-xs">
+                      {isClient ? t('converter.stats.largeText') : '大型文本'}
+                    </span>
+                  )}
+                </div>
+                {textStats.isLarge && (
+                  <div className="text-xs text-blue-600 dark:text-blue-400">
+                    💡 {isClient ? t('converter.stats.optimizedHint') : '提示：大型文本使用优化处理'}
+                  </div>
+                )}
+              </div>
+            )}
+            
+            <div className="flex flex-wrap gap-3 mt-4">
               <button
-                className="flex items-center gap-2 px-6 py-3 mx-auto border border-red-300 text-red-600 hover:bg-red-50 rounded-xl text-sm font-medium transition-colors"
-                onClick={clearResults}
+                onClick={convertBase64ToImage}
+                disabled={isLoading || isTextProcessing}
+                className="flex-1 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition-colors duration-200"
               >
-                <span>🗑️</span> 清除所有结果
+                {isLoading ? (isClient ? t('converter.labels.loading') : 'Processing...') : (isClient ? t('converter.actions.decode') : 'Convert to Image')}
+              </button>
+              <button
+                onClick={downloadImage}
+                disabled={!convertedImageUrl}
+                className="flex-1 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:bg-gray-400 transition-colors duration-200"
+              >
+                {isClient ? t('converter.actions.downloadImage') : 'Download Image'}
               </button>
             </div>
-          )}
-        </div>
+          </div>
+        )}
+        
+        {/* Encode Tab */}
+        {activeTab === 'encode' && (
+          <div className="p-6">
+            <div
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onClick={() => fileInputRef.current?.click()}
+              className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors duration-200
+                ${dragOver ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-300 dark:border-gray-600 hover:border-blue-400'}`}
+            >
+              <input type="file" ref={fileInputRef} onChange={handleFileSelect} className="hidden" accept="image/*" />
+              <div className="space-y-2">
+                <p className="text-gray-500 dark:text-gray-400">
+                  {isClient ? t('converter.labels.dropzone') : 'Drag and drop image here, or click to select file'}
+                </p>
+                {fileInfo && (
+                  <div className="text-sm text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg p-2 inline-block">
+                    <div>📁 {fileInfo.name}</div>
+                    <div>📊 {fileInfo.size} • {fileInfo.type}</div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Results Section - 优化布局，移除Image Information */}
+        {(convertedImageUrl || base64Output) && (
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+            
+            {/* Base64转图片结果 */}
+            {convertedImageUrl && activeTab === 'decode' && (
+              <>
+                <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-white">{isClient ? t('converter.labels.resultTitle') : 'Conversion Result'}</h3>
+                {/* Image Preview - 只限制最大宽度，保持原始宽高比 */}
+                <div className="mb-3 p-3 border rounded-lg bg-white dark:bg-gray-700">
+                  <img src={convertedImageUrl} alt="Converted from Base64" className="max-w-full mx-auto rounded" />
+                </div>
+              </>
+            )}
+            
+            {/* 图片转Base64结果 */}
+            {base64Output && activeTab === 'encode' && (
+              <>
+                <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-white">{isClient ? t('converter.labels.outputTitle') : 'Base64 Output'}</h3>
+                {/* Base64 Output - 缩小高度 */}
+                <div className="mb-3">
+                  <textarea
+                    readOnly
+                    value={base64Output}
+                    className="w-full h-24 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-sm"
+                  />
+                </div>
+                
+                {/* 图片转Base64的操作按钮 - 横向铺满 */}
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={copyBase64}
+                    className="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors duration-200 text-sm"
+                  >
+                    {isClient ? t('converter.actions.copy') : 'Copy'}
+                  </button>
+                  <button
+                    onClick={downloadBase64Text}
+                    className="px-4 py-2 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors duration-200 text-sm"
+                  >
+                    {isClient ? t('converter.actions.downloadTxt') : 'Download as TXT'}
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
