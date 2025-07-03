@@ -46,7 +46,8 @@ class TranslationManager {
           dropzone: "Drag and drop image here, or click to select file",
           resultTitle: "Conversion Result",
           outputTitle: "Base64 Output",
-          loading: "Processing..."
+          loading: "Processing...",
+          imageInfoTitle: "Image Information"
         },
         textStats: {
           length: "Length",
@@ -68,6 +69,11 @@ class TranslationManager {
           cleared: "Cleared all results",
           processing: "Processing text...",
           textProcessed: "Text processed successfully"
+        },
+        imageInfo: {
+          name: "Name",
+          size: "Size",
+          type: "Type"
         }
       }
     };
@@ -319,8 +325,9 @@ export default function Base64ImageConverter() {
             // 给浏览器一些时间处理其他任务
             await new Promise(resolve => setTimeout(resolve, 10));
             
-            // 更新进度
-            const progress = Math.round((i / pastedText.length) * 100);
+            // 修复进度计算：使用已处理完成的字符数
+            const processedLength = Math.min(i + chunkSize, pastedText.length);
+            const progress = Math.round((processedLength / pastedText.length) * 100);
             updateProgress(progress, t('converter.messages.processing'));
           }
           
@@ -534,17 +541,19 @@ export default function Base64ImageConverter() {
 
       {/* 进度条 */}
       {progressState.show && (
-        <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 border border-gray-200 dark:border-gray-700 min-w-80">
+        <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 border border-gray-200 dark:border-gray-700" style={{ width: '320px' }}>
           <div className="flex items-center gap-3 mb-2">
             <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
             <span className="text-sm font-medium text-gray-800 dark:text-white">
               {progressState.message}
             </span>
           </div>
-          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+          <div className="bg-gray-200 dark:bg-gray-700 rounded-full h-2 w-full">
             <div 
-              className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${Math.min(100, Math.max(0, progressState.progress))}%` }}
+              className="bg-blue-500 h-2 rounded-full"
+              style={{ 
+                width: `${Math.min(100, Math.max(0, progressState.progress))}%`
+              }}
             ></div>
           </div>
           <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 text-right">
@@ -674,9 +683,35 @@ export default function Base64ImageConverter() {
             {/* Base64转图片结果 */}
             {convertedImageUrl && activeTab === 'decode' && (
               <>
-                <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-white">{isClient ? t('converter.labels.resultTitle') : 'Conversion Result'}</h3>
-                {/* Image Preview - 只限制最大宽度，保持原始宽高比 */}
-                <div className="mb-3 p-3 border rounded-lg bg-white dark:bg-gray-700">
+                {/* Title with File Info */}
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                    {isClient ? t('converter.labels.resultTitle') : 'Conversion Result'}
+                  </h3>
+                  
+                  {/* File Information */}
+                  {fileInfo && (
+                    <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                      <div className="flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span className="font-medium">{fileInfo.name}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-1 rounded text-xs">
+                          {fileInfo.size}
+                        </span>
+                        <span className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-2 py-1 rounded text-xs">
+                          {fileInfo.type}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Image Preview */}
+                <div className="p-3 border rounded-lg bg-white dark:bg-gray-700">
                   <img src={convertedImageUrl} alt="Converted from Base64" className="max-w-full mx-auto rounded" />
                 </div>
               </>

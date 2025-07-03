@@ -1,12 +1,16 @@
 ---
+import LanguageSwitcher from '../components/common/LanguageSwitcher.astro';
+
 export interface Props {
   title: string;
   description: string;
   keywords?: string;
   ogImage?: string;
+  currentLang?: string;
+  pageName?: string;
 }
 
-const { title, description, keywords = "", ogImage } = Astro.props;
+const { title, description, keywords = "", ogImage, currentLang = "en", pageName = "" } = Astro.props;
 
 // 修复URL构造错误 - 在开发环境中Astro.site可能为undefined
 const canonicalURL = Astro.site 
@@ -61,7 +65,7 @@ const canonicalURL = Astro.site
             >
               <span class="theme-icon text-lg">🌙</span>
             </button>
-            <div id="lang-switcher-placeholder"></div>
+            <LanguageSwitcher currentLang={currentLang} pageName={pageName} />
           </div>
         </div>
       </div>
@@ -108,10 +112,12 @@ const canonicalURL = Astro.site
         updateThemeIcon(newTheme);
         
         // 图标旋转动画
-        if (themeIcon) {
+        if (themeIcon && themeIcon.style) {
           themeIcon.style.transform = 'rotateY(180deg) scale(0.8)';
           setTimeout(() => {
-            themeIcon.style.transform = 'rotateY(0deg) scale(1)';
+            if (themeIcon && themeIcon.style) {
+              themeIcon.style.transform = 'rotateY(0deg) scale(1)';
+            }
           }, 150);
         }
       });

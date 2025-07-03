@@ -1,33 +1,49 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Base64ImageConverter from '../../components/tools/Base64ImageConverter.tsx';
-import fs from 'fs';
-import path from 'path';
 
-// Load English translations (default)
-const translationsPath = path.resolve('src/i18n/pages/base64-image/en.json');
-const translations = JSON.parse(fs.readFileSync(translationsPath, 'utf-8'));
+// 检测语言路径
+const pathname = Astro.url.pathname;
+const isZhPath = pathname.includes('/zh/');
+const currentLang = isZhPath ? 'zh' : 'en';
+const pageName = 'base64-image';
 
-const { meta, header, hero, guide, faq } = translations;
+// 动态加载翻译
+let translations;
+try {
+  if (currentLang === 'zh') {
+    translations = await import('../../i18n/pages/base64-image/zh.json');
+  } else {
+    translations = await import('../../i18n/pages/base64-image/en.json');
+  }
+} catch (error) {
+  console.error('Failed to load translations:', error);
+  // 使用 fallback 翻译
+  translations = await import('../../i18n/pages/base64-image/en.json');
+}
+
+const t = translations.default;
 ---
 
-<BaseLayout
-  title={meta.title}
-  description={meta.description}
-  keywords={meta.keywords}
+<BaseLayout 
+  title={t.meta.title} 
+  description={t.meta.description} 
+  keywords={t.meta.keywords}
+  currentLang={currentLang}
+  pageName={pageName}
 >
   <!-- Hero Section -->
   <section class="py-16 bg-gray-50 dark:bg-gray-900">
     <div class="max-w-4xl mx-auto px-4 text-center">
       <div class="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium mb-6">
         <span>🔄</span>
-        <span>{header.subtitle}</span>
+        <span>{t.header.subtitle}</span>
       </div>
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        {hero.title}
+        {t.hero.title}
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-        {hero.subtitle}
+        {t.hero.subtitle}
       </p>
     </div>
   </section>
@@ -43,11 +59,11 @@ const { meta, header, hero, guide, faq } = translations;
   <section class="py-16 bg-gray-50 dark:bg-gray-800">
     <div class="max-w-4xl mx-auto px-4">
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{guide.title}</h2>
-        <p class="text-lg text-gray-600 dark:text-gray-400">{guide.subtitle}</p>
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t.guide.title}</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400">{t.guide.subtitle}</p>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
-        {guide.steps.map((step, index) => (
+        {t.guide.steps.map((step: any, index: number) => (
           <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg">
             <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center text-xl font-bold mb-4">
               {String(index + 1).padStart(2, '0')}
@@ -66,11 +82,11 @@ const { meta, header, hero, guide, faq } = translations;
   <section class="py-16 bg-white dark:bg-gray-900">
     <div class="max-w-4xl mx-auto px-4">
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{faq.title}</h2>
-        <p class="text-lg text-gray-600 dark:text-gray-400">{faq.subtitle}</p>
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t.faq.title}</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400">{t.faq.subtitle}</p>
       </div>
       <div class="grid md:grid-cols-2 gap-8">
-        {faq.items.map((item, index) => {
+        {t.faq.items.map((item: any, index: number) => {
           const icons = ['❓', '📊', '🔐', '💡'];
           return (
             <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">

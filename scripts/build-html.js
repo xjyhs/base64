@@ -11,7 +11,21 @@ const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const SUPPORTED_LANGUAGES = ['en', 'zh']; // Add supported languages here
+// 从配置文件读取语言信息
+const languageConfigPath = path.resolve(__dirname, '..', 'src', 'config', 'languages.json');
+let SUPPORTED_LANGUAGES;
+let DEFAULT_LANGUAGE;
+
+try {
+  const languageConfig = await fs.readJson(languageConfigPath);
+  SUPPORTED_LANGUAGES = languageConfig.supportedLanguages.map(lang => lang.code);
+  DEFAULT_LANGUAGE = languageConfig.defaultLanguage;
+  console.log(`📝 Loaded language configuration: default=${DEFAULT_LANGUAGE}, supported=[${SUPPORTED_LANGUAGES.join(', ')}]`);
+} catch (error) {
+  console.warn('⚠️  Unable to load language configuration, using fallback');
+  SUPPORTED_LANGUAGES = ['en', 'zh'];
+  DEFAULT_LANGUAGE = 'en';
+}
 
 class HTMLBuilder {
   constructor() {
@@ -19,24 +33,61 @@ class HTMLBuilder {
     this.distDir = path.join(this.rootDir, 'dist');
     this.htmlDir = path.join(this.rootDir, 'html-output');
     this.translations = {};
+    this.pageTranslations = {}; // 存储每个页面的翻译
   }
 
   /**
-   * Load all translation files
+   * 自动扫描并加载所有翻译文件
    */
   async loadTranslations() {
     console.log('🌍 Loading translations...');
-    for (const lang of SUPPORTED_LANGUAGES) {
-      // Load page-specific translations for base64-image
-      const pageTranslationPath = path.join(this.rootDir, 'src', 'i18n', 'pages', 'base64-image', `${lang}.json`);
-      if (await fs.pathExists(pageTranslationPath)) {
-        this.translations[lang] = await fs.readJson(pageTranslationPath);
-        console.log(`  ✅ Loaded page translation for ${lang}`);
-      } else {
-        console.warn(`  ⚠️  Page translation file not found for language: ${lang}`);
+    
+    // 扫描翻译目录，自动发现所有页面
+    const i18nPagesDir = path.join(this.rootDir, 'src', 'i18n', 'pages');
+    
+    if (await fs.pathExists(i18nPagesDir)) {
+      const pageNames = await fs.readdir(i18nPagesDir);
+      
+      for (const pageName of pageNames) {
+        const pageDir = path.join(i18nPagesDir, pageName);
+        const stat = await fs.stat(pageDir);
+        
+        if (stat.isDirectory()) {
+          console.log(`  📄 Found page: ${pageName}`);
+          this.pageTranslations[pageName] = {};
+          
+          // 为每个页面加载所有语言的翻译
+          for (const lang of SUPPORTED_LANGUAGES) {
+            const translationPath = path.join(pageDir, `${lang}.json`);
+            
+            if (await fs.pathExists(translationPath)) {
+              this.pageTranslations[pageName][lang] = await fs.readJson(translationPath);
+              console.log(`    ✅ Loaded ${lang} translation for ${pageName}`);
+            } else {
+              console.warn(`    ⚠️  Translation file not found: ${pageName}/${lang}.json`);
+            }
+          }
+        }
       }
+    } else {
+      console.warn('⚠️  i18n pages directory not found');
     }
-    console.log('✅ Translations loaded');
+    
+    console.log('✅ All translations loaded');
+  }
+
+  /**
+   * 根据页面路径获取对应的翻译
+   */
+  getPageTranslations(htmlFilePath) {
+    // 从HTML文件路径推断页面名称
+    const relativePath = path.relative(this.distDir, htmlFilePath);
+    const pathParts = relativePath.split(path.sep);
+    
+    // 假设页面结构是 /page-name/index.html
+    const pageName = pathParts[0];
+    
+    return this.pageTranslations[pageName] || {};
   }
 
   /**
@@ -174,7 +225,16 @@ class HTMLBuilder {
         continue;
       }
       
-      const fullCSSPath = path.resolve(htmlDir, cssPath);
+      // 处理绝对路径，从页面目录查找CSS文件
+      let fullCSSPath;
+      if (cssPath.startsWith('/')) {
+        // 绝对路径：从页面根目录查找
+        const pageDir = path.dirname(htmlFile);
+        fullCSSPath = path.join(pageDir, cssPath.substring(1)); // 去掉开头的 /
+      } else {
+        // 相对路径：从HTML文件目录查找
+        fullCSSPath = path.resolve(htmlDir, cssPath);
+      }
       
       if (await fs.pathExists(fullCSSPath)) {
         try {
@@ -208,7 +268,16 @@ class HTMLBuilder {
         continue;
       }
       
-      const fullJSPath = path.resolve(htmlDir, jsPath);
+      // 处理绝对路径，从页面目录查找JS文件
+      let fullJSPath;
+      if (jsPath.startsWith('/')) {
+        // 绝对路径：从页面根目录查找
+        const pageDir = path.dirname(htmlFile);
+        fullJSPath = path.join(pageDir, jsPath.substring(1)); // 去掉开头的 /
+      } else {
+        // 相对路径：从HTML文件目录查找
+        fullJSPath = path.resolve(htmlDir, jsPath);
+      }
       
       if (await fs.pathExists(fullJSPath)) {
         try {
@@ -260,14 +329,17 @@ class HTMLBuilder {
   /**
    * Translate HTML content, adjust paths, and inject scripts
    */
-  processAndTranslate(content, lang, destHtmlPath, pageOutputDir) {
+  processAndTranslate(content, lang, destHtmlPath, pageOutputDir, htmlFilePath) {
     let translatedContent = content;
-    const isDefaultLang = lang === SUPPORTED_LANGUAGES[0];
-
+    const isDefaultLang = lang === DEFAULT_LANGUAGE;
+    
+    // 获取当前页面的翻译
+    const pageTranslations = this.getPageTranslations(htmlFilePath);
+    
     // 1. Translate text content using recursion - only if not default language
-    if (!isDefaultLang && this.translations[lang] && this.translations['en']) {
-      const enStrings = this.translations['en'];
-      const langStrings = this.translations[lang];
+    if (!isDefaultLang && pageTranslations[lang] && pageTranslations['en']) {
+      const enStrings = pageTranslations['en'];
+      const langStrings = pageTranslations[lang];
       
       const recursiveReplace = (source, target) => {
         for (const key in source) {
@@ -314,83 +386,85 @@ class HTMLBuilder {
       
       recursiveReplace(enStrings, langStrings);
     }
-    
-    // 2. Adjust asset paths to be relative to the new scoped structure
-    const htmlFileDir = path.dirname(destHtmlPath);
-    const relativePathToPageRoot = path.relative(htmlFileDir, pageOutputDir);
-    const assetBasePath = relativePathToPageRoot ? relativePathToPageRoot.replace(/\\/g, '/') : '.';
-    
-    // Make all root links relative to the page root, e.g., href="/_astro/..." becomes href="../_astro/..."
-    translatedContent = translatedContent.replace(/(href|src)="\//g, (match, p1) => `${p1}="${assetBasePath}/`);
 
-    // Also adjust astro-island component and renderer URLs
-    translatedContent = translatedContent.replace(/(component-url|renderer-url)="\//g, (match, p1) => `${p1}="${assetBasePath}/`);
-
-    // 3. Inject translations for client-side components
-    if (this.translations[lang]) {
-      const script = `<script>window.translations = ${JSON.stringify(this.translations[lang])};</script>`;
+    // 2. Inject translations for client-side components
+    if (pageTranslations[lang]) {
+      const script = `<script>window.translations = ${JSON.stringify(pageTranslations[lang])};</script>`;
       translatedContent = translatedContent.replace('</head>', `${script}</head>`);
     }
 
-    // 4. Inject language switcher with relative paths
-    const currentLangName = lang === 'en' ? 'English' : '中文';
-    const otherLangs = SUPPORTED_LANGUAGES.filter(l => l !== lang).map(l => {
-        const isLDefault = l === SUPPORTED_LANGUAGES[0];
-        let targetPath = '';
-
-        if (isDefaultLang && !isLDefault) { // From EN page to ZH page
-          targetPath = `./${l}/index.html`; 
-        } else if (!isDefaultLang && isLDefault) { // From ZH page to EN page
-          targetPath = `../index.html`;
-        }
-        
-        if (targetPath) {
-          const langName = l === 'en' ? 'English' : '中文';
-          return `<a href="${targetPath}" lang="${l}" hreflang="${l}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">${langName}</a>`;
-        }
-        return '';
-    }).join('');
-
-    const langSwitcher = `
-      <div class="relative">
-        <button id="lang-switcher-btn" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600">
-          <span>${currentLangName}</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
-        </button>
-        <div id="lang-switcher-menu" class="absolute right-0 mt-1 w-32 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg z-50 hidden">
-          ${otherLangs}
-        </div>
-      </div>
-      <script>
-        (function() {
-          const btn = document.getElementById('lang-switcher-btn');
-          const menu = document.getElementById('lang-switcher-menu');
-          
-          btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            menu.classList.toggle('hidden');
-          });
-          
-          document.addEventListener('click', function() {
-            menu.classList.add('hidden');
-          });
-          
-          menu.addEventListener('click', function(e) {
-            e.stopPropagation();
-          });
-        })();
-      </script>
-    `;
-    
-    translatedContent = translatedContent.replace('<div id="lang-switcher-placeholder"></div>', langSwitcher);
-
-    // 5. Adjust main lang attribute
+    // 3. Adjust main lang attribute
     const langCode = lang === 'zh' ? 'zh-CN' : 'en';
     translatedContent = translatedContent.replace(/<html lang="[^"]*"/, `<html lang="${langCode}"`);
 
     return translatedContent;
+  }
+
+  /**
+   * 预处理Astro源文件，为不同语言版本设置正确的参数
+   */
+  async preprocessAstroSources(lang) {
+    const srcPagesDir = path.join(this.rootDir, 'src', 'pages');
+    const astroFiles = await this.findAstroFiles(srcPagesDir);
+    
+    for (const astroFile of astroFiles) {
+      await this.updateAstroLanguageParams(astroFile, lang);
+    }
+  }
+
+  /**
+   * 查找所有Astro文件
+   */
+  async findAstroFiles(dir) {
+    const files = [];
+    
+    async function scan(currentDir) {
+      const items = await fs.readdir(currentDir);
+      
+      for (const item of items) {
+        const fullPath = path.join(currentDir, item);
+        const stat = await fs.stat(fullPath);
+        
+        if (stat.isDirectory()) {
+          await scan(fullPath);
+        } else if (path.extname(item) === '.astro') {
+          files.push(fullPath);
+        }
+      }
+    }
+    
+    await scan(dir);
+    return files;
+  }
+
+  /**
+   * 更新Astro文件中的语言参数
+   */
+  async updateAstroLanguageParams(astroFile, targetLang) {
+    let content = await fs.readFile(astroFile, 'utf8');
+    
+    // 查找并更新语言检测逻辑
+    const langDetectionRegex = /const currentLang = Astro\.url\.pathname\.includes\('\/zh\/'\) \? 'zh' : 'en';/g;
+    const newLangDetection = `const currentLang = '${targetLang}';`;
+    
+    if (langDetectionRegex.test(content)) {
+      content = content.replace(langDetectionRegex, newLangDetection);
+      await fs.writeFile(astroFile, content, 'utf8');
+      console.log(`  📝 Updated language parameter in ${path.relative(this.rootDir, astroFile)} to ${targetLang}`);
+    }
+  }
+
+  /**
+   * 恢复Astro源文件的原始状态
+   */
+  async restoreAstroSources() {
+    // 使用git恢复原始文件
+    try {
+      this.execCommand('git checkout -- src/pages/', { stdio: 'pipe' });
+      console.log('✅ Astro源文件已恢复');
+    } catch (error) {
+      console.warn('⚠️  无法使用git恢复源文件，请手动检查src/pages/目录');
+    }
   }
 
   /**
@@ -406,51 +480,52 @@ class HTMLBuilder {
       // 1. 清理输出目录
       await this.cleanOutputDir();
       
-      // 2. 构建Astro项目
-      this.buildAstroProject();
-      
-      const allDistFiles = await fs.readdir(this.distDir);
-      const rootFiles = allDistFiles.filter(f => !fs.statSync(path.join(this.distDir, f)).isDirectory());
-      const htmlFiles = await this.findHTMLFiles(this.distDir);
-      const pageDirs = [...new Set(htmlFiles.map(f => path.dirname(path.relative(this.distDir, f))))];
-
-      // 3. Create page structures and copy scoped assets
-      console.log('📦 Scoping assets per page...');
-      for (const pageDir of pageDirs) {
-        const outputPageDir = path.join(this.htmlDir, pageDir);
-        await fs.ensureDir(outputPageDir);
+      // 2. 为每种语言构建独立版本
+      for (const lang of SUPPORTED_LANGUAGES) {
+        console.log(`\n🌍 构建 ${lang} 语言版本...`);
         
-        // Copy _astro
-        const assetDir = path.join(this.distDir, '_astro');
-        if (await fs.pathExists(assetDir)) {
-            await fs.copy(assetDir, path.join(outputPageDir, '_astro'));
-        }
+        // 2.1 预处理Astro源文件，设置当前语言
+        await this.preprocessAstroSources(lang);
         
-        // Copy other root files (favicon, etc.)
-        for (const rootFile of rootFiles) {
-          if (!rootFile.endsWith('.html')) { // Don't copy root html files here
-            await fs.copy(path.join(this.distDir, rootFile), path.join(outputPageDir, rootFile));
-          }
-        }
-      }
-      console.log('✅ Assets scoped.');
+        // 2.2 构建Astro项目
+        console.log(`🏗️  构建Astro项目 (${lang})...`);
+        this.execCommand('pnpm build');
+        
+        // 2.3 处理构建结果
+        const htmlFiles = await this.findHTMLFiles(this.distDir);
+        const allDistFiles = await fs.readdir(this.distDir);
+        const rootFiles = allDistFiles.filter(f => !fs.statSync(path.join(this.distDir, f)).isDirectory());
+        const pageDirs = [...new Set(htmlFiles.map(f => path.dirname(path.relative(this.distDir, f))))];
 
-      // 4. Process and translate HTML for each page and language
-      for (const htmlFile of htmlFiles) {
-        const relativeHtmlPath = path.relative(this.distDir, htmlFile);
-        const pageDir = path.dirname(relativeHtmlPath);
-
-        for (const lang of SUPPORTED_LANGUAGES) {
-          const isDefaultLang = lang === SUPPORTED_LANGUAGES[0];
+        // 2.4 复制资源和处理HTML
+        for (const htmlFile of htmlFiles) {
+          const relativeHtmlPath = path.relative(this.distDir, htmlFile);
+          const pageDir = path.dirname(relativeHtmlPath);
+          
+          const isDefaultLang = lang === DEFAULT_LANGUAGE;
           const langSubDir = isDefaultLang ? '' : lang;
           const destDir = path.join(this.htmlDir, pageDir, langSubDir);
           await fs.ensureDir(destDir);
           const destPath = path.join(destDir, path.basename(htmlFile));
 
-          console.log(`[${lang}] Processing ${relativeHtmlPath} -> ${path.relative(this.rootDir, destPath)}`);
+          console.log(`  📄 处理 ${relativeHtmlPath} -> ${path.relative(this.rootDir, destPath)}`);
 
+          // 复制_astro资源
+          const assetDir = path.join(this.distDir, '_astro');
+          if (await fs.pathExists(assetDir)) {
+            await fs.copy(assetDir, path.join(destDir, '_astro'));
+          }
+          
+          // 复制其他根文件 (favicon, etc.)
+          for (const rootFile of rootFiles) {
+            if (!rootFile.endsWith('.html')) {
+              await fs.copy(path.join(this.distDir, rootFile), path.join(destDir, rootFile));
+            }
+          }
+
+          // 处理HTML内容
           let content = await fs.readFile(htmlFile, 'utf8');
-          content = this.processAndTranslate(content, lang, destPath, path.join(this.htmlDir, pageDir));
+          content = this.processAndTranslate(content, lang, destPath, path.join(this.htmlDir, pageDir), htmlFile);
           
           content = await this.inlineCSS(content, destPath);
           content = await this.inlineSmallJS(content, destPath);
@@ -460,11 +535,22 @@ class HTMLBuilder {
         }
       }
       
+      // 3. 恢复Astro源文件
+      await this.restoreAstroSources();
+      
       console.log('\n🎉 HTML静态版本构建完成！');
       console.log(`📁 输出目录: ${this.htmlDir}`);
       
     } catch (error) {
       console.error('\n❌ 构建失败:', error.message);
+      
+      // 确保在失败时也恢复源文件
+      try {
+        await this.restoreAstroSources();
+      } catch (restoreError) {
+        console.error('❌ 恢复源文件失败:', restoreError.message);
+      }
+      
       process.exit(1);
     }
   }

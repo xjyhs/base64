@@ -8,7 +8,7 @@
     "build": "astro build",
     "build:html": "node scripts/build-html.js",
     "preview": "astro preview",
-    "preview:html": "npx http-server ./html-output -o -p 8080",
+    "preview:image": "npx http-server ./html-output/base64-image -o -p 8080",
     "astro": "astro"
   },
   "dependencies": {
