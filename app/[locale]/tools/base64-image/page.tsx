@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { Metadata } from 'next';
-import Base64ImagePageClient from './Base64ImagePageClient';
+import Base64ImagePageClient from './client';
 
 export async function generateMetadata({
     params: { locale },

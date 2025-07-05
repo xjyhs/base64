@@ -92,6 +92,99 @@
 - Fix problems without breaking project architecture, maintaining overall code consistency
 - Prohibit breaking global project conventions to solve local problems
 
+## Command Execution Restrictions
+- **STRICTLY PROHIBITED**: Never execute `pnpm run dev` or any development server commands during conversations
+- **STRICTLY PROHIBITED**: Never execute `npm run dev`, `yarn dev`, or any equivalent development server commands
+- Development server commands should only be run by the user manually when they are ready to test
+- Focus on code analysis, file modifications, and build commands only when explicitly requested
+- If testing is needed, advise the user to run the development server themselves
 
 ## Debugging Environment
 - Please use Windows PowerShell command line tools for debugging
+
+# 工具开发规范
+
+## 开发流程
+1. 创建工具组件：`components/tools/[工具名].tsx`
+2. 创建页面文件：`app/[locale]/tools/[工具名]/page.tsx`
+3. 创建翻译文件：`i18n/messages/tools/[工具名]/zh.json`
+4. 测试功能完整性
+
+## 组件结构
+- 主要功能组件放在 `components/tools/` 目录
+- 页面组件使用 Client Component 模式
+- 必须包含完整的错误处理和用户反馈
+
+## 翻译规范
+- 每个工具独立翻译文件：`i18n/messages/tools/[工具名]/`
+- 必须包含 `meta` 信息（标题、描述、关键词）
+
+### next-intl 数据获取规范
+- **字符串数据使用 `t()` 函数**：`t('title')`, `t('description')` 等
+- **对象数据使用 `useMessages()` 获取**，推荐使用对象结构而非数组
+- 推荐的对象结构获取方式：
+  ```typescript
+  const messages = useMessages();
+  const steps = useMemo(() => {
+    try {
+      const toolMessages = (messages as any)?.tools?.['工具名']?.page?.steps?.items;
+      if (!toolMessages) return [];
+      
+      // 将对象转换为数组以便遍历
+      return Object.entries(toolMessages).map(([key, value]: [string, any]) => ({
+        key,
+        ...value
+      }));
+    } catch (e) {
+      return [];
+    }
+  }, [messages]);
+  ```
+- **对象数据访问路径**：`(messages as any)?.tools?.['工具名']?.page?.数据路径?.items`
+- **对象结构示例**：
+  ```json
+  "steps": {
+    "title": "使用步骤",
+    "subtitle": "简单四步说明",
+    "items": {
+      "select": {
+        "number": "01",
+        "title": "选择功能",
+        "description": "选择所需的功能"
+      },
+      "upload": {
+        "number": "02", 
+        "title": "上传文件",
+        "description": "上传需要处理的文件"
+      }
+    }
+  }
+  ```
+- **必须使用 `useMemo()` 优化**：避免重复计算和渲染
+- **必须包含错误处理**：使用 `try-catch` 包装，返回空数组作为默认值
+- **对象转数组**：使用 `Object.entries()` 将对象转换为数组进行遍历
+
+- 服务端组件使用 `getTranslations`：
+  ```typescript
+  import { getTranslations } from 'next-intl/server';
+  
+  export async function generateMetadata({ params: { locale } }) {
+    const t = await getTranslations({ locale, namespace: 'tools.工具名.meta' });
+    return {
+      title: t('title'),
+      description: t('description'),
+      keywords: t('keywords')
+    };
+  }
+  ```
+
+## 命名规范
+- 工具名：kebab-case（如 `base64-image`）
+- 组件名：PascalCase（如 `Base64ImageConverter`）
+- 翻译命名空间：`tools.[工具名].[部分]`
+
+## 必要功能
+- 错误处理和用户提示
+- 大文件处理优化
+- 响应式设计
+- 无障碍访问支持

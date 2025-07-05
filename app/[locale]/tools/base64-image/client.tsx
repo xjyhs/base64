@@ -17,7 +17,8 @@ import {
   FileImage,
   ArrowRight,
   CheckCircle,
-  Sparkles
+  Sparkles,
+  Download
 } from 'lucide-react';
 
 export default function Base64ImagePageClient() {
@@ -54,45 +55,59 @@ export default function Base64ImagePageClient() {
       description: t('features.compatible.description')
     },
     {
-      icon: Globe,
+      icon: Download,
       title: t('features.noInstall.title'),
       description: t('features.noInstall.description')
     }
   ];
 
-  const useCases = [
-    {
-      icon: Code,
-      title: t('useCases.webDev.title'),
-      description: t('useCases.webDev.description'),
-      examples: t('useCases.webDev.examples')
-    },
-    {
-      icon: Database,
-      title: t('useCases.dataStorage.title'),
-      description: t('useCases.dataStorage.description'),
-      examples: t('useCases.dataStorage.examples')
-    },
-    {
-      icon: Mail,
-      title: t('useCases.email.title'),
-      description: t('useCases.email.description'),
-      examples: t('useCases.email.examples')
-    },
-    {
-      icon: FileImage,
-      title: t('useCases.api.title'),
-      description: t('useCases.api.description'),
-      examples: t('useCases.api.examples')
+  const useCases = useMemo(() => {
+    try {
+      const toolMessages = (messages as any)?.tools?.['base64-image']?.page?.useCases;
+      if (!toolMessages) return [];
+
+      return [
+        {
+          icon: Code,
+          title: t('useCases.webDev.title'),
+          description: t('useCases.webDev.description'),
+          examples: toolMessages.webDev?.examples || []
+        },
+        {
+          icon: Database,
+          title: t('useCases.dataStorage.title'),
+          description: t('useCases.dataStorage.description'),
+          examples: toolMessages.dataStorage?.examples || []
+        },
+        {
+          icon: Mail,
+          title: t('useCases.email.title'),
+          description: t('useCases.email.description'),
+          examples: toolMessages.email?.examples || []
+        },
+        {
+          icon: FileImage,
+          title: t('useCases.api.title'),
+          description: t('useCases.api.description'),
+          examples: toolMessages.api?.examples || []
+        }
+      ];
+    } catch (e) {
+      return [];
     }
-  ];
+  }, [messages, t]);
 
   // 使用useMemo缓存steps数组，避免重复计算
   const steps = useMemo(() => {
     try {
-      // 从messages对象中获取steps数组
-      const toolMessages = (messages as any)?.tools?.['base64-image']?.page?.steps?.list;
-      return Array.isArray(toolMessages) ? toolMessages : [];
+      const toolMessages = (messages as any)?.tools?.['base64-image']?.page?.steps?.items;
+      if (!toolMessages) return [];
+      
+      // 将对象转换为数组以便遍历
+      return Object.entries(toolMessages).map(([key, value]: [string, any]) => ({
+        key,
+        ...value
+      }));
     } catch (e) {
       return [];
     }
@@ -101,9 +116,14 @@ export default function Base64ImagePageClient() {
   // 使用useMemo缓存faqs数组，避免重复计算
   const faqs = useMemo(() => {
     try {
-      // 从messages对象中获取faqs数组
-      const toolMessages = (messages as any)?.tools?.['base64-image']?.page?.faq?.list;
-      return Array.isArray(toolMessages) ? toolMessages : [];
+      const toolMessages = (messages as any)?.tools?.['base64-image']?.page?.faq?.items;
+      if (!toolMessages) return [];
+      
+      // 将对象转换为数组以便遍历
+      return Object.entries(toolMessages).map(([key, value]: [string, any]) => ({
+        key,
+        ...value
+      }));
     } catch (e) {
       return [];
     }
