@@ -115,50 +115,58 @@
     "steps": {
       "title": "How to Use",
       "subtitle": "Simple four steps to easily convert between images and Base64",
-      "step1": {
-        "title": "Choose Direction",
-        "description": "Select 'Image to Base64' or 'Base64 to Image' based on your needs"
-      },
-      "step2": {
-        "title": "Upload or Paste",
-        "description": "Drag and drop image files or paste Base64 text directly"
-      },
-      "step3": {
-        "title": "One-Click Convert",
-        "description": "Click the convert button, system automatically processes and shows results"
-      },
-      "step4": {
-        "title": "Get Results",
-        "description": "Copy Base64 text or download the converted image"
-      }
+      "list": [
+        {
+          "number": "01",
+          "title": "Choose Direction",
+          "description": "Select 'Image to Base64' or 'Base64 to Image' based on your needs"
+        },
+        {
+          "number": "02",
+          "title": "Upload or Paste",
+          "description": "Drag and drop image files or paste Base64 text directly"
+        },
+        {
+          "number": "03",
+          "title": "One-Click Convert",
+          "description": "Click the convert button, system automatically processes and shows results"
+        },
+        {
+          "number": "04",
+          "title": "Get Results",
+          "description": "Copy Base64 text or download the converted image"
+        }
+      ]
     },
     "faq": {
       "title": "Frequently Asked Questions",
       "subtitle": "Answers to common questions during usage",
-      "q1": {
-        "question": "What is Base64 encoding?",
-        "answer": "Base64 is an encoding method that converts binary data to text, commonly used to transmit binary data like images in text protocols."
-      },
-      "q2": {
-        "question": "Will the file size change after conversion?",
-        "answer": "Base64 encoding increases file size by about 33%, but allows direct embedding in HTML, CSS, or JSON."
-      },
-      "q3": {
-        "question": "Which image formats are supported?",
-        "answer": "Supports all common image formats including JPEG, PNG, GIF, WebP, BMP, SVG, etc."
-      },
-      "q4": {
-        "question": "Is there a file size limit?",
-        "answer": "To ensure good user experience, we recommend single files not exceed 100MB."
-      },
-      "q5": {
-        "question": "How is data security ensured?",
-        "answer": "All conversion operations are completed locally in your browser, files are never uploaded to our servers, completely protecting your privacy."
-      },
-      "q6": {
-        "question": "Can I convert files in batch?",
-        "answer": "Current version supports single file conversion, batch conversion feature is under development, stay tuned."
-      }
+      "list": [
+        {
+          "question": "What is Base64 encoding?",
+          "answer": "Base64 is an encoding method that converts binary data to text, commonly used to transmit binary data like images in text protocols."
+        },
+        {
+          "question": "Will the file size change after conversion?",
+          "answer": "Base64 encoding increases file size by about 33%, but allows direct embedding in HTML, CSS, or JSON."
+        },
+        {
+          "question": "Which image formats are supported?",
+          "answer": "Supports all common image formats including JPEG, PNG, GIF, WebP, BMP, SVG, etc."
+        },
+        {
+          "question": "Is there a file size limit?",
+          "answer": "To ensure good user experience, we recommend single files not exceed 100MB."
+        },
+        {
+          "question": "How is data security ensured?",
+          "answer": "All conversion operations are completed locally in your browser, files are never uploaded to our servers, completely protecting your privacy."
+        },
+        {
+          "question": "Can I convert files in batch?",
+          "answer": "Current version supports single file conversion, batch conversion feature is under development, stay tuned."
+        }
+      ]
     },
     "cta": {
       "title": "Get Started",

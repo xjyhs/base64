@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
-import { useTranslations } from 'next-intl';
+import { useRef, useMemo } from 'react';
+import { useTranslations, useMessages } from 'next-intl';
 import Base64ImageConverter from '@/components/tools/Base64ImageConverter';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -23,6 +23,7 @@ import {
 export default function Base64ImagePageClient() {
   const toolSectionRef = useRef<HTMLElement>(null);
   const t = useTranslations('tools.base64-image.page');
+  const messages = useMessages();
 
   const scrollToTool = () => {
     if (toolSectionRef.current) {
@@ -86,55 +87,27 @@ export default function Base64ImagePageClient() {
     }
   ];
 
-  const steps = [
-    {
-      number: '01',
-      title: t('steps.step1.title'),
-      description: t('steps.step1.description')
-    },
-    {
-      number: '02',
-      title: t('steps.step2.title'),
-      description: t('steps.step2.description')
-    },
-    {
-      number: '03',
-      title: t('steps.step3.title'),
-      description: t('steps.step3.description')
-    },
-    {
-      number: '04',
-      title: t('steps.step4.title'),
-      description: t('steps.step4.description')
+  // 使用useMemo缓存steps数组，避免重复计算
+  const steps = useMemo(() => {
+    try {
+      // 从messages对象中获取steps数组
+      const toolMessages = (messages as any)?.tools?.['base64-image']?.page?.steps?.list;
+      return Array.isArray(toolMessages) ? toolMessages : [];
+    } catch (e) {
+      return [];
     }
-  ];
+  }, [messages]);
 
-  const faqs = [
-    {
-      question: t('faq.q1.question'),
-      answer: t('faq.q1.answer')
-    },
-    {
-      question: t('faq.q2.question'),
-      answer: t('faq.q2.answer')
-    },
-    {
-      question: t('faq.q3.question'),
-      answer: t('faq.q3.answer')
-    },
-    {
-      question: t('faq.q4.question'),
-      answer: t('faq.q4.answer')
-    },
-    {
-      question: t('faq.q5.question'),
-      answer: t('faq.q5.answer')
-    },
-    {
-      question: t('faq.q6.question'),
-      answer: t('faq.q6.answer')
+  // 使用useMemo缓存faqs数组，避免重复计算
+  const faqs = useMemo(() => {
+    try {
+      // 从messages对象中获取faqs数组
+      const toolMessages = (messages as any)?.tools?.['base64-image']?.page?.faq?.list;
+      return Array.isArray(toolMessages) ? toolMessages : [];
+    } catch (e) {
+      return [];
     }
-  ];
+  }, [messages]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
