@@ -1,0 +1,11 @@
+{
+  "metadata": {
+    "title": "Next.js Boilerplate",
+    "description": "A clean and powerful Next.js boilerplate.",
+    "keywords": "nextjs, boilerplate, template, react"
+  },
+  "HomePage": {
+    "title": "Next.js Boilerplate",
+    "description": "This is a clean starting point for your next project."
+  }
+} 
