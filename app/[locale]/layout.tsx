@@ -9,6 +9,8 @@ import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "@/providers/theme";
 import { cn } from "@/lib/utils";
+import Header from "@/components/layout/header";
+import { Toaster } from "@/components/ui/sonner";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -68,7 +70,11 @@ export default async function RootLayout({
           {/* <NextAuthSessionProvider> */}
             <AppContextProvider>
               <ThemeProvider attribute="class" disableTransitionOnChange>
-                {children}
+                <Header />
+                <main className="flex-1">
+                  {children}
+                </main>
+                <Toaster />
               </ThemeProvider>
             </AppContextProvider>
           {/* </NextAuthSessionProvider> */}

@@ -6,15 +6,6 @@ export const locales = ["en", "zh", "ja", "fr", "de", "ko", "es", "ru", "pt", "a
 export const localeNames: any = {
   en: "English",
   zh: "简体中文",
-  ja: "日本語",
-  fr: "Français",
-  de: "Deutsch",
-  ko: "한국어",
-  es: "Español",
-  ru: "Русский",
-  pt: "Português",
-  ar: "العربية",
-  hi: "हिन्दी",
 };
 
 export const defaultLocale = "en";
