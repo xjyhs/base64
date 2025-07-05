@@ -74,7 +74,7 @@ export default async function RootLayout({
                 <main className="flex-1">
                   {children}
                 </main>
-                <Toaster />
+                <Toaster position="top-center" />
               </ThemeProvider>
             </AppContextProvider>
           {/* </NextAuthSessionProvider> */}

@@ -2,7 +2,6 @@
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import type { ThemeProviderProps } from "next-themes";
-import { Toaster } from "@/components/ui/sonner";
 import { useAppContext } from "@/contexts/app";
 import { useEffect } from "react";
 
@@ -26,7 +25,6 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return (
     <NextThemesProvider forcedTheme={theme} {...props}>
       {children}
-      <Toaster position="top-center" richColors />
     </NextThemesProvider>
   );
 }
