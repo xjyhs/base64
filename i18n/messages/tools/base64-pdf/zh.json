@@ -1,0 +1,268 @@
+{
+  "meta": {
+    "title": "Base64 PDF 转换器 - 在线PDF与Base64编码互转工具",
+    "description": "免费的在线Base64 PDF转换工具，支持PDF文件转Base64编码和Base64解码为PDF文件。安全、快速、无需上传，保护您的隐私。",
+    "keywords": "base64 pdf, pdf转base64, base64转pdf, pdf编码, pdf解码, 在线pdf工具, base64编码器, pdf转换器"
+  },
+  "title": "Base64 PDF 转换器",
+  "description": "专业的在线PDF与Base64编码互转工具，支持PDF文件与Base64编码的双向转换，完全在浏览器中运行，保护您的文档隐私安全。",
+  "badges": {
+    "secure": "安全可靠",
+    "fast": "高速处理",
+    "online": "在线使用",
+    "free": "完全免费"
+  },
+  "tabs": {
+    "decode": "Base64 转 PDF",
+    "encode": "PDF 转 Base64"
+  },
+  "labels": {
+    "decodeLabel": "Base64 解码为 PDF",
+    "encodeLabel": "PDF 编码为 Base64",
+    "resultTitle": "转换结果",
+    "outputTitle": "Base64 输出",
+    "dropzone": "拖拽PDF文件到此处或点击选择",
+    "supportedFormats": "支持 PDF 格式文件，最大 50MB",
+    "loading": "处理中...",
+    "processingText": "正在处理文本..."
+  },
+  "actions": {
+    "paste": "粘贴Base64编码到此处...",
+    "decode": "转换为PDF",
+    "encode": "转换为Base64",
+    "selectFile": "选择PDF文件",
+    "copy": "复制Base64",
+    "downloadPdf": "下载PDF",
+    "downloadTxt": "下载文本",
+    "viewPdf": "预览PDF",
+    "clear": "清除"
+  },
+  "textStats": {
+    "length": "字符长度",
+    "size": "预估大小",
+    "characters": "字符",
+    "largeText": "大文件",
+    "optimizedHint": "已优化处理"
+  },
+  "messages": {
+    "processing": "正在处理...",
+    "textPasted": "文本已粘贴",
+    "success": "转换成功！",
+    "copied": "已复制到剪贴板",
+    "copyFail": "复制失败",
+    "pdfDownloaded": "PDF已下载",
+    "textDownloaded": "文本已下载",
+    "cleared": "已清除所有内容",
+    "errorPaste": "请粘贴有效的Base64编码",
+    "errorSelect": "请选择PDF文件",
+    "errorSize": "文件大小不能超过50MB",
+    "errorInvalid": "无效的Base64编码",
+    "errorFail": "转换失败：",
+    "errorUnknown": "未知错误"
+  },
+  "page": {
+    "tool": {
+      "title": "Base64 PDF 转换工具"
+    },
+    "features": {
+      "title": "核心特性",
+      "subtitle": "为什么选择我们的Base64 PDF转换器？",
+      "items": {
+        "security": {
+          "title": "隐私安全",
+          "description": "所有转换都在您的浏览器中完成，文件不会上传到服务器，确保您的PDF文档完全私密。"
+        },
+        "speed": {
+          "title": "高速处理",
+          "description": "采用先进的Web Worker技术，实现多线程处理，即使是大文件也能快速完成转换。"
+        },
+        "format": {
+          "title": "格式支持",
+          "description": "完美支持标准PDF格式，保持文档的完整性和格式，确保转换后的文件质量。"
+        },
+        "preview": {
+          "title": "在线预览",
+          "description": "转换后的PDF文件可以直接在浏览器中预览，无需下载即可查看内容。"
+        },
+        "batch": {
+          "title": "批量处理",
+          "description": "支持多个文件的批量转换，提高工作效率，节省您的宝贵时间。"
+        },
+        "crossPlatform": {
+          "title": "跨平台兼容",
+          "description": "支持Windows、Mac、Linux等所有主流操作系统和浏览器，随时随地使用。"
+        }
+      }
+    },
+    "steps": {
+      "title": "使用步骤",
+      "subtitle": "简单四步完成PDF与Base64的转换",
+      "items": {
+        "select": {
+          "number": "01",
+          "title": "选择功能",
+          "description": "根据需要选择PDF转Base64或Base64转PDF功能"
+        },
+        "upload": {
+          "number": "02",
+          "title": "上传文件",
+          "description": "拖拽PDF文件或粘贴Base64编码到输入框"
+        },
+        "convert": {
+          "number": "03",
+          "title": "开始转换",
+          "description": "点击转换按钮，系统自动处理您的文件"
+        },
+        "download": {
+          "number": "04",
+          "title": "获取结果",
+          "description": "下载转换后的文件或复制Base64编码"
+        }
+      }
+    },
+    "advantages": {
+      "title": "应用优势",
+      "subtitle": "Base64 PDF转换器的独特优势",
+      "items": {
+        "webDevelopment": {
+          "title": "Web开发必备",
+          "description": "在Web开发中，将PDF文件转换为Base64编码可以直接嵌入HTML或CSS中，减少HTTP请求，提高页面加载速度。"
+        },
+        "dataTransmission": {
+          "title": "数据传输优化",
+          "description": "Base64编码的PDF可以安全地通过JSON、XML等文本协议传输，避免二进制数据传输的兼容性问题。"
+        },
+        "emailEmbedding": {
+          "title": "邮件嵌入",
+          "description": "将PDF转换为Base64后可以直接嵌入到邮件中，确保文档在不同邮件客户端中的正确显示。"
+        },
+        "apiIntegration": {
+          "title": "API集成",
+          "description": "许多API接口要求以Base64格式传输文件数据，我们的工具让这一过程变得简单高效。"
+        },
+        "databaseStorage": {
+          "title": "数据库存储",
+          "description": "Base64编码的PDF可以直接存储在数据库的文本字段中，简化数据库设计和文件管理。"
+        },
+        "crossPlatform": {
+          "title": "跨平台兼容",
+          "description": "Base64是标准的编码方式，确保在不同平台和系统间的完美兼容性。"
+        }
+      }
+    },
+    "applications": {
+      "title": "应用场景",
+      "subtitle": "Base64 PDF转换器的实际应用场景",
+      "items": {
+        "webDev": {
+          "title": "前端开发",
+          "description": "在React、Vue、Angular等前端框架中嵌入PDF文档，实现文档的在线预览和下载功能。"
+        },
+        "mobileApp": {
+          "title": "移动应用",
+          "description": "在iOS和Android应用中集成PDF文档，通过Base64编码实现文档的本地存储和传输。"
+        },
+        "apiService": {
+          "title": "API服务",
+          "description": "为RESTful API提供文档上传和下载功能，使用Base64编码确保数据传输的安全性。"
+        },
+        "emailSystem": {
+          "title": "邮件系统",
+          "description": "在邮件营销和自动化邮件系统中嵌入PDF附件，提高邮件的送达率和用户体验。"
+        },
+        "reportGeneration": {
+          "title": "报表生成",
+          "description": "在企业级应用中生成PDF报表，通过Base64编码实现报表的在线预览和分享。"
+        },
+        "documentManagement": {
+          "title": "文档管理",
+          "description": "在文档管理系统中实现PDF文档的编码存储和快速检索，提高系统性能。"
+        }
+      }
+    },
+    "useCases": {
+      "title": "使用案例",
+      "subtitle": "真实的使用场景和案例分析",
+      "items": {
+        "webEmbedding": {
+          "title": "网页嵌入PDF",
+          "description": "电商网站需要在产品页面中嵌入PDF说明书，使用Base64编码可以减少服务器请求，提高页面加载速度。"
+        },
+        "mobileOffline": {
+          "title": "移动端离线阅读",
+          "description": "新闻应用需要支持离线阅读PDF文章，将PDF转换为Base64后存储在本地数据库中，实现完美的离线体验。"
+        },
+        "apiIntegration": {
+          "title": "第三方API集成",
+          "description": "CRM系统需要与第三方文档服务集成，通过Base64编码传输PDF合同和协议，确保数据传输的安全性。"
+        },
+        "emailMarketing": {
+          "title": "邮件营销",
+          "description": "营销平台需要在邮件中嵌入PDF宣传册，使用Base64编码可以确保邮件在不同客户端中的正确显示。"
+        },
+        "reportSystem": {
+          "title": "企业报表系统",
+          "description": "企业ERP系统需要生成PDF财务报表，通过Base64编码实现报表的在线预览和权限控制。"
+        },
+        "documentArchive": {
+          "title": "文档归档",
+          "description": "政府机构需要对历史文档进行数字化归档，使用Base64编码可以简化文档的存储和检索过程。"
+        }
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "关于Base64 PDF转换的常见问题解答",
+      "items": {
+        "whatIsBase64": {
+          "question": "什么是Base64编码？",
+          "answer": "Base64是一种基于64个可打印字符来表示二进制数据的编码方式。它常用于在文本协议中传输二进制数据，如PDF文件。"
+        },
+        "whyUseBase64": {
+          "question": "为什么要将PDF转换为Base64？",
+          "answer": "Base64编码的PDF可以直接嵌入到HTML、CSS、JSON等文本格式中，便于在Web应用中使用，同时避免了二进制数据传输的兼容性问题。"
+        },
+        "fileSizeLimit": {
+          "question": "支持的文件大小限制是多少？",
+          "answer": "目前支持最大50MB的PDF文件。对于更大的文件，建议先压缩PDF或分割成多个小文件处理。"
+        },
+        "securityConcerns": {
+          "question": "转换过程是否安全？",
+          "answer": "是的，所有转换都在您的浏览器中完成，文件不会上传到服务器，确保您的文档完全私密和安全。"
+        },
+        "browserCompatibility": {
+          "question": "哪些浏览器支持此工具？",
+          "answer": "支持所有现代浏览器，包括Chrome、Firefox、Safari、Edge等。建议使用最新版本的浏览器以获得最佳体验。"
+        },
+        "base64Size": {
+          "question": "Base64编码后文件会变大吗？",
+          "answer": "是的，Base64编码通常会使文件大小增加约33%。这是编码过程的正常现象，解码后会恢复原始大小。"
+        },
+        "qualityLoss": {
+          "question": "转换过程中会损失PDF质量吗？",
+          "answer": "不会。Base64是无损编码，转换过程中不会改变PDF的内容或质量，解码后的文件与原文件完全相同。"
+        },
+        "batchProcessing": {
+          "question": "是否支持批量处理？",
+          "answer": "目前支持单文件处理。对于批量需求，您可以多次使用工具，或者考虑使用我们的API服务。"
+        }
+      }
+    },
+    "technical": {
+      "title": "技术说明",
+      "description": "我们的Base64 PDF转换器采用先进的Web技术，确保高效、安全的文件处理。所有操作都在客户端完成，使用Web Worker技术实现多线程处理，即使处理大文件也不会阻塞浏览器界面。",
+      "security": {
+        "title": "安全保障",
+        "description": "文件不会上传到服务器，所有处理都在本地完成，确保您的文档隐私安全。"
+      },
+      "performance": {
+        "title": "性能优化",
+        "description": "采用Web Worker多线程技术，实现高效的文件处理，不影响浏览器的正常使用。"
+      }
+    },
+    "footer": {
+      "title": "开始使用",
+      "description": "立即体验我们的Base64 PDF转换器，享受快速、安全、便捷的文件转换服务。无需注册，完全免费！"
+    }
+  }
+} 
