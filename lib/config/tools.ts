@@ -62,6 +62,16 @@ export const toolsConfig: ToolsConfig = {
       path: '/tools/base64-json',
       icon: 'Braces',
       category: 'base64',
+    },
+    {
+      id: 'base64-hex',
+      name: {
+        zh: 'Base64 Hex转换器',
+        en: 'Base64 Hex Converter'
+      },
+      path: '/tools/base64-hex',
+      icon: 'Hash',
+      category: 'base64',
     }
   ],
   categories: [

@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "title": "Base64 JSON转换器",
+    "description": "将JSON数据和Base64字符串进行相互转换。支持格式化显示、语法高亮、数据验证的在线工具。",
+    "keywords": "base64, json, 转换器, 编码, 解码, 格式化, 在线工具"
+  },
+  "tabs": {
+    "decode": "Base64 转 JSON",
+    "encode": "JSON 转 Base64"
+  },
+  "actions": {
+    "paste": "在此处粘贴Base64字符串...",
+    "decode": "转换为JSON",
+    "clear": "清空",
+    "copy": "复制",
+    "format": "格式化",
+    "minify": "压缩",
+    "downloadJson": "下载JSON",
+    "downloadTxt": "下载为TXT文件"
+  },
+  "labels": {
+    "inputLabel": "输入JSON数据",
+    "outputTitle": "Base64 输出",
+    "resultTitle": "转换结果",
+    "loading": "处理中...",
+    "jsonInputPlaceholder": "请输入JSON数据...",
+    "base64InputPlaceholder": "请输入Base64字符串...",
+    "toolTitle": "Base64 JSON转换器",
+    "formatOptions": "格式选项",
+    "indentSize": "缩进大小"
+  },
+  "textStats": {
+    "length": "长度",
+    "size": "估算大小",
+    "characters": "字符",
+    "lines": "行数",
+    "objects": "对象数",
+    "arrays": "数组数"
+  },
+  "messages": {
+    "errorPaste": "请输入Base64字符串。",
+    "errorInvalidBase64": "请输入有效的Base64字符串。",
+    "errorInvalidJson": "请输入有效的JSON数据。",
+    "errorParseJson": "JSON解析失败：",
+    "success": "转换成功！",
+    "errorFail": "转换失败：",
+    "errorUnknown": "发生未知错误，转换失败。",
+    "copied": "内容已复制到剪贴板。",
+    "copyFail": "复制失败，请手动复制。",
+    "jsonDownloaded": "JSON文件已下载。",
+    "textDownloaded": "Base64文本文件已下载。",
+    "cleared": "已清空所有输入和结果。",
+    "formatted": "JSON已格式化。",
+    "minified": "JSON已压缩。"
+  },
+  "page": {
+    "hero": {
+      "badge": "专业JSON处理工具",
+      "title": "Base64 JSON转换器",
+      "description": "专业的JSON与Base64互转工具，支持格式化、验证、压缩",
+      "subtitle": "数据处理、配置管理、API开发的必备工具"
+    },
+    "tool": {
+      "title": "Base64 JSON转换器",
+      "description": "开始转换您的JSON数据"
+    },
+    "features": {
+      "title": "功能特点",
+      "subtitle": "专为开发者设计的JSON处理工具",
+      "items": {
+        "format": {
+          "title": "智能格式化",
+          "description": "自动格式化JSON，支持自定义缩进，提高代码可读性"
+        },
+        "validate": {
+          "title": "语法验证",
+          "description": "实时验证JSON语法，快速定位错误位置"
+        },
+        "compress": {
+          "title": "数据压缩",
+          "description": "支持JSON压缩，减少数据传输大小"
+        },
+        "secure": {
+          "title": "隐私安全",
+          "description": "本地处理，数据不上传服务器，保护隐私安全"
+        }
+      }
+    },
+    "useCases": {
+      "title": "应用场景",
+      "subtitle": "广泛应用于开发、配置、数据处理等场景",
+      "items": {
+        "config": {
+          "title": "配置管理",
+          "description": "配置文件的编码存储和传输，避免特殊字符冲突",
+          "examples": ["应用配置", "环境变量", "部署配置"]
+        },
+        "api": {
+          "title": "API开发",
+          "description": "JSON数据的Base64编码传输，简化API接口设计",
+          "examples": ["数据传输", "参数编码", "响应处理"]
+        },
+        "storage": {
+          "title": "数据存储",
+          "description": "JSON数据的安全存储，防止注入攻击",
+          "examples": ["数据库存储", "缓存数据", "临时存储"]
+        },
+        "security": {
+          "title": "数据混淆",
+          "description": "敏感JSON数据的简单混淆，增加安全性",
+          "examples": ["敏感配置", "用户数据", "业务逻辑"]
+        }
+      }
+    },
+    "steps": {
+      "title": "使用步骤",
+      "subtitle": "简单四步完成JSON与Base64的转换",
+      "items": {
+        "select": {
+          "number": "01",
+          "title": "选择转换方向",
+          "description": "选择「JSON转Base64」或「Base64转JSON」"
+        },
+        "input": {
+          "number": "02",
+          "title": "输入数据",
+          "description": "输入JSON数据或粘贴Base64字符串"
+        },
+        "convert": {
+          "number": "03",
+          "title": "执行转换",
+          "description": "点击转换按钮，系统自动处理数据"
+        },
+        "result": {
+          "number": "04",
+          "title": "获取结果",
+          "description": "复制转换结果或下载为文件"
+        }
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "解答使用过程中的疑问",
+      "items": {
+        "q1": {
+          "question": "什么是Base64编码？",
+          "answer": "Base64是一种将二进制数据转换为ASCII字符的编码方式，常用于在文本协议中传输二进制数据。"
+        },
+        "q2": {
+          "question": "为什么要对JSON进行Base64编码？",
+          "answer": "Base64编码可以避免JSON中的特殊字符在传输过程中被转义，同时可以简单地混淆敏感数据。"
+        },
+        "q3": {
+          "question": "支持多大的JSON文件？",
+          "answer": "理论上没有大小限制，但为了确保良好的用户体验，建议单个JSON文件不超过10MB。"
+        },
+        "q4": {
+          "question": "如何验证JSON格式？",
+          "answer": "工具会自动验证JSON语法，如果格式有误会显示详细的错误信息。"
+        },
+        "q5": {
+          "question": "数据安全如何保障？",
+          "answer": "所有转换操作都在浏览器本地完成，数据不会上传到服务器，完全保护您的隐私。"
+        }
+      }
+    }
+  }
+} 

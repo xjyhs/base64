@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "title": "Base64 Hex转换器",
+    "description": "在线Base64与十六进制(Hex)互相转换工具，支持Base64编码到Hex解码，以及Hex编码到Base64解码。",
+    "keywords": "base64, hex, 十六进制, 编码, 解码, 转换器, 在线工具"
+  },
+  "tabs": {
+    "decode": "Base64 转 Hex",
+    "encode": "Hex 转 Base64"
+  },
+  "actions": {
+    "paste": "粘贴",
+    "decode": "解码",
+    "encode": "编码",
+    "clear": "清空",
+    "copy": "复制",
+    "downloadTxt": "下载TXT",
+    "downloadHex": "下载Hex文件",
+    "format": "格式化",
+    "uppercase": "转大写",
+    "lowercase": "转小写"
+  },
+  "labels": {
+    "inputLabel": "输入",
+    "outputTitle": "输出结果",
+    "resultTitle": "转换结果",
+    "base64InputPlaceholder": "请输入Base64编码的内容...",
+    "hexInputPlaceholder": "请输入十六进制内容（可包含空格和分隔符）...",
+    "loading": "处理中..."
+  },
+  "textStats": {
+    "characters": "字符",
+    "bytes": "字节",
+    "size": "大小",
+    "length": "长度",
+    "lines": "行数"
+  },
+  "messages": {
+    "errorPaste": "请输入Base64内容",
+    "errorInvalidBase64": "无效的Base64格式",
+    "errorInvalidHex": "无效的十六进制格式",
+    "errorFail": "转换失败：",
+    "errorUnknown": "未知错误",
+    "success": "转换成功！",
+    "copied": "已复制到剪贴板",
+    "copyFail": "复制失败",
+    "cleared": "已清空所有内容",
+    "txtDownloaded": "TXT文件下载成功",
+    "hexDownloaded": "Hex文件下载成功",
+    "formatted": "格式化成功"
+  },
+  "page": {
+    "hero": {
+      "badge": "编码转换",
+      "title": "Base64 Hex转换器",
+      "description": "在线Base64与十六进制互相转换工具",
+      "subtitle": "支持Base64编码到Hex解码，以及Hex编码到Base64解码"
+    },
+    "tool": {
+      "title": "Base64 Hex转换器工具"
+    },
+    "features": {
+      "title": "功能特色",
+      "subtitle": "强大的Base64与Hex转换功能",
+      "items": {
+        "bidirectional": {
+          "title": "双向转换",
+          "description": "支持Base64到Hex和Hex到Base64的双向转换"
+        },
+        "format": {
+          "title": "格式化支持",
+          "description": "支持Hex格式化、大小写转换等功能"
+        },
+        "validation": {
+          "title": "格式验证",
+          "description": "自动验证输入格式的有效性，提供错误提示"
+        },
+        "download": {
+          "title": "文件下载",
+          "description": "支持将转换结果下载为TXT或Hex文件"
+        },
+        "stats": {
+          "title": "统计信息",
+          "description": "显示字符数、字节数等详细统计信息"
+        },
+        "copy": {
+          "title": "一键复制",
+          "description": "快速复制转换结果到剪贴板"
+        }
+      }
+    },
+    "useCases": {
+      "title": "使用场景",
+      "subtitle": "Base64与Hex转换的常见应用",
+      "items": {
+        "data": {
+          "title": "数据编码",
+          "description": "在不同编码格式之间转换数据"
+        },
+        "crypto": {
+          "title": "加密解密",
+          "description": "处理加密算法中的编码转换"
+        },
+        "debug": {
+          "title": "调试分析",
+          "description": "分析和调试二进制数据格式"
+        },
+        "protocol": {
+          "title": "协议处理",
+          "description": "处理网络协议中的编码数据"
+        }
+      }
+    },
+    "steps": {
+      "title": "使用步骤",
+      "subtitle": "简单四步完成转换",
+      "items": {
+        "select": {
+          "number": "01",
+          "title": "选择转换方向",
+          "description": "选择Base64转Hex或Hex转Base64"
+        },
+        "input": {
+          "number": "02",
+          "title": "输入内容",
+          "description": "在输入框中粘贴或输入要转换的内容"
+        },
+        "convert": {
+          "number": "03",
+          "title": "执行转换",
+          "description": "点击转换按钮开始处理"
+        },
+        "result": {
+          "number": "04",
+          "title": "获取结果",
+          "description": "复制结果或下载文件"
+        }
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "Base64与Hex转换相关问题解答",
+      "items": {
+        "what": {
+          "question": "什么是Base64和Hex编码？",
+          "answer": "Base64是一种基于64个字符的编码方式，常用于数据传输。Hex（十六进制）是基于16个字符的编码方式，常用于表示二进制数据。"
+        },
+        "why": {
+          "question": "为什么需要Base64和Hex转换？",
+          "answer": "不同的应用场景需要不同的编码格式。Base64适合文本传输，Hex适合调试和分析。转换工具帮助在不同格式间切换。"
+        },
+        "safe": {
+          "question": "转换过程是否安全？",
+          "answer": "是的，所有转换都在您的浏览器本地进行，不会上传到服务器，确保数据安全。"
+        },
+        "limit": {
+          "question": "有文件大小限制吗？",
+          "answer": "没有严格限制，但建议处理较大数据时注意浏览器性能。"
+        }
+      }
+    }
+  }
+} 

@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "title": "Base64 JSON Converter",
+    "description": "Convert JSON data and Base64 strings bidirectionally. Online tool with formatting, syntax highlighting, and data validation support.",
+    "keywords": "base64, json, converter, encode, decode, format, online tool"
+  },
+  "tabs": {
+    "decode": "Base64 to JSON",
+    "encode": "JSON to Base64"
+  },
+  "actions": {
+    "paste": "Paste Base64 string here...",
+    "decode": "Convert to JSON",
+    "clear": "Clear",
+    "copy": "Copy",
+    "format": "Format",
+    "minify": "Minify",
+    "downloadJson": "Download JSON",
+    "downloadTxt": "Download as TXT"
+  },
+  "labels": {
+    "inputLabel": "Input JSON Data",
+    "outputTitle": "Base64 Output",
+    "resultTitle": "Conversion Result",
+    "loading": "Processing...",
+    "jsonInputPlaceholder": "Enter JSON data...",
+    "base64InputPlaceholder": "Enter Base64 string...",
+    "toolTitle": "Base64 JSON Converter",
+    "formatOptions": "Format Options",
+    "indentSize": "Indent Size"
+  },
+  "textStats": {
+    "length": "Length",
+    "size": "Estimated Size",
+    "characters": "Characters",
+    "lines": "Lines",
+    "objects": "Objects",
+    "arrays": "Arrays"
+  },
+  "messages": {
+    "errorPaste": "Please enter a Base64 string.",
+    "errorInvalidBase64": "Please enter a valid Base64 string.",
+    "errorInvalidJson": "Please enter valid JSON data.",
+    "errorParseJson": "JSON parsing failed: ",
+    "success": "Conversion successful!",
+    "errorFail": "Conversion failed: ",
+    "errorUnknown": "An unknown error occurred, conversion failed.",
+    "copied": "Content copied to clipboard.",
+    "copyFail": "Copy failed, please copy manually.",
+    "jsonDownloaded": "JSON file downloaded.",
+    "textDownloaded": "Base64 text file downloaded.",
+    "cleared": "All inputs and results cleared.",
+    "formatted": "JSON formatted.",
+    "minified": "JSON minified."
+  },
+  "page": {
+    "hero": {
+      "badge": "Professional JSON Processing Tool",
+      "title": "Base64 JSON Converter",
+      "description": "Professional JSON and Base64 conversion tool with formatting, validation, and compression",
+      "subtitle": "Essential tool for data processing, configuration management, and API development"
+    },
+    "tool": {
+      "title": "Base64 JSON Converter",
+      "description": "Start converting your JSON data"
+    },
+    "features": {
+      "title": "Key Features",
+      "subtitle": "JSON processing tool designed for developers",
+      "items": {
+        "format": {
+          "title": "Smart Formatting",
+          "description": "Automatically format JSON with customizable indentation for better code readability"
+        },
+        "validate": {
+          "title": "Syntax Validation",
+          "description": "Real-time JSON syntax validation with quick error location"
+        },
+        "compress": {
+          "title": "Data Compression",
+          "description": "Support JSON compression to reduce data transfer size"
+        },
+        "secure": {
+          "title": "Privacy Security",
+          "description": "Local processing, no data uploaded to servers, protecting privacy"
+        }
+      }
+    },
+    "useCases": {
+      "title": "Use Cases",
+      "subtitle": "Widely used in development, configuration, and data processing scenarios",
+      "items": {
+        "config": {
+          "title": "Configuration Management",
+          "description": "Encode configuration files for storage and transmission, avoiding special character conflicts",
+          "examples": ["App Config", "Environment Variables", "Deployment Config"]
+        },
+        "api": {
+          "title": "API Development",
+          "description": "Base64 encoding of JSON data for transmission, simplifying API interface design",
+          "examples": ["Data Transfer", "Parameter Encoding", "Response Processing"]
+        },
+        "storage": {
+          "title": "Data Storage",
+          "description": "Secure storage of JSON data, preventing injection attacks",
+          "examples": ["Database Storage", "Cache Data", "Temporary Storage"]
+        },
+        "security": {
+          "title": "Data Obfuscation",
+          "description": "Simple obfuscation of sensitive JSON data for enhanced security",
+          "examples": ["Sensitive Config", "User Data", "Business Logic"]
+        }
+      }
+    },
+    "steps": {
+      "title": "Usage Steps",
+      "subtitle": "Complete JSON and Base64 conversion in four simple steps",
+      "items": {
+        "select": {
+          "number": "01",
+          "title": "Select Conversion Direction",
+          "description": "Choose 'JSON to Base64' or 'Base64 to JSON'"
+        },
+        "input": {
+          "number": "02",
+          "title": "Input Data",
+          "description": "Enter JSON data or paste Base64 string"
+        },
+        "convert": {
+          "number": "03",
+          "title": "Execute Conversion",
+          "description": "Click convert button, system processes data automatically"
+        },
+        "result": {
+          "number": "04",
+          "title": "Get Results",
+          "description": "Copy conversion result or download as file"
+        }
+      }
+    },
+    "faq": {
+      "title": "FAQ",
+      "subtitle": "Answers to common questions during usage",
+      "items": {
+        "q1": {
+          "question": "What is Base64 encoding?",
+          "answer": "Base64 is an encoding method that converts binary data to ASCII characters, commonly used for transmitting binary data in text protocols."
+        },
+        "q2": {
+          "question": "Why encode JSON with Base64?",
+          "answer": "Base64 encoding can avoid special characters in JSON from being escaped during transmission, and can simply obfuscate sensitive data."
+        },
+        "q3": {
+          "question": "What's the maximum JSON file size supported?",
+          "answer": "There's no theoretical size limit, but for optimal user experience, we recommend keeping individual JSON files under 10MB."
+        },
+        "q4": {
+          "question": "How to validate JSON format?",
+          "answer": "The tool automatically validates JSON syntax and displays detailed error messages if the format is incorrect."
+        },
+        "q5": {
+          "question": "How is data security ensured?",
+          "answer": "All conversion operations are performed locally in the browser, no data is uploaded to servers, completely protecting your privacy."
+        }
+      }
+    }
+  }
+} 

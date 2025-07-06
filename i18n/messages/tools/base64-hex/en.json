@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "title": "Base64 Hex Converter",
+    "description": "Online Base64 to Hex and Hex to Base64 converter tool. Support Base64 encoding to Hex decoding and Hex encoding to Base64 decoding.",
+    "keywords": "base64, hex, hexadecimal, encoding, decoding, converter, online tool"
+  },
+  "tabs": {
+    "decode": "Base64 to Hex",
+    "encode": "Hex to Base64"
+  },
+  "actions": {
+    "paste": "Paste",
+    "decode": "Decode",
+    "encode": "Encode",
+    "clear": "Clear",
+    "copy": "Copy",
+    "downloadTxt": "Download TXT",
+    "downloadHex": "Download Hex",
+    "format": "Format",
+    "uppercase": "Uppercase",
+    "lowercase": "Lowercase"
+  },
+  "labels": {
+    "inputLabel": "Input",
+    "outputTitle": "Output",
+    "resultTitle": "Result",
+    "base64InputPlaceholder": "Enter Base64 encoded content...",
+    "hexInputPlaceholder": "Enter hexadecimal content (spaces and separators allowed)...",
+    "loading": "Processing..."
+  },
+  "textStats": {
+    "characters": "Characters",
+    "bytes": "Bytes",
+    "size": "Size",
+    "length": "Length",
+    "lines": "Lines"
+  },
+  "messages": {
+    "errorPaste": "Please enter Base64 content",
+    "errorInvalidBase64": "Invalid Base64 format",
+    "errorInvalidHex": "Invalid hexadecimal format",
+    "errorFail": "Conversion failed: ",
+    "errorUnknown": "Unknown error",
+    "success": "Conversion successful!",
+    "copied": "Copied to clipboard",
+    "copyFail": "Copy failed",
+    "cleared": "All content cleared",
+    "txtDownloaded": "TXT file downloaded successfully",
+    "hexDownloaded": "Hex file downloaded successfully",
+    "formatted": "Formatted successfully"
+  },
+  "page": {
+    "hero": {
+      "badge": "Encoding Conversion",
+      "title": "Base64 Hex Converter",
+      "description": "Online Base64 and Hexadecimal mutual conversion tool",
+      "subtitle": "Support Base64 encoding to Hex decoding and Hex encoding to Base64 decoding"
+    },
+    "tool": {
+      "title": "Base64 Hex Converter Tool"
+    },
+    "features": {
+      "title": "Features",
+      "subtitle": "Powerful Base64 and Hex conversion capabilities",
+      "items": {
+        "bidirectional": {
+          "title": "Bidirectional Conversion",
+          "description": "Support both Base64 to Hex and Hex to Base64 conversion"
+        },
+        "format": {
+          "title": "Format Support",
+          "description": "Support Hex formatting, case conversion and other functions"
+        },
+        "validation": {
+          "title": "Format Validation",
+          "description": "Automatically validate input format validity with error hints"
+        },
+        "download": {
+          "title": "File Download",
+          "description": "Support downloading conversion results as TXT or Hex files"
+        },
+        "stats": {
+          "title": "Statistics",
+          "description": "Display detailed statistics like character count, byte count"
+        },
+        "copy": {
+          "title": "One-click Copy",
+          "description": "Quickly copy conversion results to clipboard"
+        }
+      }
+    },
+    "useCases": {
+      "title": "Use Cases",
+      "subtitle": "Common applications of Base64 and Hex conversion",
+      "items": {
+        "data": {
+          "title": "Data Encoding",
+          "description": "Convert data between different encoding formats"
+        },
+        "crypto": {
+          "title": "Encryption/Decryption",
+          "description": "Handle encoding conversion in encryption algorithms"
+        },
+        "debug": {
+          "title": "Debug Analysis",
+          "description": "Analyze and debug binary data formats"
+        },
+        "protocol": {
+          "title": "Protocol Processing",
+          "description": "Process encoded data in network protocols"
+        }
+      }
+    },
+    "steps": {
+      "title": "How to Use",
+      "subtitle": "Complete conversion in four simple steps",
+      "items": {
+        "select": {
+          "number": "01",
+          "title": "Select Direction",
+          "description": "Choose Base64 to Hex or Hex to Base64"
+        },
+        "input": {
+          "number": "02",
+          "title": "Input Content",
+          "description": "Paste or type the content to convert in the input box"
+        },
+        "convert": {
+          "number": "03",
+          "title": "Execute Conversion",
+          "description": "Click the convert button to start processing"
+        },
+        "result": {
+          "number": "04",
+          "title": "Get Result",
+          "description": "Copy the result or download the file"
+        }
+      }
+    },
+    "faq": {
+      "title": "FAQ",
+      "subtitle": "Frequently asked questions about Base64 and Hex conversion",
+      "items": {
+        "what": {
+          "question": "What are Base64 and Hex encoding?",
+          "answer": "Base64 is a 64-character based encoding method commonly used for data transmission. Hex (hexadecimal) is a 16-character based encoding method commonly used to represent binary data."
+        },
+        "why": {
+          "question": "Why do we need Base64 and Hex conversion?",
+          "answer": "Different application scenarios require different encoding formats. Base64 is suitable for text transmission, while Hex is suitable for debugging and analysis. Conversion tools help switch between different formats."
+        },
+        "safe": {
+          "question": "Is the conversion process safe?",
+          "answer": "Yes, all conversions are performed locally in your browser without uploading to servers, ensuring data security."
+        },
+        "limit": {
+          "question": "Are there file size limits?",
+          "answer": "There are no strict limits, but please pay attention to browser performance when processing large data."
+        }
+      }
+    }
+  }
+} 
