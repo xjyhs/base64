@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import LocaleToggle from "@/components/locale/toggle";
 import { FileImage } from "lucide-react";
+import ToolsMenu from "@/components/layout/ToolsMenu";
 
 export default function Header() {
   const t = useTranslations('metadata');
@@ -20,6 +21,11 @@ export default function Header() {
             {t('title')}
           </span>
         </Link>
+
+        {/* 中间：工具菜单 */}
+        <div className="flex-1 flex justify-center">
+          <ToolsMenu />
+        </div>
 
         {/* 右侧：语言切换 */}
         <div className="flex items-center">

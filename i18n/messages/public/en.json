@@ -4,6 +4,9 @@
     "description": "A clean and powerful Next.js boilerplate.",
     "keywords": "nextjs, boilerplate, template, react"
   },
+  "common": {
+    "toolbox": "Toolbox"
+  },
   "HomePage": {
     "title": "Next.js Boilerplate",
     "description": "This is a clean starting point for your next project."

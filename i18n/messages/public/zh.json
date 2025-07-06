@@ -4,6 +4,9 @@
     "description": "一个纯净且强大的 Next.js 样板项目。",
     "keywords": "nextjs, 样板, 模板, react"
   },
+  "common": {
+    "toolbox": "工具箱"
+  },
   "HomePage": {
     "title": "Next.js 样板项目",
     "description": "这是一个纯净的项目起点。"

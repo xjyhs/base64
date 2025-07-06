@@ -61,18 +61,28 @@ export default getRequestConfig(async ({ requestLocale }) => {
     };
   } catch (e) {
     console.error(`加载翻译文件失败: ${e}`);
-    // 降级到原始的单一翻译文件
+    // 降级到public目录下的翻译文件
     try {
-      const fallbackMessages = (await import(`./messages/${locale.toLowerCase()}.json`)).default;
+      const fallbackMessages = (await import(`./messages/public/${locale.toLowerCase()}.json`)).default;
       return {
         locale: locale,
         messages: fallbackMessages,
       };
     } catch (fallbackError) {
-      return {
-        locale: "en",
-        messages: (await import(`./messages/en.json`)).default,
-      };
+      // 最后降级到英文public翻译
+      try {
+        const enMessages = (await import(`./messages/public/en.json`)).default;
+        return {
+          locale: "en",
+          messages: enMessages,
+        };
+      } catch (finalError) {
+        console.error("所有翻译文件加载失败:", finalError);
+        return {
+          locale: "en",
+          messages: {},
+        };
+      }
     }
   }
 });
