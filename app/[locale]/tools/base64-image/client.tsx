@@ -2,34 +2,43 @@
 
 import { useRef, useMemo } from 'react';
 import { useTranslations, useMessages } from 'next-intl';
-import Base64ImageConverter from '@/components/tools/Base64ImageConverter';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { 
-  Zap, 
+  Image, 
+  Upload, 
+  Download, 
   Shield, 
-  Smartphone, 
+  Zap, 
   Globe, 
+  Smartphone, 
   Code, 
-  Database, 
-  Mail, 
-  FileImage,
-  ArrowRight,
+  Database,
+  Mail,
+  Settings,
+  FileText,
+  Monitor,
+  Server,
+  Cloud,
+  Layers,
+  BarChart3,
+  MessageSquare,
   CheckCircle,
-  Sparkles,
-  Download
+  ArrowRight,
+  Sparkles
 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import Base64ImageConverter from '@/components/tools/Base64ImageConverter';
 
 export default function Base64ImagePageClient() {
-  const toolSectionRef = useRef<HTMLElement>(null);
-  const t = useTranslations('tools.base64-image.page');
+  const t = useTranslations('tools.base64-image');
   const messages = useMessages();
+  const toolSectionRef = useRef<HTMLElement>(null);
 
   const scrollToTool = () => {
     if (toolSectionRef.current) {
       const elementTop = toolSectionRef.current.offsetTop;
-      const offset = 0; // 增加偏移量到150px，确保滚动到Hero Section下面
+      const offset = 0;
       
       window.scrollTo({
         top: elementTop - offset,
@@ -38,72 +47,65 @@ export default function Base64ImagePageClient() {
     }
   };
 
-  const features = [
-    {
-      icon: Zap,
-      title: t('features.fast.title'),
-      description: t('features.fast.description')
-    },
+  const features = useMemo(() => [
     {
       icon: Shield,
-      title: t('features.secure.title'),
-      description: t('features.secure.description')
+      title: t('page.features.items.security.title'),
+      description: t('page.features.items.security.description')
     },
     {
-      icon: Smartphone,
-      title: t('features.compatible.title'),
-      description: t('features.compatible.description')
+      icon: Zap,
+      title: t('page.features.items.speed.title'),
+      description: t('page.features.items.speed.description')
     },
     {
-      icon: Download,
-      title: t('features.noInstall.title'),
-      description: t('features.noInstall.description')
+      icon: Image,
+      title: t('page.features.items.format.title'),
+      description: t('page.features.items.format.description')
+    },
+    {
+      icon: Monitor,
+      title: t('page.features.items.preview.title'),
+      description: t('page.features.items.preview.description')
+    },
+    {
+      icon: Layers,
+      title: t('page.features.items.batch.title'),
+      description: t('page.features.items.batch.description')
+    },
+    {
+      icon: Globe,
+      title: t('page.features.items.crossPlatform.title'),
+      description: t('page.features.items.crossPlatform.description')
     }
-  ];
+  ], [t]);
 
   const useCases = useMemo(() => {
     try {
-      const toolMessages = (messages as any)?.tools?.['base64-image']?.page?.useCases;
+      const toolMessages = (messages as any)?.tools?.['base64-image']?.page?.useCases?.items;
       if (!toolMessages) return [];
-
-      return [
-        {
-          icon: Code,
-          title: t('useCases.webDev.title'),
-          description: t('useCases.webDev.description'),
-          examples: toolMessages.webDev?.examples || []
-        },
-        {
-          icon: Database,
-          title: t('useCases.dataStorage.title'),
-          description: t('useCases.dataStorage.description'),
-          examples: toolMessages.dataStorage?.examples || []
-        },
-        {
-          icon: Mail,
-          title: t('useCases.email.title'),
-          description: t('useCases.email.description'),
-          examples: toolMessages.email?.examples || []
-        },
-        {
-          icon: FileImage,
-          title: t('useCases.api.title'),
-          description: t('useCases.api.description'),
-          examples: toolMessages.api?.examples || []
-        }
-      ];
+      
+      return Object.entries(toolMessages).map(([key, value]: [string, any]) => ({
+        key,
+        icon: key === 'webEmbedding' ? Code : 
+              key === 'mobileOffline' ? Smartphone : 
+              key === 'apiIntegration' ? Server : 
+              key === 'emailMarketing' ? Mail : 
+              key === 'reportSystem' ? BarChart3 : 
+              MessageSquare,
+        title: value.title,
+        description: value.description
+      }));
     } catch (e) {
       return [];
     }
-  }, [messages, t]);
+  }, [messages]);
 
-  // 使用useMemo缓存steps数组，避免重复计算
   const steps = useMemo(() => {
     try {
       const toolMessages = (messages as any)?.tools?.['base64-image']?.page?.steps?.items;
       if (!toolMessages) return [];
       
-      // 将对象转换为数组以便遍历
       return Object.entries(toolMessages).map(([key, value]: [string, any]) => ({
         key,
         ...value
@@ -113,13 +115,11 @@ export default function Base64ImagePageClient() {
     }
   }, [messages]);
 
-  // 使用useMemo缓存faqs数组，避免重复计算
   const faqs = useMemo(() => {
     try {
       const toolMessages = (messages as any)?.tools?.['base64-image']?.page?.faq?.items;
       if (!toolMessages) return [];
       
-      // 将对象转换为数组以便遍历
       return Object.entries(toolMessages).map(([key, value]: [string, any]) => ({
         key,
         ...value
@@ -130,25 +130,43 @@ export default function Base64ImagePageClient() {
   }, [messages]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
-      {/* Hero Section */}
-      <section className="text-center py-16 px-8 pt-24">
-        <Badge className="mb-6 bg-gradient-to-r from-blue-50 to-purple-50 text-blue-600 border-blue-200">
-          {t('hero.badge')}
-        </Badge>
-        <h1 className="text-4xl font-bold text-gray-900 mb-6 max-w-4xl mx-auto">
-          {t('hero.title')}
-        </h1>
-        <p className="text-xl text-gray-600 mb-4 max-w-2xl mx-auto leading-relaxed">
-          {t('hero.description')}
-        </p>
-        <p className="text-lg text-gray-500 max-w-xl mx-auto">
-          {t('hero.subtitle')}
-        </p>
-      </section>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="container mx-auto px-4 py-6">
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <div className="flex justify-center mb-6">
+            <div className="flex gap-2">
+              <Badge variant="secondary" className="bg-green-100 text-green-800 hover:bg-green-200">
+                <Shield className="w-3 h-3 mr-1" />
+                {t('badges.secure')}
+              </Badge>
+              <Badge variant="secondary" className="bg-blue-100 text-blue-800 hover:bg-blue-200">
+                <Zap className="w-3 h-3 mr-1" />
+                {t('badges.fast')}
+              </Badge>
+              <Badge variant="secondary" className="bg-purple-100 text-purple-800 hover:bg-purple-200">
+                <Globe className="w-3 h-3 mr-1" />
+                {t('badges.online')}
+              </Badge>
+              <Badge variant="secondary" className="bg-orange-100 text-orange-800 hover:bg-orange-200">
+                <Sparkles className="w-3 h-3 mr-1" />
+                {t('badges.free')}
+              </Badge>
+            </div>
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl font-bold mb-8 pb-2 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent leading-tight">
+            {t('title')}
+          </h1>
+          
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            {t('description')}
+          </p>
+        </div>
+      </div>
 
-      {/* Core Tool Section */}
-      <section ref={toolSectionRef} className="py-16 bg-white relative">
+      {/* Tool Section */}
+      <section ref={toolSectionRef} className="py-12 bg-gradient-to-br from-blue-50 via-white to-purple-50 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-gray-50/30 to-transparent" />
         <div className="relative container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
@@ -161,7 +179,7 @@ export default function Base64ImagePageClient() {
                     <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                   </div>
                   <div className="flex-1 text-center">
-                    <span className="text-sm font-medium text-gray-600">{t('tool.title')}</span>
+                    <span className="text-sm font-medium text-gray-600">{t('page.tool.title')}</span>
                   </div>
                 </div>
               </div>
@@ -173,140 +191,153 @@ export default function Base64ImagePageClient() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('features.title')}</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t('features.subtitle')}
+      <div className="container mx-auto px-4 py-6">
+        {/* Features Section */}
+        <section className="py-12">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              {t('page.features.title')}
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              {t('page.features.subtitle')}
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white">
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <feature.icon className="w-8 h-8 text-blue-600" />
+              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-4">
+                    <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl">
+                      <feature.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white ml-4">
+                      {feature.title}
+                    </h3>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {feature.description}
+                  </p>
                 </CardContent>
               </Card>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Use Cases Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('useCases.title')}</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t('useCases.subtitle')}
+        {/* Use Cases Section */}
+        <section className="py-12">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              {t('page.useCases.title')}
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              {t('page.useCases.subtitle')}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {useCases.map((useCase, index) => (
+              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-4">
+                    <div className="bg-gradient-to-r from-green-500 to-blue-600 p-3 rounded-xl">
+                      <useCase.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white ml-4">
+                      {useCase.title}
+                    </h3>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {useCase.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section className="py-12">
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl p-8 md:p-12">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                {t('page.steps.title')}
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300">
+                {t('page.steps.subtitle')}
+              </p>
+            </div>
+            <div className="max-w-5xl mx-auto">
+              <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+                {steps.map((step, index) => (
+                  <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <CardContent className="p-6 text-center">
+                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xl font-bold w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                        {step.number}
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                        {step.title}
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
+                        {step.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-12">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              {t('page.faq.title')}
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              {t('page.faq.subtitle')}
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
-            {useCases.map((useCase, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <useCase.icon className="w-6 h-6 text-purple-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-gray-900 mb-3">{useCase.title}</h3>
-                      <p className="text-gray-600 mb-4 leading-relaxed">{useCase.description}</p>
-                      <div className="flex flex-wrap gap-2 mb-2">
-                        {(Array.isArray(useCase.examples) ? useCase.examples : []).map((example, idx) => (
-                          <span
-                            key={idx}
-                            className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full"
-                          >
-                            {example}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-50 to-purple-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('steps.title')}</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t('steps.subtitle')}
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-white font-bold text-lg">{step.number}</span>
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{step.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('faq.title')}</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t('faq.subtitle')}
-            </p>
-          </div>
-          <div className="max-w-4xl mx-auto space-y-6">
             {faqs.map((faq, index) => (
-              <Card key={index} className="border-0 shadow-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-1" />
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">{faq.question}</h3>
-                      <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-start mb-4">
+                    <div className="bg-gradient-to-r from-green-500 to-blue-600 p-2 rounded-lg mr-4 mt-1">
+                      <CheckCircle className="h-5 w-5 text-white" />
                     </div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      {faq.question}
+                    </h3>
                   </div>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed ml-12">
+                    {faq.answer}
+                  </p>
                 </CardContent>
               </Card>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-50 to-purple-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {t('cta.title')}
+        {/* CTA Section */}
+        <section className="py-12 text-center">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 md:p-12 text-white">
+            <h2 className="text-3xl font-bold mb-4">
+              {t('page.footer.title')}
             </h2>
-            <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-              {t('cta.subtitle')}
+            <p className="text-xl mb-8 opacity-90">
+              {t('page.footer.description')}
             </p>
-            <Button
+            <Button 
               onClick={scrollToTool}
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-medium"
+              size="lg" 
+              className="bg-white text-blue-600 hover:bg-gray-100 font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
             >
-              {t('cta.button')}
+              {t('page.footer.title')}
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 } 

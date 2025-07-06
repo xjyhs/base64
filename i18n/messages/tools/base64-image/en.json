@@ -1,56 +1,65 @@
 {
   "meta": {
-    "title": "Base64 Image Converter",
-    "description": "Convert images to Base64 strings and vice-versa. A fast, client-side, privacy-focused tool.",
-    "keywords": "base64, image, converter, encoder, decoder, free tool"
+    "title": "Base64 Image Converter - Online Image Base64 Encode Decode Tool",
+    "description": "Free online Base64 image converter, supports image to Base64 encoding and Base64 decoding to image. Secure, fast, no upload required, protect your privacy.",
+    "keywords": "base64 image, image to base64, base64 to image, image encoder, image decoder, online image tool, base64 encoder, image converter"
+  },
+  "title": "Base64 Image Converter",
+  "description": "Professional online image and Base64 encoding conversion tool, supports bidirectional conversion between image files and Base64 encoding, runs entirely in your browser, protecting your image privacy and security.",
+  "badges": {
+    "secure": "Secure & Reliable",
+    "fast": "High Speed",
+    "online": "Online Use",
+    "free": "Completely Free"
   },
   "tabs": {
     "decode": "Base64 to Image",
     "encode": "Image to Base64"
   },
-  "actions": {
-    "paste": "Paste Base64 string here...",
-    "decode": "Convert to Image",
-    "clear": "Clear",
-    "copy": "Copy",
-    "downloadImage": "Download Image",
-    "downloadTxt": "Download as TXT"
-  },
   "labels": {
-    "dropzone": "Drag & drop image here, or click to select",
+    "decodeLabel": "Decode Base64 to Image",
+    "encodeLabel": "Encode Image to Base64",
     "resultTitle": "Conversion Result",
     "outputTitle": "Base64 Output",
+    "dropzone": "Drag image files here or click to select",
+    "supportedFormats": "Supports JPG, PNG, GIF, WebP and more, max 100MB",
     "loading": "Processing...",
-    "imageInfoTitle": "Image Information",
-    "processingText": "Processing large text...",
-    "decodeLabel": "Paste Base64 text",
-    "encodeLabel": "Upload image file",
-    "supportedFormats": "Supports JPG, PNG, GIF, WebP and other formats",
+    "processingText": "Processing text...",
     "toolTitle": "Base64 Image Converter"
   },
+  "actions": {
+    "paste": "Paste Base64 encoding here...",
+    "decode": "Convert to Image",
+    "encode": "Convert to Base64",
+    "selectFile": "Select Image File",
+    "copy": "Copy Base64",
+    "downloadImage": "Download Image",
+    "downloadTxt": "Download Text",
+    "viewImage": "Preview Image",
+    "clear": "Clear"
+  },
   "textStats": {
-    "length": "Length",
-    "size": "Est. Size",
-    "characters": "chars",
-    "largeText": "Large Text",
-    "optimizedHint": "Note: Large text handling is optimized."
+    "length": "Character Length",
+    "size": "Estimated Size",
+    "characters": "characters",
+    "largeText": "Large File",
+    "optimizedHint": "Optimized Processing"
   },
   "messages": {
-    "errorPaste": "Please paste a Base64 string.",
-    "errorInvalid": "Please enter a valid Base64 string for an image.",
-    "success": "Conversion successful!",
-    "errorFail": "Conversion failed: ",
-    "errorSelect": "Please select an image file.",
-    "errorSize": "File size cannot exceed 100MB.",
-    "errorUnknown": "Conversion failed due to an unknown error.",
-    "imageDownloaded": "Image downloaded successfully.",
-    "copied": "Base64 string copied to clipboard.",
-    "copyFail": "Copy failed. Please copy manually.",
-    "textDownloaded": "Base64 text file downloaded.",
-    "cleared": "Cleared all inputs and results.",
     "processing": "Processing...",
-    "textProcessed": "Text processed successfully.",
-    "textPasted": "Text pasted successfully."
+    "textPasted": "Text pasted",
+    "success": "Conversion successful!",
+    "copied": "Copied to clipboard",
+    "copyFail": "Copy failed",
+    "imageDownloaded": "Image downloaded",
+    "textDownloaded": "Text downloaded",
+    "cleared": "All content cleared",
+    "errorPaste": "Please paste valid Base64 encoding",
+    "errorSelect": "Please select an image file",
+    "errorSize": "File size cannot exceed 100MB",
+    "errorInvalid": "Invalid Base64 encoding",
+    "errorFail": "Conversion failed: ",
+    "errorUnknown": "Unknown error"
   },
   "imageInfo": {
     "name": "Name",
@@ -58,120 +67,216 @@
     "type": "Type"
   },
   "page": {
-    "hero": {
-      "badge": "High Performance Image Converter",
-      "title": "Base64 Image Converter",
-      "description": "Simple, fast, and secure image to Base64 conversion tool",
-      "subtitle": "Supports large files, privacy protection, no installation required"
-    },
     "tool": {
-      "title": "Base64 Image Converter",
-      "description": "Start converting your image files"
+      "title": "Base64 Image Converter Tool"
     },
     "features": {
-      "title": "Why Choose Us?",
-      "subtitle": "We focus on providing the best user experience and highest processing performance",
-      "fast": {
-        "title": "Lightning Fast",
-        "description": "High-performance processing based on Web Workers, smooth even with large files"
-      },
-      "secure": {
-        "title": "Privacy Secure",
-        "description": "All processing is done locally, files are never uploaded to servers"
-      },
-      "compatible": {
-        "title": "Cross-Platform Compatible",
-        "description": "Supports all modern browsers, perfect for desktop and mobile"
-      },
-      "noInstall": {
-        "title": "No Installation Required",
-        "description": "Web-based technology, ready to use, no software download needed"
-      }
-    },
-    "useCases": {
-      "title": "Use Cases",
-      "subtitle": "Widely used in web development, data processing, email marketing and more",
-      "webDev": {
-        "title": "Web Development",
-        "description": "Embed images in CSS or HTML to reduce HTTP requests and improve page load speed",
-        "examples": ["Inline icons", "CSS backgrounds", "Data URIs"]
-      },
-      "dataStorage": {
-        "title": "Data Storage",
-        "description": "Store images in Base64 format in databases for easy data migration and backup",
-        "examples": ["User avatars", "Product images", "Document attachments"]
-      },
-      "email": {
-        "title": "Email Embedding",
-        "description": "Embed images in HTML emails to ensure proper display in any environment",
-        "examples": ["Email templates", "Marketing emails", "Notification emails"]
-      },
-      "api": {
-        "title": "API Transfer",
-        "description": "Transfer image data through JSON APIs, simplifying frontend-backend interaction",
-        "examples": ["Mobile apps", "Microservices", "Real-time communication"]
+      "title": "Core Features",
+      "subtitle": "Why choose our Base64 image converter?",
+      "items": {
+        "security": {
+          "title": "Privacy & Security",
+          "description": "All conversion operations are completed in your browser, files are not uploaded to servers, ensuring your images are completely private."
+        },
+        "speed": {
+          "title": "High-Speed Processing",
+          "description": "Uses advanced Web Worker technology for multi-threaded processing, enabling fast conversion even for large files."
+        },
+        "format": {
+          "title": "Format Support",
+          "description": "Perfect support for JPEG, PNG, GIF, WebP, BMP, SVG and other mainstream image formats while maintaining image quality."
+        },
+        "preview": {
+          "title": "Online Preview",
+          "description": "Converted images can be previewed directly in the browser without downloading to view content."
+        },
+        "batch": {
+          "title": "Batch Processing",
+          "description": "Supports batch conversion of multiple files, improving work efficiency and saving your valuable time."
+        },
+        "crossPlatform": {
+          "title": "Cross-Platform Compatibility",
+          "description": "Supports Windows, Mac, Linux and all mainstream operating systems and browsers, use anytime, anywhere."
+        }
       }
     },
     "steps": {
       "title": "How to Use",
-      "subtitle": "Simple four steps to easily convert between images and Base64",
-      "list": [
-        {
+      "subtitle": "Complete image and Base64 conversion in four simple steps",
+      "items": {
+        "select": {
           "number": "01",
-          "title": "Choose Direction",
-          "description": "Select 'Image to Base64' or 'Base64 to Image' based on your needs"
+          "title": "Select Function",
+          "description": "Choose image to Base64 or Base64 to image conversion based on your needs"
         },
-        {
+        "upload": {
           "number": "02",
-          "title": "Upload or Paste",
-          "description": "Drag and drop image files or paste Base64 text directly"
+          "title": "Upload File",
+          "description": "Drag image files or paste Base64 encoding into the input box"
         },
-        {
+        "convert": {
           "number": "03",
-          "title": "One-Click Convert",
-          "description": "Click the convert button, system automatically processes and shows results"
+          "title": "Start Conversion",
+          "description": "Click the convert button and the system will automatically process your file"
         },
-        {
+        "download": {
           "number": "04",
           "title": "Get Results",
-          "description": "Copy Base64 text or download the converted image"
+          "description": "Download the converted file or copy the Base64 encoding"
         }
-      ]
+      }
+    },
+    "advantages": {
+      "title": "Application Advantages",
+      "subtitle": "Unique advantages of Base64 image converter",
+      "items": {
+        "webDevelopment": {
+          "title": "Web Development Essential",
+          "description": "In web development, converting images to Base64 encoding allows direct embedding in HTML or CSS, reducing HTTP requests and improving page loading speed."
+        },
+        "dataTransmission": {
+          "title": "Data Transmission Optimization",
+          "description": "Base64 encoded images can be safely transmitted through JSON, XML and other text protocols, avoiding compatibility issues with binary data transmission."
+        },
+        "emailEmbedding": {
+          "title": "Email Embedding",
+          "description": "Converting images to Base64 allows direct embedding in emails, ensuring images display correctly in different email clients."
+        },
+        "apiIntegration": {
+          "title": "API Integration",
+          "description": "Many API interfaces require file data transmission in Base64 format, our tool makes this process simple and efficient."
+        },
+        "databaseStorage": {
+          "title": "Database Storage",
+          "description": "Base64 encoded images can be directly stored in database text fields, simplifying database design and file management."
+        },
+        "crossPlatform": {
+          "title": "Cross-Platform Compatibility",
+          "description": "Base64 is a standard encoding method, ensuring perfect compatibility across different platforms and systems."
+        }
+      }
+    },
+    "applications": {
+      "title": "Application Scenarios",
+      "subtitle": "Real-world application scenarios for Base64 image converter",
+      "items": {
+        "webDev": {
+          "title": "Frontend Development",
+          "description": "Embed image resources in React, Vue, Angular and other frontend frameworks, implement online image preview and download functionality."
+        },
+        "mobileApp": {
+          "title": "Mobile Applications",
+          "description": "Integrate image functionality in iOS and Android apps, use Base64 encoding for local image storage and transmission."
+        },
+        "apiService": {
+          "title": "API Services",
+          "description": "Provide image upload and download functionality for RESTful APIs, use Base64 encoding to ensure secure data transmission."
+        },
+        "emailSystem": {
+          "title": "Email Systems",
+          "description": "Embed image attachments in email marketing and automated email systems, improving email delivery rates and user experience."
+        },
+        "cmsSystem": {
+          "title": "Content Management",
+          "description": "Implement encoded storage and quick retrieval of images in CMS systems, improving system performance."
+        },
+        "documentProcessing": {
+          "title": "Document Processing",
+          "description": "Implement encoded storage and quick retrieval of images in document management systems, improving system performance."
+        }
+      }
+    },
+    "useCases": {
+      "title": "Use Cases",
+      "subtitle": "Real use scenarios and case studies",
+      "items": {
+        "webEmbedding": {
+          "title": "Web Image Embedding",
+          "description": "E-commerce websites need to embed images in product pages, using Base64 encoding can reduce server requests and improve page loading speed."
+        },
+        "mobileOffline": {
+          "title": "Mobile Offline",
+          "description": "News apps need to support offline reading of image content, converting images to Base64 for storage in local databases achieves perfect offline experience."
+        },
+        "apiIntegration": {
+          "title": "Third-party API Integration",
+          "description": "CRM systems need to integrate with third-party document services, transmitting image attachments through Base64 encoding ensures secure data transmission."
+        },
+        "emailMarketing": {
+          "title": "Email Marketing",
+          "description": "Marketing platforms need to embed images in emails, using Base64 encoding ensures emails display correctly in different clients."
+        },
+        "reportSystem": {
+          "title": "Enterprise Report System",
+          "description": "Enterprise ERP systems need to generate PDF reports with charts, using Base64 encoding for online report preview and permission control."
+        },
+        "socialMedia": {
+          "title": "Social Media",
+          "description": "Social platforms need to quickly process user-uploaded images, using Base64 encoding can simplify image processing and storage workflows."
+        }
+      }
     },
     "faq": {
       "title": "Frequently Asked Questions",
-      "subtitle": "Answers to common questions during usage",
-      "list": [
-        {
+      "subtitle": "Common questions about Base64 image conversion",
+      "items": {
+        "whatIsBase64": {
           "question": "What is Base64 encoding?",
-          "answer": "Base64 is an encoding method that converts binary data to text, commonly used to transmit binary data like images in text protocols."
+          "answer": "Base64 is an encoding method that uses 64 printable characters to represent binary data. It's commonly used to transmit binary data like images in text protocols."
         },
-        {
-          "question": "Will the file size change after conversion?",
-          "answer": "Base64 encoding increases file size by about 33%, but allows direct embedding in HTML, CSS, or JSON."
+        "whyUseBase64": {
+          "question": "Why convert images to Base64?",
+          "answer": "Base64 encoded images can be directly embedded in HTML, CSS, JSON and other text formats, convenient for web applications while avoiding compatibility issues with binary data transmission."
         },
-        {
-          "question": "Which image formats are supported?",
-          "answer": "Supports all common image formats including JPEG, PNG, GIF, WebP, BMP, SVG, etc."
-        },
-        {
+        "fileSizeLimit": {
           "question": "Is there a file size limit?",
-          "answer": "To ensure good user experience, we recommend single files not exceed 100MB."
+          "answer": "Currently supports image files up to 100MB. For larger files, we recommend compressing images first or splitting into multiple smaller files."
         },
-        {
-          "question": "How is data security ensured?",
-          "answer": "All conversion operations are completed locally in your browser, files are never uploaded to our servers, completely protecting your privacy."
+        "securityConcerns": {
+          "question": "Is the conversion process secure?",
+          "answer": "Yes, all conversion operations are completed in your browser, files are not uploaded to servers, ensuring your images are completely private and secure."
         },
-        {
-          "question": "Can I convert files in batch?",
-          "answer": "Current version supports single file conversion, batch conversion feature is under development, stay tuned."
+        "browserCompatibility": {
+          "question": "Which browsers are supported?",
+          "answer": "Supports all modern browsers including Chrome, Firefox, Safari, Edge, etc. We recommend using the latest browser versions for the best experience."
+        },
+        "base64Size": {
+          "question": "Does Base64 encoding increase file size?",
+          "answer": "Yes, Base64 encoding typically increases file size by about 33%. This is normal for the encoding process, and the original size is restored after decoding."
+        },
+        "qualityLoss": {
+          "question": "Is there quality loss during conversion?",
+          "answer": "No. Base64 is lossless encoding, the conversion process doesn't change image content or quality, decoded files are identical to originals."
+        },
+        "batchProcessing": {
+          "question": "Does it support batch processing?",
+          "answer": "Currently supports single file processing. For batch needs, you can use this tool multiple times or consider using our API service."
+        },
+        "supportedFormats": {
+          "question": "Which image formats are supported?",
+          "answer": "Supports all mainstream image formats including JPEG, PNG, GIF, WebP, BMP, SVG, TIFF, etc."
+        },
+        "howToUse": {
+          "question": "How to use the converted Base64 encoding?",
+          "answer": "You can directly embed Base64 encoding in HTML img tags, CSS background-image properties, or transmit in JSON data."
         }
-      ]
+      }
     },
-    "cta": {
-      "title": "Get Started",
-      "subtitle": "Experience fast, secure Base64 image conversion service now",
-      "button": "Use for Free"
+    "technical": {
+      "title": "Technical Details",
+      "description": "Our Base64 image converter uses advanced web technologies to ensure efficient and secure file processing. All operations are completed on the client side, using Web Worker technology for multi-threaded processing, ensuring large files don't block the browser interface.",
+      "security": {
+        "title": "Security Guarantee",
+        "description": "Files are not uploaded to servers, all processing is completed locally, ensuring your image privacy and security."
+      },
+      "performance": {
+        "title": "Performance Optimization",
+        "description": "Uses Web Worker multi-threading technology for efficient file processing without affecting normal browser usage."
+      }
+    },
+    "footer": {
+      "title": "Get Started Now",
+      "description": "Experience our Base64 image converter now and enjoy fast, secure, and convenient file conversion services. No registration required, completely free!"
     }
   }
 } 
