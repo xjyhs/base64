@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Base64 Hex Converter",
-    "description": "Online Base64 to Hex and Hex to Base64 converter tool. Support Base64 encoding to Hex decoding and Hex encoding to Base64 decoding.",
+    "title": "Base64 Hex Converter - Hex to Base64 and Base64 to Hex Online Tool",
+    "description": "Professional online Base64 and Hex converter tool. Support encoding and decoding with advanced formatting options for developers.",
     "keywords": "base64, hex, hexadecimal, encoding, decoding, converter, online tool"
   },
   "tabs": {
@@ -24,8 +24,8 @@
     "inputLabel": "Input",
     "outputTitle": "Output",
     "resultTitle": "Result",
-    "base64InputPlaceholder": "Enter Base64 encoded content...",
-    "hexInputPlaceholder": "Enter hexadecimal content (spaces and separators allowed)...",
+    "base64InputPlaceholder": "Enter Base64 encoded content for base64 to hex conversion...",
+    "hexInputPlaceholder": "Enter hexadecimal content for hex to base64 conversion (spaces and separators allowed)...",
     "loading": "Processing..."
   },
   "textStats": {
@@ -36,14 +36,14 @@
     "lines": "Lines"
   },
   "messages": {
-    "errorPaste": "Please enter Base64 content",
+    "errorPaste": "Please enter Base64 content for conversion",
     "errorInvalidBase64": "Invalid Base64 format",
     "errorInvalidHex": "Invalid hexadecimal format",
     "warningInvalidBase64": "Warning: Base64 format may be incorrect, will attempt conversion",
     "warningInvalidHex": "Warning: Hexadecimal format may be incorrect, will attempt conversion",
     "errorFail": "Conversion failed: ",
     "errorUnknown": "Unknown error",
-    "success": "Conversion successful!",
+    "success": "Hex to base64 or base64 to hex conversion successful!",
     "copied": "Copied to clipboard",
     "copyFail": "Copy failed",
     "cleared": "All content cleared",
@@ -58,21 +58,21 @@
   },
   "page": {
     "hero": {
-      "badge": "Encoding Conversion",
+      "badge": "Professional Data Conversion Tool",
       "title": "Base64 Hex Converter",
-      "description": "Online Base64 and Hexadecimal mutual conversion tool",
-      "subtitle": "Support Base64 encoding to Hex decoding and Hex encoding to Base64 decoding"
+      "description": "Professional converter tool with advanced formatting options",
+      "subtitle": "Essential tool for developers working with data encoding and decoding"
     },
     "tool": {
       "title": "Base64 Hex Converter Tool"
     },
     "features": {
-      "title": "Features",
-      "subtitle": "Powerful Base64 and Hex conversion capabilities",
+      "title": "Key Features",
+      "subtitle": "Advanced conversion capabilities",
       "items": {
         "bidirectional": {
           "title": "Bidirectional Conversion",
-          "description": "Support both Base64 to Hex and Hex to Base64 conversion"
+          "description": "Support both hex to base64 encoding and base64 to hex decoding with high accuracy"
         },
         "format": {
           "title": "Format Support",
@@ -98,7 +98,7 @@
     },
     "useCases": {
       "title": "Use Cases",
-      "subtitle": "Common applications of Base64 and Hex conversion",
+      "subtitle": "Common applications of data conversion",
       "items": {
         "data": {
           "title": "Data Encoding",
@@ -110,7 +110,7 @@
         },
         "debug": {
           "title": "Debug Analysis",
-          "description": "Analyze and debug binary data formats"
+          "description": "Analyze and debug binary data formats using hex to base64 and base64 to hex tools"
         },
         "protocol": {
           "title": "Protocol Processing",
@@ -125,12 +125,12 @@
         "select": {
           "number": "01",
           "title": "Select Direction",
-          "description": "Choose Base64 to Hex or Hex to Base64"
+          "description": "Choose hex to base64 encoding or base64 to hex decoding mode"
         },
         "input": {
           "number": "02",
           "title": "Input Content",
-          "description": "Paste or type the content to convert in the input box"
+          "description": "Paste or type the content for conversion in the input box"
         },
         "convert": {
           "number": "03",
@@ -146,23 +146,23 @@
     },
     "faq": {
       "title": "FAQ",
-      "subtitle": "Frequently asked questions about Base64 and Hex conversion",
+      "subtitle": "Frequently asked questions about data conversion",
       "items": {
         "what": {
           "question": "What are Base64 and Hex encoding?",
-          "answer": "Base64 is a 64-character based encoding method commonly used for data transmission. Hex (hexadecimal) is a 16-character based encoding method commonly used to represent binary data."
+          "answer": "Base64 is a 64-character based encoding method commonly used for data transmission. Hex (hexadecimal) is a 16-character based encoding method commonly used to represent binary data. Our tool supports both hex to base64 and base64 to hex conversion."
         },
         "why": {
-          "question": "Why do we need Base64 and Hex conversion?",
-          "answer": "Different application scenarios require different encoding formats. Base64 is suitable for text transmission, while Hex is suitable for debugging and analysis. Conversion tools help switch between different formats."
+          "question": "Why do we need format conversion?",
+          "answer": "Different application scenarios require different encoding formats. Base64 is suitable for text transmission, while Hex is suitable for debugging and analysis. Format conversion tools help switch between different formats."
         },
         "safe": {
           "question": "Is the conversion process safe?",
-          "answer": "Yes, all conversions are performed locally in your browser without uploading to servers, ensuring data security."
+          "answer": "Yes, all hex to base64 and base64 to hex conversions are performed locally in your browser without uploading to servers, ensuring data security."
         },
         "limit": {
           "question": "Are there file size limits?",
-          "answer": "There are no strict limits, but please pay attention to browser performance when processing large data."
+          "answer": "There are no strict limits for operations, but please pay attention to browser performance when processing large data."
         }
       }
     }

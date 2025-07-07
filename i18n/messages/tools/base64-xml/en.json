@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Base64 XML Converter",
-    "description": "Convert XML data and Base64 strings bidirectionally. Online tool with XML formatting, syntax validation, and beautification support.",
+    "title": "Base64 XML Converter - XML to Base64 and Base64 to XML Online Tool",
+    "description": "Professional XML and Base64 converter tool. Support encoding and decoding with XML formatting, syntax validation, and beautification support.",
     "keywords": "base64, xml, converter, encode, decode, format, online tool"
   },
   "tabs": {
@@ -25,8 +25,8 @@
     "outputTitle": "Base64 Output",
     "resultTitle": "XML Result",
     "loading": "Processing...",
-    "xmlInputPlaceholder": "Enter XML content here...",
-    "base64InputPlaceholder": "Paste Base64 string here...",
+    "xmlInputPlaceholder": "Enter XML content for xml to base64 conversion...",
+    "base64InputPlaceholder": "Paste Base64 string for base64 to xml conversion...",
     "toolTitle": "Base64 XML Converter Tool",
     "formatOptions": "Format Options",
     "indentSize": "Indent Size"
@@ -41,13 +41,13 @@
     "attributes": "Attributes"
   },
   "messages": {
-    "errorPaste": "Please enter Base64 string",
+    "errorPaste": "Please enter Base64 string for conversion",
     "errorInvalidBase64": "Invalid Base64 format",
     "errorInvalidXml": "Invalid XML format",
     "errorParseXml": "XML parsing failed: ",
     "warningInvalidBase64": "Warning: Base64 format may be incorrect, will attempt conversion",
     "warningInvalidXml": "Warning: XML format may be incorrect, will use original text for conversion",
-    "success": "Conversion successful!",
+    "success": "XML to base64 or base64 to xml conversion successful!",
     "errorFail": "Conversion failed: ",
     "errorUnknown": "Unknown error",
     "copied": "Copied to clipboard",
@@ -69,8 +69,8 @@
   "page": {
     "hero": {
       "badge": "Professional XML Processing Tool",
-      "title": "Base64 XML Converter",
-      "description": "Professional XML and Base64 conversion tool with formatting, validation, and beautification",
+      "title": "Base64 xml Converter",
+      "description": "Professional converter tool with formatting, validation, and beautification",
       "subtitle": "Essential tool for configuration management, data exchange, and API development"
     },
     "tool": {
@@ -78,11 +78,11 @@
     },
     "features": {
       "title": "Key Features",
-      "subtitle": "XML processing tool designed for developers",
+      "subtitle": "Advanced XML processing capabilities",
       "items": {
         "format": {
           "title": "Smart Formatting",
-          "description": "Automatically format XML with customizable indentation for better code readability"
+          "description": "Automatically format XML with customizable indentation for better readability"
         },
         "validate": {
           "title": "Syntax Validation",
@@ -94,62 +94,62 @@
         },
         "secure": {
           "title": "Privacy Security",
-          "description": "Local processing, no data uploaded to servers, protecting privacy"
+          "description": "Local processing, no data uploaded to servers"
         },
         "bidirectional": {
           "title": "Bidirectional Conversion",
-          "description": "Support both XML to Base64 and Base64 to XML conversion"
+          "description": "Support both xml to base64 encoding and base64 to xml decoding with high accuracy"
         },
         "stats": {
           "title": "Statistics",
-          "description": "Display detailed statistics like character count, element count, attribute count"
+          "description": "Display detailed statistics for conversion results"
         }
       }
     },
     "useCases": {
       "title": "Use Cases",
-      "subtitle": "Widely used in development, configuration, and data exchange scenarios",
+      "subtitle": "Widely used conversion scenarios",
       "items": {
         "config": {
           "title": "Configuration Management",
-          "description": "Encode XML configuration files for storage and transmission, avoiding special character conflicts",
+          "description": "Encode XML configuration files using xml to base64 for storage and transmission, avoiding special character conflicts",
           "examples": ["App Config", "System Settings", "Deployment Config"]
         },
         "api": {
           "title": "API Development",
-          "description": "Base64 encoding of XML data for transmission, simplifying API interface design",
+          "description": "Use encoding for XML data transmission, simplifying API interface design",
           "examples": ["Data Transfer", "SOAP Services", "Web Services"]
         },
         "storage": {
           "title": "Data Storage",
-          "description": "Secure storage of XML data, preventing injection attacks",
+          "description": "Secure XML data storage using encoding, preventing injection attacks",
           "examples": ["Database Storage", "File Storage", "Cache Data"]
         },
         "exchange": {
           "title": "Data Exchange",
-          "description": "Encoded transmission of XML data between different systems",
+          "description": "Exchange XML data between systems using base64 to xml encoding and decoding",
           "examples": ["System Integration", "Data Sync", "Message Passing"]
         }
       }
     },
     "steps": {
       "title": "Usage Steps",
-      "subtitle": "Complete XML and Base64 conversion in four simple steps",
+      "subtitle": "Complete conversion in simple steps",
       "items": {
         "select": {
           "number": "01",
           "title": "Select Conversion Direction",
-          "description": "Choose 'XML to Base64' or 'Base64 to XML'"
+          "description": "Choose xml to base64 encoding or base64 to xml decoding mode"
         },
         "input": {
           "number": "02",
           "title": "Input Data",
-          "description": "Enter XML data or paste Base64 string"
+          "description": "Enter XML data or paste Base64 string for conversion"
         },
         "convert": {
           "number": "03",
           "title": "Execute Conversion",
-          "description": "Click convert button, system processes data automatically"
+          "description": "Click convert button to process conversion automatically"
         },
         "result": {
           "number": "04",
@@ -160,19 +160,19 @@
     },
     "faq": {
       "title": "FAQ",
-      "subtitle": "Answers to common questions during usage",
+      "subtitle": "Frequently asked questions about data conversion",
       "items": {
         "q1": {
           "question": "What is Base64 encoding?",
-          "answer": "Base64 is an encoding method that converts binary data to ASCII characters, commonly used for transmitting binary data in text protocols."
+          "answer": "Base64 is an encoding method that converts binary data to ASCII characters, commonly used for xml to base64 transmission in text protocols."
         },
         "q2": {
           "question": "Why encode XML with Base64?",
-          "answer": "Base64 encoding can avoid special characters in XML from being escaped during transmission, and can simply obfuscate sensitive data."
+          "answer": "XML encoding can avoid special characters in XML from being escaped during transmission, and can simply obfuscate sensitive data."
         },
         "q3": {
           "question": "What's the maximum XML file size supported?",
-          "answer": "There's no theoretical size limit, but for optimal user experience, we recommend keeping individual XML files under 10MB."
+          "answer": "There's no theoretical size limit for xml to base64 and base64 to xml operations, but for optimal user experience, we recommend keeping individual XML files under 10MB."
         },
         "q4": {
           "question": "How to validate XML format?",
@@ -180,7 +180,7 @@
         },
         "q5": {
           "question": "How is data security ensured?",
-          "answer": "All conversion operations are performed locally in the browser, no data is uploaded to servers, completely protecting your privacy."
+          "answer": "All xml to base64 and base64 to xml conversion operations are performed locally in the browser, no data is uploaded to servers, completely protecting your privacy."
         }
       }
     }

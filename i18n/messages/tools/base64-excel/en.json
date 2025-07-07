@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Base64 Excel Converter",
-    "description": "Online Base64 to Excel and Excel to Base64 converter tool. Support Base64 encoding to Excel decoding and Excel file to Base64 encoding with online preview feature.",
+    "title": "Base64 Excel Converter - Excel to Base64 and Base64 to Excel Online Tool",
+    "description": "Professional Excel and Base64 converter tool. Support encoding and decoding with online spreadsheet file processing and preview support.",
     "keywords": "base64, excel, xlsx, xls, spreadsheet, encoding, decoding, converter, online tool, preview"
   },
   "tabs": {
@@ -22,11 +22,11 @@
   },
   "labels": {
     "inputLabel": "Input",
-    "outputTitle": "Output",
-    "resultTitle": "Result",
+    "outputTitle": "Base64 Output",
+    "resultTitle": "Excel File Result",
     "previewTitle": "Excel Preview",
-    "base64InputPlaceholder": "Enter Base64 encoded Excel file content...",
-    "dragDropText": "Drag and drop Excel file here, or click to select file",
+    "base64InputPlaceholder": "Enter Base64 encoded Excel file content for base64 to excel conversion...",
+    "dragDropText": "Drag and drop Excel file here for excel to base64 conversion, or click to select file",
     "supportedFormats": "Supports .xlsx, .xls formats",
     "loading": "Processing...",
     "fileName": "File Name",
@@ -43,13 +43,13 @@
     "sheets": "Sheets"
   },
   "messages": {
-    "errorPaste": "Please enter Base64 content",
+    "errorPaste": "Please enter Base64 content for conversion",
     "errorInvalidBase64": "Invalid Base64 format",
     "errorInvalidExcel": "Invalid Excel file format",
     "errorFail": "Conversion failed: ",
     "errorUnknown": "Unknown error",
     "errorFileType": "Unsupported file type, please select Excel file",
-    "success": "Conversion successful!",
+    "success": "Excel to base64 or base64 to excel conversion successful!",
     "copied": "Copied to clipboard",
     "copyFail": "Copy failed",
     "cleared": "All content cleared",
@@ -68,10 +68,10 @@
   },
   "page": {
     "hero": {
-      "badge": "File Conversion",
-      "title": "Base64 Excel Converter",
-      "description": "Online Base64 and Excel file mutual conversion tool",
-      "subtitle": "Support Base64 encoding to Excel decoding and Excel file to Base64 encoding with online preview feature",
+      "badge": "Professional Spreadsheet Processing Tool",
+      "title": "Base64 excel Converter",
+      "description": "Professional converter tool with file preview and validation support",
+      "subtitle": "Essential tool for data analysis, reporting, and file management",
       "badge1": "Bidirectional Conversion",
       "badge2": "Online Preview",
       "badge3": "Local Processing"
@@ -80,12 +80,12 @@
       "title": "Base64 Excel Converter Tool"
     },
     "features": {
-      "title": "Features",
-      "subtitle": "Powerful Base64 and Excel conversion capabilities",
+      "title": "Key Features",
+      "subtitle": "Advanced spreadsheet processing capabilities",
       "items": {
         "bidirectional": {
           "title": "Bidirectional Conversion",
-          "description": "Support both Base64 to Excel and Excel to Base64 conversion"
+          "description": "Support both excel to base64 encoding and base64 to excel decoding with high accuracy"
         },
         "preview": {
           "title": "Online Preview",
@@ -111,11 +111,11 @@
     },
     "useCases": {
       "title": "Use Cases",
-      "subtitle": "Common applications of Base64 and Excel conversion",
+      "subtitle": "Common applications of data conversion",
       "items": {
         "api": {
           "title": "API Data Transfer",
-          "description": "Transfer Excel file data through APIs"
+          "description": "Transfer Excel file data through APIs using encoding"
         },
         "storage": {
           "title": "Data Storage",
@@ -123,7 +123,7 @@
         },
         "email": {
           "title": "Email Attachments",
-          "description": "Embed Excel file content in emails"
+          "description": "Embed Excel file content in emails using excel to base64 encoding"
         },
         "backup": {
           "title": "Data Backup",
@@ -138,7 +138,7 @@
         "select": {
           "number": "01",
           "title": "Select Direction",
-          "description": "Choose Base64 to Excel or Excel to Base64"
+          "description": "Choose excel to base64 encoding or base64 to excel decoding mode"
         },
         "input": {
           "number": "02",
@@ -159,31 +159,31 @@
     },
     "faq": {
       "title": "FAQ",
-      "subtitle": "Frequently asked questions about Base64 and Excel conversion",
+      "subtitle": "Frequently asked questions about data conversion",
       "items": {
         "what": {
           "question": "What is Base64 encoded Excel file?",
-          "answer": "Base64 encoded Excel file is an Excel binary file converted to Base64 text format for easy transmission and storage in text environments."
+          "answer": "Base64 encoded Excel file is an Excel binary file converted to Base64 text format for easy transmission and storage in text environments using excel to base64 encoding."
         },
         "why": {
-          "question": "Why do we need Base64 and Excel conversion?",
+          "question": "Why do we need format conversion?",
           "answer": "In scenarios like API transmission, database storage, email sending, Excel files often need to be encoded to Base64 format for processing."
         },
         "formats": {
           "question": "Which Excel file formats are supported?",
-          "answer": "Supports mainstream Excel file formats like .xlsx, .xls, and complex Excel files with multiple worksheets."
+          "answer": "Supports mainstream Excel file formats like .xlsx, .xls, and complex Excel files with multiple worksheets for base64 to excel conversion."
         },
         "limit": {
           "question": "Are there file size limits?",
-          "answer": "No file size limits. All conversions are performed locally in your browser without uploading to servers. Processing speed depends on your device performance."
+          "answer": "No file size limits for excel to base64 and base64 to excel operations. All conversions are performed locally in your browser without uploading to servers. Processing speed depends on your device performance."
         },
         "safe": {
           "question": "Is the conversion process safe?",
-          "answer": "Yes, all conversions are performed locally in your browser without uploading to servers, ensuring data security."
+          "answer": "Yes, all excel to base64 and base64 to excel conversions are performed locally in your browser without uploading to servers, ensuring data security."
         },
         "preview": {
           "question": "What are the limitations of the preview feature?",
-          "answer": "The preview feature limits display to first 100 rows and first 20 columns to ensure page performance. Complete data can be viewed by downloading the file."
+          "answer": "The preview feature limits display to first 100 rows and first 20 columns to ensure page performance. Complete data can be viewed by downloading the file after conversion."
         }
       }
     }
