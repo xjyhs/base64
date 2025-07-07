@@ -1,15 +1,15 @@
 {
   "meta": {
-    "title": "Base64 PDF Converter - Online PDF to Base64 Encoding Tool",
-    "description": "Free online Base64 PDF converter tool that supports converting PDF files to Base64 encoding and decoding Base64 to PDF files. Secure, fast, no upload required, protecting your privacy.",
+    "title": "Base64 PDF Converter - PDF to Base64 Encoder Tool",
+    "description": "Free online Base64 PDF converter tool that supports pdf to base64 encoding and base64 to pdf decoding. Secure, fast, no upload required, protecting your privacy. Professional pdf to base64 tool with one-click base64 to pdf conversion.",
     "keywords": "base64 pdf, pdf to base64, base64 to pdf, pdf encoding, pdf decoding, online pdf tool, base64 encoder, pdf converter"
   },
   "title": "Base64 PDF Converter",
-  "description": "Professional online PDF and Base64 encoding converter tool that supports bidirectional conversion between PDF files and Base64 encoding, running entirely in your browser to protect your document privacy and security.",
+  "description": "Professional online PDF and Base64 encoding conversion tool, supports bidirectional conversion between PDF files and Base64 encoding, runs entirely in your browser, protecting your document privacy and security.",
   "badges": {
     "secure": "Secure & Reliable",
-    "fast": "High-Speed Processing",
-    "online": "Online Usage",
+    "fast": "High Speed",
+    "online": "Online Use",
     "free": "Completely Free"
   },
   "tabs": {
@@ -21,10 +21,11 @@
     "encodeLabel": "Encode PDF to Base64",
     "resultTitle": "Conversion Result",
     "outputTitle": "Base64 Output",
-    "dropzone": "Drag and drop PDF files here or click to select",
-    "supportedFormats": "Supports PDF format files, maximum 50MB",
+    "dropzone": "Drag PDF files here or click to select",
+    "supportedFormats": "Supports PDF files, max 100MB",
     "loading": "Processing...",
-    "processingText": "Processing text..."
+    "processingText": "Processing text...",
+    "toolTitle": "Base64 PDF Converter"
   },
   "actions": {
     "paste": "Paste Base64 encoding here...",
@@ -40,7 +41,7 @@
   "textStats": {
     "length": "Character Length",
     "size": "Estimated Size",
-    "characters": "Characters",
+    "characters": "characters",
     "largeText": "Large File",
     "optimizedHint": "Optimized Processing"
   },
@@ -55,34 +56,41 @@
     "cleared": "All content cleared",
     "errorPaste": "Please paste valid Base64 encoding",
     "errorSelect": "Please select a PDF file",
-    "errorSize": "File size cannot exceed 50MB",
+    "errorSize": "File size cannot exceed 100MB",
     "errorInvalid": "Invalid Base64 encoding",
     "errorFail": "Conversion failed: ",
     "errorUnknown": "Unknown error"
   },
+  "pdfInfo": {
+    "name": "Name",
+    "size": "Size",
+    "type": "Type",
+    "pages": "Pages"
+  },
   "page": {
     "tool": {
-      "title": "Base64 PDF Converter Tool"
+      "title": "Base64 PDF Converter Tool",
+      "description": "Choose pdf to base64 encoding or base64 to pdf decoding function for one-click conversion"
     },
     "features": {
       "title": "Core Features",
-      "subtitle": "Why choose our Base64 PDF converter?",
+      "subtitle": "Professional pdf to base64 and base64 to pdf conversion tool",
       "items": {
         "security": {
-          "title": "Privacy Security",
-          "description": "All conversions are completed in your browser, files are not uploaded to servers, ensuring your PDF documents are completely private."
+          "title": "Privacy & Security",
+          "description": "All conversion operations are completed in your browser, files are not uploaded to servers, ensuring your documents are completely private."
         },
         "speed": {
           "title": "High-Speed Processing",
-          "description": "Uses advanced Web Worker technology for multi-threaded processing, enabling fast conversion even for large files."
+          "description": "Uses advanced Web Worker technology for multi-threaded processing, enabling fast conversion even for large PDF files."
         },
         "format": {
-          "title": "Format Support",
-          "description": "Perfect support for standard PDF formats, maintaining document integrity and formatting, ensuring converted file quality."
+          "title": "PDF Support",
+          "description": "Perfect support for all PDF versions and formats while maintaining document integrity and quality."
         },
         "preview": {
           "title": "Online Preview",
-          "description": "Converted PDF files can be previewed directly in the browser without downloading to view content."
+          "description": "Converted PDFs can be previewed directly in the browser without downloading to view content."
         },
         "batch": {
           "title": "Batch Processing",
@@ -90,32 +98,32 @@
         },
         "crossPlatform": {
           "title": "Cross-Platform Compatibility",
-          "description": "Supports all major operating systems and browsers including Windows, Mac, Linux, use anywhere, anytime."
+          "description": "Supports Windows, Mac, Linux and all mainstream operating systems and browsers, use anytime, anywhere."
         }
       }
     },
     "steps": {
-      "title": "Usage Steps",
-      "subtitle": "Complete PDF and Base64 conversion in four simple steps",
+      "title": "How to Use",
+      "subtitle": "Complete pdf to base64 and base64 to pdf conversion in four simple steps",
       "items": {
         "select": {
           "number": "01",
           "title": "Select Function",
-          "description": "Choose PDF to Base64 or Base64 to PDF function as needed"
+          "description": "Choose pdf to base64 or base64 to pdf conversion based on your needs"
         },
         "upload": {
           "number": "02",
           "title": "Upload File",
-          "description": "Drag and drop PDF file or paste Base64 encoding into the input box"
+          "description": "Drag PDF files or paste Base64 encoding into the input box"
         },
         "convert": {
           "number": "03",
           "title": "Start Conversion",
-          "description": "Click the convert button, system automatically processes your file"
+          "description": "Click the convert button and the system will automatically process your file"
         },
         "download": {
           "number": "04",
-          "title": "Get Result",
+          "title": "Get Results",
           "description": "Download the converted file or copy the Base64 encoding"
         }
       }
@@ -126,15 +134,15 @@
       "items": {
         "webDevelopment": {
           "title": "Web Development Essential",
-          "description": "In web development, converting PDF files to Base64 encoding allows direct embedding in HTML or CSS, reducing HTTP requests and improving page load speed."
+          "description": "In web development, converting PDFs to Base64 encoding allows direct embedding in HTML or applications, reducing server requests and improving loading speed."
         },
         "dataTransmission": {
           "title": "Data Transmission Optimization",
-          "description": "Base64 encoded PDFs can be safely transmitted through text protocols like JSON and XML, avoiding compatibility issues with binary data transmission."
+          "description": "Base64 encoded PDFs can be safely transmitted through JSON, XML and other text protocols, avoiding compatibility issues with binary data transmission."
         },
         "emailEmbedding": {
           "title": "Email Embedding",
-          "description": "PDFs converted to Base64 can be directly embedded in emails, ensuring correct document display across different email clients."
+          "description": "Converting PDFs to Base64 allows direct embedding in emails, ensuring documents display correctly in different email clients."
         },
         "apiIntegration": {
           "title": "API Integration",
@@ -156,83 +164,83 @@
       "items": {
         "webDev": {
           "title": "Frontend Development",
-          "description": "Embed PDF documents in frontend frameworks like React, Vue, Angular to implement online document preview and download functionality."
+          "description": "Embed PDF resources in React, Vue, Angular and other frontend frameworks, implement online document preview and download functionality."
         },
         "mobileApp": {
           "title": "Mobile Applications",
-          "description": "Integrate PDF documents in iOS and Android applications, using Base64 encoding for local document storage and transmission."
+          "description": "Integrate document functionality in iOS and Android apps, use Base64 encoding for local PDF storage and transmission."
         },
         "apiService": {
           "title": "API Services",
-          "description": "Provide document upload and download functionality for RESTful APIs, using Base64 encoding to ensure data transmission security."
+          "description": "Provide document upload and download functionality for RESTful APIs, use Base64 encoding to ensure secure data transmission."
         },
         "emailSystem": {
           "title": "Email Systems",
-          "description": "Embed PDF attachments in email marketing and automated email systems, improving email delivery rates and user experience."
+          "description": "Embed document attachments in email marketing and automated email systems, improving email delivery rates and user experience."
         },
-        "reportGeneration": {
-          "title": "Report Generation",
-          "description": "Generate PDF reports in enterprise applications, using Base64 encoding for online report preview and sharing."
+        "cmsSystem": {
+          "title": "Content Management",
+          "description": "Implement encoded storage and quick retrieval of documents in CMS systems, improving system performance."
         },
-        "documentManagement": {
-          "title": "Document Management",
-          "description": "Implement encoded storage and fast retrieval of PDF documents in document management systems, improving system performance."
+        "documentProcessing": {
+          "title": "Document Processing",
+          "description": "Implement encoded storage and quick retrieval of PDFs in document management systems, improving system performance."
         }
       }
     },
     "useCases": {
       "title": "Use Cases",
-      "subtitle": "Real usage scenarios and case studies",
+      "subtitle": "Real use scenarios and case studies",
       "items": {
         "webEmbedding": {
-          "title": "Web PDF Embedding",
-          "description": "E-commerce websites need to embed PDF manuals in product pages, using Base64 encoding can reduce server requests and improve page load speed."
+          "title": "Web Document Embedding",
+          "description": "E-learning platforms need to embed PDF materials in course pages, using pdf to base64 encoding can reduce server requests and improve page loading speed."
         },
         "mobileOffline": {
-          "title": "Mobile Offline Reading",
-          "description": "News applications need to support offline reading of PDF articles, converting PDFs to Base64 and storing in local database for perfect offline experience."
+          "title": "Mobile Offline",
+          "description": "Document reader apps need to support offline reading of PDF content, converting pdf to base64 for storage in local databases achieves perfect offline experience."
         },
         "apiIntegration": {
-          "title": "Third-Party API Integration",
-          "description": "CRM systems need to integrate with third-party document services, transmitting PDF contracts and agreements through Base64 encoding to ensure data transmission security."
+          "title": "Third-party API Integration",
+          "description": "Document management systems need to integrate with third-party services, transmitting PDF attachments through base64 to pdf encoding ensures secure data transmission."
         },
         "emailMarketing": {
           "title": "Email Marketing",
-          "description": "Marketing platforms need to embed PDF brochures in emails, using Base64 encoding ensures correct email display across different clients."
+          "description": "Marketing platforms need to embed PDF brochures in emails, using base64 to pdf encoding ensures emails display correctly in different clients."
         },
         "reportSystem": {
           "title": "Enterprise Report System",
-          "description": "Enterprise ERP systems need to generate PDF financial reports, using Base64 encoding for online report preview and access control."
+          "description": "Enterprise ERP systems need to generate and distribute PDF reports, using pdf to base64 encoding for online report preview and permission control."
         },
-        "documentArchive": {
-          "title": "Document Archive",
-          "description": "Government agencies need to digitally archive historical documents, using Base64 encoding can simplify document storage and retrieval processes."
+        "legalDocuments": {
+          "title": "Legal Documents",
+          "description": "Legal platforms need to securely handle PDF contracts and documents, using base64 to pdf encoding can simplify document processing and storage workflows."
         }
       }
     },
     "faq": {
       "title": "Frequently Asked Questions",
-      "subtitle": "Common questions and answers about Base64 PDF conversion",
+      "subtitle": "Common questions about Base64 PDF conversion",
       "items": {
         "whatIsBase64": {
           "question": "What is Base64 encoding?",
-          "answer": "Base64 is an encoding method that represents binary data using 64 printable characters. It's commonly used to transmit binary data like PDF files in text protocols."
+          "answer": "Base64 is an encoding method that uses 64 printable characters to represent binary data. It's commonly used to transmit binary data like PDFs in text protocols."
         },
         "whyUseBase64": {
           "question": "Why convert PDF to Base64?",
-          "answer": "Base64 encoded PDFs can be directly embedded in text formats like HTML, CSS, JSON, making them convenient for web applications while avoiding binary data transmission compatibility issues."
+          "answer": "Converting pdf to base64 encoding allows direct embedding in HTML, JSON and other text formats, convenient for web applications while avoiding compatibility issues with binary data transmission."
         },
         "fileSizeLimit": {
-          "question": "What is the file size limit?",
-          "answer": "Currently supports PDF files up to 50MB. For larger files, consider compressing the PDF or splitting into multiple smaller files for processing."
+          "question": "Is there a file size limit?",
+          "answer": "Currently supports PDF files up to 100MB. For larger files, we recommend compressing PDFs first or splitting into multiple smaller files."
         },
         "securityConcerns": {
           "question": "Is the conversion process secure?",
-          "answer": "Yes, all conversions are completed in your browser, files are not uploaded to servers, ensuring your documents are completely private and secure."
+          "answer": "Yes, all conversion operations are completed in your browser, files are not uploaded to servers, ensuring your documents are completely private and secure."
         },
         "browserCompatibility": {
-          "question": "Which browsers support this tool?",
-          "answer": "Supports all modern browsers including Chrome, Firefox, Safari, Edge, etc. Recommend using the latest browser versions for the best experience."
+          "question": "Which browsers are supported?",
+          "answer": "Supports all modern browsers including Chrome, Firefox, Safari, Edge, etc. We recommend using the latest browser versions for the best experience."
         },
         "base64Size": {
           "question": "Does Base64 encoding increase file size?",
@@ -240,17 +248,25 @@
         },
         "qualityLoss": {
           "question": "Is there quality loss during conversion?",
-          "answer": "No. Base64 is lossless encoding, the conversion process doesn't change PDF content or quality, the decoded file is identical to the original."
+          "answer": "No. Base64 is lossless encoding, the conversion process doesn't change document content or quality, decoded files are identical to originals."
         },
         "batchProcessing": {
           "question": "Does it support batch processing?",
-          "answer": "Currently supports single file processing. For batch needs, you can use the tool multiple times, or consider using our API service."
+          "answer": "Currently supports single file processing. For batch needs, you can use this tool multiple times or consider using our API service."
+        },
+        "supportedFormats": {
+          "question": "Which PDF versions are supported?",
+          "answer": "Supports all standard PDF versions and formats, ensuring compatibility with documents created by different applications."
+        },
+        "howToUse": {
+          "question": "How to use the converted Base64 encoding?",
+          "answer": "You can directly embed Base64 encoding in HTML, transmit through APIs, or store in databases for base64 to pdf conversion when needed."
         }
       }
     },
     "technical": {
       "title": "Technical Details",
-      "description": "Our Base64 PDF converter uses advanced web technologies to ensure efficient and secure file processing. All operations are completed on the client side, using Web Worker technology for multi-threaded processing, so even large files won't block the browser interface.",
+      "description": "Our Base64 PDF converter uses advanced web technologies to ensure efficient and secure file processing. All operations are completed on the client side, using Web Worker technology for multi-threaded processing, ensuring large files don't block the browser interface.",
       "security": {
         "title": "Security Guarantee",
         "description": "Files are not uploaded to servers, all processing is completed locally, ensuring your document privacy and security."
@@ -261,7 +277,7 @@
       }
     },
     "footer": {
-      "title": "Get Started",
+      "title": "Get Started Now",
       "description": "Experience our Base64 PDF converter now and enjoy fast, secure, and convenient file conversion services. No registration required, completely free!"
     }
   }
