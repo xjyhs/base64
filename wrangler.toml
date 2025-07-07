@@ -1,0 +1,26 @@
+name = "base64-toolbox"
+compatibility_date = "2024-05-15"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+name = "base64-toolbox"
+compatibility_date = "2024-05-15"
+compatibility_flags = ["nodejs_compat"]
+[env.production.vars]
+CF_PAGES = "1"
+
+[env.staging]
+name = "base64-toolbox-staging"
+compatibility_date = "2024-05-15"
+compatibility_flags = ["nodejs_compat"]
+
+[env.preview]
+compatibility_date = "2024-05-15"
+compatibility_flags = ["nodejs_compat"]
+[env.preview.vars]
+CF_PAGES = "1"
+
+# Pages 项目配置
+[[pages_build_output_dir]]
+# 构建输出目录
+name = ".vercel/output/static" 
