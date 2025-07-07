@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { 
@@ -59,8 +59,10 @@ export default function ToolsMenu({ currentToolId, className = '' }: ToolsMenuPr
   const locale = useLocale();
   const t = useTranslations('common');
   const [isOpen, setIsOpen] = useState(false);
+  const [isDesktopOpen, setIsDesktopOpen] = useState(false);
   const tools = getAllTools();
   const categories = getCategories();
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const getIconComponent = (iconName: string) => {
     const IconComponent = iconMap[iconName as keyof typeof iconMap];
@@ -97,6 +99,20 @@ export default function ToolsMenu({ currentToolId, className = '' }: ToolsMenuPr
     }
   };
 
+  // 处理桌面端悬停事件
+  const handleMouseEnter = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setIsDesktopOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setIsDesktopOpen(false);
+    }, 150); // 150ms 延时，避免鼠标移动到下拉内容时意外关闭
+  };
+
   // 桌面端紧凑下拉菜单
   const DesktopMenu = () => {
     // 使用第一个分类作为主按钮显示
@@ -105,15 +121,25 @@ export default function ToolsMenu({ currentToolId, className = '' }: ToolsMenuPr
     const CategoryIcon = getIconComponent(mainCategory.icon);
 
     return (
-      <DropdownMenu>
+      <DropdownMenu open={isDesktopOpen} onOpenChange={setIsDesktopOpen}>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="flex items-center gap-1.5 px-2 py-1.5 h-8 text-sm">
+          <Button 
+            variant="ghost" 
+            className="flex items-center gap-1.5 px-2 py-1.5 h-8 text-sm"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
             <CategoryIcon className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">{getCategoryDisplayName(mainCategory)}</span>
             <ChevronDown className="h-3.5 w-3.5" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="center" className="w-72 p-2">
+        <DropdownMenuContent 
+          align="center" 
+          className="w-72 p-2"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           <div className="grid grid-cols-3 gap-1">
             {categoryTools.map((tool) => {
               const IconComponent = getIconComponent(tool.icon);
@@ -128,6 +154,7 @@ export default function ToolsMenu({ currentToolId, className = '' }: ToolsMenuPr
                       ? 'bg-blue-50 text-blue-700 font-medium' 
                       : 'text-gray-700'
                   }`}
+                  onClick={() => setIsDesktopOpen(false)}
                 >
                   <IconComponent className="h-4 w-4 flex-shrink-0" />
                   <span className="truncate text-center leading-tight">{getCompactToolName(tool)}</span>
