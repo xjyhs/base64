@@ -1,14 +1,14 @@
 {
   "metadata": {
-    "title": "Next.js Boilerplate",
-    "description": "A clean and powerful Next.js boilerplate.",
-    "keywords": "nextjs, boilerplate, template, react"
+    "title": "Base64 Toolbox",
+    "description": "Professional collection of Base64 online tools, supporting bidirectional conversion between various formats (text, image, PDF, JSON, XML, Excel, Hex) and Base64. Secure, fast, and free Base64 encoding/decoding tools.",
+    "keywords": "base64, converter, encoder, decoder, toolbox, base64 conversion, online tools, text to base64, image to base64, pdf to base64, json to base64, xml to base64, excel to base64, hex to base64"
   },
   "common": {
     "toolbox": "Toolbox"
   },
   "HomePage": {
-    "title": "Next.js Boilerplate",
-    "description": "This is a clean starting point for your next project."
+    "title": "Base64 Toolbox",
+    "description": "Professional collection of Base64 online conversion tools, supporting bidirectional conversion between multiple formats and Base64, protecting your data privacy and security."
   }
 } 
