@@ -1,19 +1,42 @@
 import { getRequestConfig } from "next-intl/server";
 import { routing } from "./routing";
-import { readdirSync } from "fs";
-import { join } from "path";
 
 // 自动扫描tools目录下的所有工具
 function getToolsList(): string[] {
+  // 在 Cloudflare 环境下使用静态列表，避免文件系统访问
+  if (process.env.CF_PAGES || typeof window !== 'undefined') {
+    return [
+      'base64-text', 
+      'base64-image', 
+      'base64-pdf', 
+      'base64-json', 
+      'base64-xml', 
+      'base64-excel', 
+      'base64-hex'
+    ];
+  }
+  
+  // 开发环境可以使用文件系统扫描
   try {
+    const { readdirSync } = require("fs");
+    const { join } = require("path");
     const toolsPath = join(process.cwd(), "i18n", "messages", "tools");
     const toolDirs = readdirSync(toolsPath, { withFileTypes: true })
-      .filter(dirent => dirent.isDirectory())
-      .map(dirent => dirent.name);
+      .filter((dirent: any) => dirent.isDirectory())
+      .map((dirent: any) => dirent.name);
     return toolDirs;
   } catch (e) {
     console.warn("无法扫描tools目录:", e);
-    return [];
+    // 降级到静态列表
+    return [
+      'base64-text', 
+      'base64-image', 
+      'base64-pdf', 
+      'base64-json', 
+      'base64-xml', 
+      'base64-excel', 
+      'base64-hex'
+    ];
   }
 }
 
