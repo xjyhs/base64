@@ -18,9 +18,4 @@ compatibility_flags = ["nodejs_compat"]
 compatibility_date = "2024-05-15"
 compatibility_flags = ["nodejs_compat"]
 [env.preview.vars]
-CF_PAGES = "1"
-
-# Pages 项目配置
-[[pages_build_output_dir]]
-# 构建输出目录
-name = ".vercel/output/static" 
+CF_PAGES = "1" 
