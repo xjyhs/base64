@@ -31,6 +31,14 @@ export async function generateMetadata({
     },
     description: t("metadata.description") || "",
     keywords: t("metadata.keywords") || "",
+    authors: [{ name: "Base64 Tools Team" }],
+    creator: "Base64 Tools",
+    publisher: "Base64 Tools",
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "any" },
@@ -39,17 +47,55 @@ export async function generateMetadata({
       ],
       shortcut: "/favicon.ico",
       apple: [
-        { url: "/apple-touch-icon.png" }
+        { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }
       ]
     },
     manifest: "/manifest.json",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
+      type: 'website',
+      locale: locale,
+      url: process.env.NEXT_PUBLIC_SITE_URL || 'https://lovebase64.com',
+      title: t("metadata.title") || "",
+      description: t("metadata.description") || "",
+      siteName: t("metadata.title") || "",
       images: [
         {
-          url: "/logo.png",
-          alt: t("metadata.title") || ""
+          url: "/icon-512.png",
+          width: 512,
+          height: 512,
+          alt: t("metadata.title") || "",
+          type: "image/png"
         }
       ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t("metadata.title") || "",
+      description: t("metadata.description") || "",
+      images: ["/icon-512.png"],
+    },
+    alternates: {
+      canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://lovebase64.com',
+      languages: {
+        'zh-CN': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://lovebase64.com'}/zh`,
+        'en-US': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://lovebase64.com'}/en`,
+      }
+    },
+    verification: {
+      other: {
+        'msvalidate.01': process.env.BING_SITE_VERIFICATION || '',
+      }
     }
   };
 }

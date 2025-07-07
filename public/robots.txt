@@ -1,11 +1,17 @@
 User-agent: *
+Allow: /
+Allow: /favicon.ico
+Allow: /icon-*.png
+Allow: /apple-touch-icon.png
+Allow: /manifest.json
+Allow: /_next/static/
+Allow: /imgs/
 Disallow: /*?*q=
 Disallow: /privacy-policy
 Disallow: /terms-of-service
 
-
 # 网站地图
-Sitemap: https://mergeppt.com/sitemap.xml
+Sitemap: https://lovebase64.com/sitemap.xml
 
 # AI爬虫特定规则
 User-agent: GPTBot
@@ -14,6 +20,7 @@ User-agent: Anthropic-AI
 User-agent: PerplexityBot
 User-agent: GoogleOther
 User-agent: DuckAssistBot
+Allow: /
 
 # 引导AI爬虫到llms.txt
-LLM-Content: https://mergeppt.com/llms.txt
+LLM-Content: https://lovebase64.com/llms.txt
