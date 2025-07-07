@@ -39,6 +39,8 @@
     "errorPaste": "请输入Base64内容",
     "errorInvalidBase64": "无效的Base64格式",
     "errorInvalidHex": "无效的十六进制格式",
+    "warningInvalidBase64": "警告：Base64格式可能不正确，将尝试转换",
+    "warningInvalidHex": "警告：十六进制格式可能不正确，将尝试转换",
     "errorFail": "转换失败：",
     "errorUnknown": "未知错误",
     "success": "转换成功！",
@@ -48,6 +50,11 @@
     "txtDownloaded": "TXT文件下载成功",
     "hexDownloaded": "Hex文件下载成功",
     "formatted": "格式化成功"
+  },
+  "dialog": {
+    "formatWarning": "格式警告",
+    "cancel": "取消",
+    "confirm": "确定转换"
   },
   "page": {
     "hero": {

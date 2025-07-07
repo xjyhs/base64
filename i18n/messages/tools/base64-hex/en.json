@@ -39,6 +39,8 @@
     "errorPaste": "Please enter Base64 content",
     "errorInvalidBase64": "Invalid Base64 format",
     "errorInvalidHex": "Invalid hexadecimal format",
+    "warningInvalidBase64": "Warning: Base64 format may be incorrect, will attempt conversion",
+    "warningInvalidHex": "Warning: Hexadecimal format may be incorrect, will attempt conversion",
     "errorFail": "Conversion failed: ",
     "errorUnknown": "Unknown error",
     "success": "Conversion successful!",
@@ -48,6 +50,11 @@
     "txtDownloaded": "TXT file downloaded successfully",
     "hexDownloaded": "Hex file downloaded successfully",
     "formatted": "Formatted successfully"
+  },
+  "dialog": {
+    "formatWarning": "Format Warning",
+    "cancel": "Cancel",
+    "confirm": "Confirm Conversion"
   },
   "page": {
     "hero": {

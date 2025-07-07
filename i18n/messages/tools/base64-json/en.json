@@ -11,6 +11,7 @@
   "actions": {
     "paste": "Paste Base64 string here...",
     "decode": "Convert to JSON",
+    "encode": "Convert to Base64",
     "clear": "Clear",
     "copy": "Copy",
     "format": "Format",
@@ -38,13 +39,15 @@
     "arrays": "Arrays"
   },
   "messages": {
-    "errorPaste": "Please enter a Base64 string.",
-    "errorInvalidBase64": "Please enter a valid Base64 string.",
+    "errorPaste": "Please enter Base64 string.",
+    "errorInvalidBase64": "Please enter valid Base64 string.",
     "errorInvalidJson": "Please enter valid JSON data.",
     "errorParseJson": "JSON parsing failed: ",
+    "warningInvalidBase64": "Warning: Base64 format may be incorrect, will attempt conversion",
+    "warningInvalidJson": "Warning: JSON format may be incorrect, will use original text for conversion",
     "success": "Conversion successful!",
     "errorFail": "Conversion failed: ",
-    "errorUnknown": "An unknown error occurred, conversion failed.",
+    "errorUnknown": "Unknown error occurred, conversion failed.",
     "copied": "Content copied to clipboard.",
     "copyFail": "Copy failed, please copy manually.",
     "jsonDownloaded": "JSON file downloaded.",
@@ -52,6 +55,11 @@
     "cleared": "All inputs and results cleared.",
     "formatted": "JSON formatted.",
     "minified": "JSON minified."
+  },
+  "dialog": {
+    "formatWarning": "Format Warning",
+    "cancel": "Cancel",
+    "confirm": "Confirm Conversion"
   },
   "page": {
     "hero": {

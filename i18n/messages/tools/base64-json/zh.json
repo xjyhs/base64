@@ -11,6 +11,7 @@
   "actions": {
     "paste": "在此处粘贴Base64字符串...",
     "decode": "转换为JSON",
+    "encode": "转换为Base64",
     "clear": "清空",
     "copy": "复制",
     "format": "格式化",
@@ -42,6 +43,8 @@
     "errorInvalidBase64": "请输入有效的Base64字符串。",
     "errorInvalidJson": "请输入有效的JSON数据。",
     "errorParseJson": "JSON解析失败：",
+    "warningInvalidBase64": "警告：Base64格式可能不正确，将尝试转换",
+    "warningInvalidJson": "警告：JSON格式可能不正确，将使用原始文本转换",
     "success": "转换成功！",
     "errorFail": "转换失败：",
     "errorUnknown": "发生未知错误，转换失败。",
@@ -52,6 +55,11 @@
     "cleared": "已清空所有输入和结果。",
     "formatted": "JSON已格式化。",
     "minified": "JSON已压缩。"
+  },
+  "dialog": {
+    "formatWarning": "格式警告",
+    "cancel": "取消",
+    "confirm": "确定转换"
   },
   "page": {
     "hero": {

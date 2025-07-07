@@ -7,22 +7,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Copy, Download, FileText, Trash2, Code, Hash, AlertTriangle } from 'lucide-react';
+import { Copy, Download, FileText, Trash2, Code, FileCode, Maximize, Minimize, CheckCircle, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
 
-interface Base64HexConverterProps {
+interface Base64XmlConverterProps {
   onTabChange?: () => void;
 }
 
-export default function Base64HexConverter({ onTabChange }: Base64HexConverterProps) {
-  const t = useTranslations('tools.base64-hex');
+export default function Base64XmlConverter({ onTabChange }: Base64XmlConverterProps) {
+  const t = useTranslations('tools.base64-xml');
   const [activeTab, setActiveTab] = useState<'decode' | 'encode'>('decode');
   const [base64Input, setBase64Input] = useState('');
-  const [hexInput, setHexInput] = useState('');
-  const [hexOutput, setHexOutput] = useState('');
+  const [xmlInput, setXmlInput] = useState('');
+  const [xmlOutput, setXmlOutput] = useState('');
   const [base64Output, setBase64Output] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [indentSize, setIndentSize] = useState(2);
   
   // 确认对话框状态
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -32,7 +33,7 @@ export default function Base64HexConverter({ onTabChange }: Base64HexConverterPr
     onConfirm: () => void;
   } | null>(null);
   
-  const hexInputRef = useRef<HTMLTextAreaElement>(null);
+  const xmlInputRef = useRef<HTMLTextAreaElement>(null);
   const base64InputRef = useRef<HTMLTextAreaElement>(null);
 
   // 检查页面是否在顶部
@@ -68,8 +69,53 @@ export default function Base64HexConverter({ onTabChange }: Base64HexConverterPr
     setConfirmDialogConfig(null);
   };
 
-  // Base64 转 Hex
-  const decodeBase64ToHex = () => {
+  // XML格式化函数
+  const formatXml = (xml: string, indent: number = 2): string => {
+    const PADDING = ' '.repeat(indent);
+    const reg = /(>)(<)(\/*)/g;
+    let formatted = xml.replace(reg, '$1\r\n$2$3');
+    let pad = 0;
+    
+    return formatted.split('\r\n').map((line) => {
+      let indent = 0;
+      if (line.match(/.+<\/\w[^>]*>$/)) {
+        indent = 0;
+      } else if (line.match(/^<\/\w/)) {
+        if (pad !== 0) {
+          pad -= 1;
+        }
+      } else if (line.match(/^<\w[^>]*[^\/]>.*$/)) {
+        indent = 1;
+      } else {
+        indent = 0;
+      }
+      
+      const padding = PADDING.repeat(pad);
+      pad += indent;
+      
+      return padding + line;
+    }).join('\r\n');
+  };
+
+  // XML压缩函数
+  const minifyXml = (xml: string): string => {
+    return xml.replace(/>\s*</g, '><').trim();
+  };
+
+  // XML验证函数
+  const validateXml = (xml: string): boolean => {
+    try {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(xml, 'text/xml');
+      const errors = doc.getElementsByTagName('parsererror');
+      return errors.length === 0;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  // Base64 转 XML
+  const decodeBase64ToXml = () => {
     if (!base64Input.trim()) {
       toast.error(t('messages.errorPaste'));
       return;
@@ -98,73 +144,67 @@ export default function Base64HexConverter({ onTabChange }: Base64HexConverterPr
       // 解码Base64
       const decoded = atob(base64Input.trim());
       
-      // 转换为十六进制
-      let hex = '';
-      for (let i = 0; i < decoded.length; i++) {
-        hex += decoded.charCodeAt(i).toString(16).padStart(2, '0');
+      // 尝试验证和格式化XML
+      let formatted = decoded;
+      if (!forceConvert && !validateXml(decoded)) {
+        setIsProcessing(false);
+        showConfirmation(
+          t('dialog.formatWarning'),
+          t('messages.warningInvalidXml'),
+          () => performBase64Decode(true)
+        );
+        return;
       }
       
-      setHexOutput(hex.toUpperCase());
+      // 如果是有效的XML，进行格式化
+      if (validateXml(decoded)) {
+        try {
+          formatted = formatXml(decoded, indentSize);
+        } catch (formatError) {
+          // 格式化失败，使用原始内容
+          formatted = decoded;
+        }
+      }
+      
+      setXmlOutput(formatted);
       toast.success(t('messages.success'));
     } catch (error: any) {
       const errorMessage = error.message || t('messages.errorUnknown');
       toast.error(t('messages.errorFail') + errorMessage);
-      setHexOutput('');
+      setXmlOutput('');
     } finally {
       setIsProcessing(false);
     }
   };
 
-  // Hex 转 Base64
-  const encodeHexToBase64 = () => {
-    if (!hexInput.trim()) {
-      toast.error(t('messages.errorInvalidHex'));
+  // XML 转 Base64
+  const encodeXmlToBase64 = () => {
+    if (!xmlInput.trim()) {
+      toast.error(t('messages.errorInvalidXml'));
       return;
     }
 
-    // 检查十六进制格式
-    const hexRegex = /^[0-9A-Fa-f\s]*$/;
-    if (!hexRegex.test(hexInput.trim())) {
+    // 尝试验证XML格式
+    if (!validateXml(xmlInput)) {
       // 显示确认对话框
       showConfirmation(
         t('dialog.formatWarning'),
-        t('messages.warningInvalidHex'),
-        () => performHexEncode(true)
+        t('messages.warningInvalidXml'),
+        () => performXmlEncode(true)
       );
       return;
     }
 
-    performHexEncode(false);
+    performXmlEncode(false);
   };
 
-  // 执行十六进制编码
-  const performHexEncode = (forceConvert: boolean = false) => {
+  // 执行XML编码
+  const performXmlEncode = (forceConvert: boolean = false) => {
     setIsProcessing(true);
     
     try {
-      let hexString = hexInput.trim().replace(/\s+/g, '');
-      
-      if (!forceConvert) {
-        // 验证十六进制格式
-        const hexRegex = /^[0-9A-Fa-f]*$/;
-        if (!hexRegex.test(hexString)) {
-          throw new Error(t('messages.errorInvalidHex'));
-        }
-      }
-      
-      // 确保偶数长度
-      if (hexString.length % 2 !== 0) {
-        hexString = '0' + hexString;
-      }
-      
-      // 转换为字符串
-      let str = '';
-      for (let i = 0; i < hexString.length; i += 2) {
-        str += String.fromCharCode(parseInt(hexString.substr(i, 2), 16));
-      }
-      
       // 转换为Base64
-      const encoded = btoa(str);
+      const encoded = btoa(xmlInput);
       
       setBase64Output(encoded);
       toast.success(t('messages.success'));
@@ -186,20 +226,20 @@ export default function Base64HexConverter({ onTabChange }: Base64HexConverterPr
     });
   };
 
-  // 下载Hex文件
-  const downloadHexFile = () => {
-    if (!hexOutput) return;
+  // 下载XML文件
+  const downloadXmlFile = () => {
+    if (!xmlOutput) return;
     
-    const blob = new Blob([hexOutput], { type: 'text/plain' });
+    const blob = new Blob([xmlOutput], { type: 'application/xml' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'converted.hex';
+    a.download = 'converted.xml';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success(t('messages.hexDownloaded'));
+    toast.success(t('messages.xmlDownloaded'));
   };
 
   // 下载Base64文本文件
@@ -221,24 +261,60 @@ export default function Base64HexConverter({ onTabChange }: Base64HexConverterPr
   // 清空所有内容
   const clearAll = () => {
     setBase64Input('');
-    setHexInput('');
-    setHexOutput('');
+    setXmlInput('');
+    setXmlOutput('');
     setBase64Output('');
     toast.success(t('messages.cleared'));
   };
 
-  // 格式化十六进制
-  const formatHexInput = () => {
-    if (!hexInput.trim()) return;
+  // 格式化XML
+  const formatXmlInput = () => {
+    if (!xmlInput.trim()) return;
     
-    // 移除空格并转换为大写
-    let formatted = hexInput.trim().replace(/\s+/g, '').toUpperCase();
+    if (!validateXml(xmlInput)) {
+      toast.error(t('messages.errorInvalidXml'));
+      return;
+    }
     
-    // 每两个字符添加一个空格
-    formatted = formatted.replace(/(.{2})/g, '$1 ').trim();
+    try {
+      const formatted = formatXml(xmlInput, indentSize);
+      setXmlInput(formatted);
+      toast.success(t('messages.formatted'));
+    } catch (error) {
+      toast.error(t('messages.errorInvalidXml'));
+    }
+  };
+
+  // 压缩XML
+  const minifyXmlInput = () => {
+    if (!xmlInput.trim()) return;
     
-    setHexInput(formatted);
-    toast.success(t('messages.formatted'));
+    if (!validateXml(xmlInput)) {
+      toast.error(t('messages.errorInvalidXml'));
+      return;
+    }
+    
+    try {
+      const minified = minifyXml(xmlInput);
+      setXmlInput(minified);
+      toast.success(t('messages.minified'));
+    } catch (error) {
+      toast.error(t('messages.errorInvalidXml'));
+    }
+  };
+
+  // 验证XML
+  const validateXmlInput = () => {
+    if (!xmlInput.trim()) {
+      toast.error(t('messages.errorInvalidXml'));
+      return;
+    }
+    
+    if (validateXml(xmlInput)) {
+      toast.success(t('messages.validXml'));
+    } else {
+      toast.error(t('messages.invalidXml'));
+    }
   };
 
   // 计算文本统计信息
@@ -268,12 +344,12 @@ export default function Base64HexConverter({ onTabChange }: Base64HexConverterPr
               {t('tabs.decode')}
             </TabsTrigger>
             <TabsTrigger value="encode" className="flex items-center gap-2">
-              <Hash className="h-4 w-4" />
+              <FileCode className="h-4 w-4" />
               {t('tabs.encode')}
             </TabsTrigger>
           </TabsList>
 
-          {/* Base64 转 Hex */}
+          {/* Base64 转 XML */}
           <TabsContent value="decode" className="mt-8">
             <div className="space-y-6">
               <Card>
@@ -293,7 +369,7 @@ export default function Base64HexConverter({ onTabChange }: Base64HexConverterPr
                   />
                   <div className="flex flex-wrap gap-3">
                     <Button 
-                      onClick={decodeBase64ToHex}
+                      onClick={decodeBase64ToXml}
                       disabled={isProcessing || !base64Input.trim()}
                       className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
                     >
@@ -311,21 +387,21 @@ export default function Base64HexConverter({ onTabChange }: Base64HexConverterPr
                   
                   {/* 为按钮预留固定空间，避免布局跳动 */}
                   <div className="h-12 flex gap-3">
-                    {hexOutput && (
+                    {xmlOutput && (
                       <>
                         <Button 
-                          onClick={() => copyToClipboard(hexOutput)}
+                          onClick={() => copyToClipboard(xmlOutput)}
                           className="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
                         >
                           <Copy className="mr-2 h-4 w-4" />
                           {t('actions.copy')}
                         </Button>
                         <Button 
-                          onClick={downloadHexFile}
+                          onClick={downloadXmlFile}
                           className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
                         >
                           <Download className="mr-2 h-4 w-4" />
-                          {t('actions.downloadHex')}
+                          {t('actions.downloadXml')}
                         </Button>
                       </>
                     )}
@@ -333,28 +409,28 @@ export default function Base64HexConverter({ onTabChange }: Base64HexConverterPr
                 </CardContent>
               </Card>
 
-              {/* Hex 输出 */}
-              {hexOutput && (
+              {/* XML 输出 */}
+              {xmlOutput && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Hash className="h-5 w-5" />
+                        <FileCode className="h-5 w-5" />
                         {t('labels.resultTitle')}
                       </div>
                       <div className="flex items-center gap-2">
                         <Badge variant="secondary">
-                          {getTextStats(hexOutput).length} {t('textStats.characters')}
+                          {getTextStats(xmlOutput).length} {t('textStats.characters')}
                         </Badge>
                         <Badge variant="secondary">
-                          {getTextStats(hexOutput).lines} {t('textStats.lines')}
+                          {getTextStats(xmlOutput).lines} {t('textStats.lines')}
                         </Badge>
                       </div>
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <Textarea
-                      value={hexOutput}
+                      value={xmlOutput}
                       readOnly
                       className="min-h-[300px] font-mono text-sm bg-gray-50 dark:bg-gray-900"
                     />
@@ -364,39 +440,55 @@ export default function Base64HexConverter({ onTabChange }: Base64HexConverterPr
             </div>
           </TabsContent>
 
-          {/* Hex 转 Base64 */}
+          {/* XML 转 Base64 */}
           <TabsContent value="encode" className="mt-8">
             <div className="space-y-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Hash className="h-5 w-5" />
-                    Hex {t('labels.inputLabel')}
+                    <FileCode className="h-5 w-5" />
+                    XML {t('labels.inputLabel')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <Textarea
-                    ref={hexInputRef}
-                    value={hexInput}
-                    onChange={(e) => setHexInput(e.target.value)}
-                    placeholder={t('labels.hexInputPlaceholder')}
+                    ref={xmlInputRef}
+                    value={xmlInput}
+                    onChange={(e) => setXmlInput(e.target.value)}
+                    placeholder={t('labels.xmlInputPlaceholder')}
                     className="min-h-[200px] font-mono text-sm"
                   />
                   <div className="flex flex-wrap gap-3">
                     <Button 
-                      onClick={encodeHexToBase64}
-                      disabled={isProcessing || !hexInput.trim()}
+                      onClick={encodeXmlToBase64}
+                      disabled={isProcessing || !xmlInput.trim()}
                       className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
                     >
                       {isProcessing ? t('labels.loading') : t('actions.encode')}
                     </Button>
                     <Button 
-                      onClick={formatHexInput}
+                      onClick={formatXmlInput}
                       variant="outline"
                       className="flex items-center gap-2"
                     >
-                      <Code className="h-4 w-4" />
+                      <Maximize className="h-4 w-4" />
                       {t('actions.format')}
+                    </Button>
+                    <Button 
+                      onClick={minifyXmlInput}
+                      variant="outline"
+                      className="flex items-center gap-2"
+                    >
+                      <Minimize className="h-4 w-4" />
+                      {t('actions.minify')}
+                    </Button>
+                    <Button 
+                      onClick={validateXmlInput}
+                      variant="outline"
+                      className="flex items-center gap-2"
+                    >
+                      <CheckCircle className="h-4 w-4" />
+                      {t('actions.validate')}
                     </Button>
                     <Button 
                       onClick={clearAll}

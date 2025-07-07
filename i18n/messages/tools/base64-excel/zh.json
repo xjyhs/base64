@@ -1,0 +1,191 @@
+{
+  "meta": {
+    "title": "Base64 Excel转换器",
+    "description": "在线Base64与Excel文件互相转换工具，支持Base64编码到Excel解码，以及Excel文件到Base64编码，包含在线预览功能。",
+    "keywords": "base64, excel, xlsx, xls, 电子表格, 编码, 解码, 转换器, 在线工具, 预览"
+  },
+  "tabs": {
+    "decode": "Base64 转 Excel",
+    "encode": "Excel 转 Base64"
+  },
+  "actions": {
+    "paste": "粘贴",
+    "decode": "解码",
+    "encode": "编码",
+    "clear": "清空",
+    "copy": "复制",
+    "download": "下载Excel",
+    "downloadBase64": "下载Base64",
+    "preview": "预览",
+    "upload": "上传文件",
+    "selectFile": "选择文件"
+  },
+  "labels": {
+    "inputLabel": "输入",
+    "outputTitle": "输出结果",
+    "resultTitle": "转换结果",
+    "previewTitle": "Excel预览",
+    "base64InputPlaceholder": "请输入Base64编码的Excel文件内容...",
+    "dragDropText": "拖拽Excel文件到此处，或点击选择文件",
+    "supportedFormats": "支持 .xlsx、.xls 格式",
+    "loading": "处理中...",
+    "fileName": "文件名",
+    "fileSize": "文件大小",
+    "sheetName": "工作表",
+    "rowCount": "行数",
+    "colCount": "列数"
+  },
+  "textStats": {
+    "characters": "字符",
+    "bytes": "字节",
+    "size": "大小",
+    "length": "长度",
+    "sheets": "工作表数"
+  },
+  "messages": {
+    "errorPaste": "请输入Base64内容",
+    "errorInvalidBase64": "无效的Base64格式",
+    "errorInvalidExcel": "无效的Excel文件格式",
+    "errorFail": "转换失败：",
+    "errorUnknown": "未知错误",
+    "errorFileType": "不支持的文件类型，请选择Excel文件",
+    "success": "转换成功！",
+    "copied": "已复制到剪贴板",
+    "copyFail": "复制失败",
+    "cleared": "已清空所有内容",
+    "downloaded": "文件下载成功",
+    "uploaded": "文件上传成功",
+    "previewing": "正在生成预览..."
+  },
+  "preview": {
+    "title": "Excel预览",
+    "noData": "暂无数据",
+    "tooManyRows": "数据行数过多，仅显示前100行",
+    "tooManyCols": "数据列数过多，仅显示前20列",
+    "sheetTabs": "工作表",
+    "cellValue": "单元格值",
+    "loading": "加载中..."
+  },
+  "page": {
+    "hero": {
+      "badge": "文件转换",
+      "title": "Base64 Excel转换器",
+      "description": "在线Base64与Excel文件互相转换工具",
+      "subtitle": "支持Base64编码到Excel解码，以及Excel文件到Base64编码，包含在线预览功能",
+      "badge1": "双向转换",
+      "badge2": "在线预览",
+      "badge3": "本地处理"
+    },
+    "tool": {
+      "title": "Base64 Excel转换器工具"
+    },
+    "features": {
+      "title": "功能特色",
+      "subtitle": "强大的Base64与Excel转换功能",
+      "items": {
+        "bidirectional": {
+          "title": "双向转换",
+          "description": "支持Base64到Excel和Excel到Base64的双向转换"
+        },
+        "preview": {
+          "title": "在线预览",
+          "description": "支持Excel文件在线预览，无需下载即可查看内容"
+        },
+        "multiSheet": {
+          "title": "多工作表",
+          "description": "支持多个工作表的Excel文件处理和预览"
+        },
+        "formats": {
+          "title": "多格式支持",
+          "description": "支持.xlsx、.xls等多种Excel文件格式"
+        },
+        "download": {
+          "title": "文件下载",
+          "description": "支持将转换结果下载为Excel文件或Base64文本"
+        },
+        "dragDrop": {
+          "title": "拖拽上传",
+          "description": "支持拖拽上传Excel文件，操作简单便捷"
+        }
+      }
+    },
+    "useCases": {
+      "title": "使用场景",
+      "subtitle": "Base64与Excel转换的常见应用",
+      "items": {
+        "api": {
+          "title": "API数据传输",
+          "description": "在API中传输Excel文件数据"
+        },
+        "storage": {
+          "title": "数据存储",
+          "description": "将Excel文件编码后存储在数据库中"
+        },
+        "email": {
+          "title": "邮件附件",
+          "description": "在邮件中嵌入Excel文件内容"
+        },
+        "backup": {
+          "title": "数据备份",
+          "description": "将Excel文件编码后进行备份"
+        }
+      }
+    },
+    "steps": {
+      "title": "使用步骤",
+      "subtitle": "简单四步完成转换",
+      "items": {
+        "select": {
+          "number": "01",
+          "title": "选择转换方向",
+          "description": "选择Base64转Excel或Excel转Base64"
+        },
+        "input": {
+          "number": "02",
+          "title": "输入内容",
+          "description": "输入Base64内容或上传Excel文件"
+        },
+        "convert": {
+          "number": "03",
+          "title": "执行转换",
+          "description": "点击转换按钮开始处理"
+        },
+        "result": {
+          "number": "04",
+          "title": "获取结果",
+          "description": "预览、复制或下载转换结果"
+        }
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "Base64与Excel转换相关问题解答",
+      "items": {
+        "what": {
+          "question": "什么是Base64编码的Excel文件？",
+          "answer": "Base64编码的Excel文件是将Excel二进制文件转换为Base64文本格式，便于在文本环境中传输和存储。"
+        },
+        "why": {
+          "question": "为什么需要Base64和Excel转换？",
+          "answer": "在API传输、数据库存储、邮件发送等场景中，经常需要将Excel文件编码为Base64格式进行处理。"
+        },
+        "formats": {
+          "question": "支持哪些Excel文件格式？",
+          "answer": "支持.xlsx、.xls等主流Excel文件格式，以及多工作表的复杂Excel文件。"
+        },
+        "limit": {
+          "question": "有文件大小限制吗？",
+          "answer": "没有文件大小限制，所有转换都在您的浏览器本地进行，不会上传到服务器，处理速度取决于您的设备性能。"
+        },
+        "safe": {
+          "question": "转换过程是否安全？",
+          "answer": "是的，所有转换都在您的浏览器本地进行，不会上传到服务器，确保数据安全。"
+        },
+        "preview": {
+          "question": "预览功能有什么限制？",
+          "answer": "预览功能会限制显示前100行和前20列数据，以确保页面性能。完整数据可通过下载文件查看。"
+        }
+      }
+    }
+  }
+} 

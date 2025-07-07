@@ -1,0 +1,188 @@
+{
+  "meta": {
+    "title": "Base64 XML转换器",
+    "description": "将XML数据和Base64字符串进行相互转换。支持XML格式化、语法验证、美化显示的在线工具。",
+    "keywords": "base64, xml, 转换器, 编码, 解码, 格式化, 在线工具"
+  },
+  "tabs": {
+    "decode": "Base64 转 XML",
+    "encode": "XML 转 Base64"
+  },
+  "actions": {
+    "paste": "粘贴",
+    "decode": "解码",
+    "encode": "编码",
+    "clear": "清空",
+    "copy": "复制",
+    "downloadXml": "下载XML",
+    "downloadTxt": "下载为TXT文件",
+    "format": "格式化",
+    "minify": "压缩",
+    "validate": "验证"
+  },
+  "labels": {
+    "inputLabel": "输入",
+    "outputTitle": "Base64 输出",
+    "resultTitle": "转换结果",
+    "loading": "处理中...",
+    "xmlInputPlaceholder": "请输入XML数据...",
+    "base64InputPlaceholder": "请输入Base64字符串...",
+    "toolTitle": "Base64 XML转换器",
+    "formatOptions": "格式选项",
+    "indentSize": "缩进大小"
+  },
+  "textStats": {
+    "characters": "字符",
+    "bytes": "字节",
+    "size": "大小",
+    "length": "长度",
+    "lines": "行数",
+    "elements": "元素数",
+    "attributes": "属性数"
+  },
+  "messages": {
+    "errorPaste": "请输入Base64字符串",
+    "errorInvalidBase64": "无效的Base64格式",
+    "errorInvalidXml": "无效的XML格式",
+    "errorParseXml": "XML解析失败：",
+    "warningInvalidBase64": "警告：Base64格式可能不正确，将尝试转换",
+    "warningInvalidXml": "警告：XML格式可能不正确，将使用原始文本转换",
+    "success": "转换成功！",
+    "errorFail": "转换失败：",
+    "errorUnknown": "未知错误",
+    "copied": "已复制到剪贴板",
+    "copyFail": "复制失败",
+    "cleared": "已清空所有内容",
+    "xmlDownloaded": "XML文件下载成功",
+    "txtDownloaded": "TXT文件下载成功",
+    "formatted": "XML已格式化",
+    "minified": "XML已压缩",
+    "validated": "XML验证完成",
+    "validXml": "XML验证通过",
+    "invalidXml": "XML验证失败"
+  },
+  "dialog": {
+    "formatWarning": "格式警告",
+    "cancel": "取消",
+    "confirm": "确定转换"
+  },
+  "page": {
+    "hero": {
+      "badge": "专业XML处理工具",
+      "title": "Base64 XML转换器",
+      "description": "专业的XML与Base64互转工具，支持格式化、验证、美化",
+      "subtitle": "配置管理、数据交换、API开发的必备工具"
+    },
+    "tool": {
+      "title": "Base64 XML转换器工具"
+    },
+    "features": {
+      "title": "功能特点",
+      "subtitle": "专为开发者设计的XML处理工具",
+      "items": {
+        "format": {
+          "title": "智能格式化",
+          "description": "自动格式化XML，支持自定义缩进，提高代码可读性"
+        },
+        "validate": {
+          "title": "语法验证",
+          "description": "实时验证XML语法，快速定位错误位置"
+        },
+        "compress": {
+          "title": "数据压缩",
+          "description": "支持XML压缩，减少数据传输大小"
+        },
+        "secure": {
+          "title": "隐私安全",
+          "description": "本地处理，数据不上传服务器，保护隐私安全"
+        },
+        "bidirectional": {
+          "title": "双向转换",
+          "description": "支持XML到Base64和Base64到XML的双向转换"
+        },
+        "stats": {
+          "title": "统计信息",
+          "description": "显示字符数、元素数、属性数等详细统计信息"
+        }
+      }
+    },
+    "useCases": {
+      "title": "应用场景",
+      "subtitle": "广泛应用于开发、配置、数据交换等场景",
+      "items": {
+        "config": {
+          "title": "配置管理",
+          "description": "XML配置文件的编码存储和传输，避免特殊字符冲突",
+          "examples": ["应用配置", "系统设置", "部署配置"]
+        },
+        "api": {
+          "title": "API开发",
+          "description": "XML数据的Base64编码传输，简化API接口设计",
+          "examples": ["数据传输", "SOAP服务", "Web服务"]
+        },
+        "storage": {
+          "title": "数据存储",
+          "description": "XML数据的安全存储，防止注入攻击",
+          "examples": ["数据库存储", "文件存储", "缓存数据"]
+        },
+        "exchange": {
+          "title": "数据交换",
+          "description": "不同系统间XML数据的编码传输",
+          "examples": ["系统集成", "数据同步", "消息传递"]
+        }
+      }
+    },
+    "steps": {
+      "title": "使用步骤",
+      "subtitle": "简单四步完成XML与Base64的转换",
+      "items": {
+        "select": {
+          "number": "01",
+          "title": "选择转换方向",
+          "description": "选择「XML转Base64」或「Base64转XML」"
+        },
+        "input": {
+          "number": "02",
+          "title": "输入数据",
+          "description": "输入XML数据或粘贴Base64字符串"
+        },
+        "convert": {
+          "number": "03",
+          "title": "执行转换",
+          "description": "点击转换按钮，系统自动处理数据"
+        },
+        "result": {
+          "number": "04",
+          "title": "获取结果",
+          "description": "复制转换结果或下载为文件"
+        }
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "解答使用过程中的疑问",
+      "items": {
+        "q1": {
+          "question": "什么是Base64编码？",
+          "answer": "Base64是一种将二进制数据转换为ASCII字符的编码方式，常用于在文本协议中传输二进制数据。"
+        },
+        "q2": {
+          "question": "为什么要对XML进行Base64编码？",
+          "answer": "Base64编码可以避免XML中的特殊字符在传输过程中被转义，同时可以简单地混淆敏感数据。"
+        },
+        "q3": {
+          "question": "支持多大的XML文件？",
+          "answer": "理论上没有大小限制，但为了确保良好的用户体验，建议单个XML文件不超过10MB。"
+        },
+        "q4": {
+          "question": "如何验证XML格式？",
+          "answer": "工具会自动验证XML语法，如果格式有误会显示详细的错误信息。"
+        },
+        "q5": {
+          "question": "数据安全如何保障？",
+          "answer": "所有转换操作都在浏览器本地完成，数据不会上传到服务器，完全保护您的隐私。"
+        }
+      }
+    }
+  }
+} 
