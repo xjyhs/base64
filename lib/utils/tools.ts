@@ -1,4 +1,4 @@
-import { ToolConfig, getToolById, getToolByDomain } from '@/lib/config/tools';
+import { ToolConfig, getToolById } from '@/lib/config/tools';
 
 /**
  * 根据当前路径获取工具ID
@@ -34,26 +34,16 @@ export function getToolMetadata(toolId: string, locale: 'zh' | 'en' = 'zh') {
   if (!tool) return null;
   
   return {
-    title: tool.meta.title[locale],
-    description: tool.meta.description[locale],
-    keywords: tool.meta.keywords[locale],
+    title: tool.name[locale],
+    description: tool.name[locale],
+    keywords: tool.name[locale],
   };
-}
-
-/**
- * 根据域名获取工具的元数据
- */
-export function getToolMetadataByDomain(domain: string, locale: 'zh' | 'en' = 'zh') {
-  const tool = getToolByDomain(domain);
-  if (!tool) return null;
-  
-  return getToolMetadata(tool.id, locale);
 }
 
 /**
  * 生成工具的面包屑导航
  */
-export function generateToolBreadcrumbs(toolId: string, locale: string = 'zh') {
+export function generateToolBreadcrumbs(toolId: string, locale: 'zh' | 'en' = 'zh') {
   const tool = getToolById(toolId);
   if (!tool) return [];
   
@@ -67,7 +57,7 @@ export function generateToolBreadcrumbs(toolId: string, locale: string = 'zh') {
       href: `/${locale}/tools`
     },
     {
-      label: tool.name,
+      label: tool.name[locale],
       href: `/${locale}${tool.path}`
     }
   ];

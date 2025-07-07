@@ -1,0 +1,172 @@
+{
+  "meta": {
+    "title": "Base64 Text Converter - Free Online Base64 to Text Tool",
+    "description": "Professional Base64 text converter supporting base64 to text and text to base64 bidirectional conversion. Free online Base64 to text tool with perfect support for Chinese, English, and special characters encoding/decoding, character statistics and file download features.",
+    "keywords": "base64, text, converter, encode, decode, string, online tool, base64 to text, text to base64, base64 converter, text converter"
+  },
+  "tabs": {
+    "decode": "Base64 to Text",
+    "encode": "Text to Base64"
+  },
+  "actions": {
+    "paste": "Paste Base64 string here...",
+    "decode": "Convert to Text",
+    "encode": "Convert to Base64",
+    "clear": "Clear",
+    "copy": "Copy",
+    "download": "Download",
+    "downloadTxt": "Download as TXT"
+  },
+  "labels": {
+    "inputLabel": "Input Text",
+    "base64Input": "Input Base64 String",
+    "textOutput": "Text Output",
+    "outputTitle": "Base64 Output",
+    "resultTitle": "Conversion Result",
+    "loading": "Processing...",
+    "textInputPlaceholder": "Enter text content...",
+    "base64InputPlaceholder": "Enter Base64 string...",
+    "base64Placeholder": "Enter Base64 string...",
+    "toolTitle": "Base64 Text Converter"
+  },
+  "textStats": {
+    "length": "Length",
+    "size": "Estimated Size",
+    "characters": "Characters",
+    "lines": "Lines",
+    "bytes": "Bytes",
+    "words": "Words"
+  },
+  "messages": {
+    "errorPaste": "Please enter Base64 string.",
+    "errorInvalidBase64": "Please enter a valid Base64 string.",
+    "errorInvalidText": "Please enter valid text content.",
+    "warningInvalidBase64": "Warning: Base64 format may be incorrect, will attempt conversion",
+    "success": "Conversion successful!",
+    "errorFail": "Conversion failed: ",
+    "errorUnknown": "Unknown error occurred, conversion failed.",
+    "copied": "Content copied to clipboard.",
+    "copyFail": "Copy failed, please copy manually.",
+    "textDownloaded": "Text file downloaded.",
+    "base64Downloaded": "Base64 file downloaded.",
+    "cleared": "All input and results cleared."
+  },
+  "dialog": {
+    "formatWarning": "Format Warning",
+    "largeTextWarning": "Large Text Warning",
+    "cancel": "Cancel",
+    "confirm": "Confirm Conversion"
+  },
+  "page": {
+    "hero": {
+      "badge": "Professional Base64 to Text Tool",
+      "title": "Base64 Text Converter",
+      "description": "Professional Base64 to text tool supporting base64 to text and text to base64 bidirectional conversion, perfect handling of Chinese, English, and special characters encoding/decoding",
+      "subtitle": "Free online Base64 to text tool, essential for data transmission, text encoding, and development debugging"
+    },
+    "tool": {
+      "title": "Base64 Text Converter",
+      "description": "Start your Base64 to text or text to Base64 conversion"
+    },
+    "features": {
+      "title": "Features",
+      "subtitle": "Professional conversion tool designed for Base64 to text",
+      "items": {
+        "encoding": {
+          "title": "Multi-encoding Support",
+          "description": "Support UTF-8 encoding, perfect handling of Base64 to text and text to Base64 for Chinese, English, and special characters"
+        },
+        "validation": {
+          "title": "Format Validation",
+          "description": "Real-time Base64 format validation, ensuring Base64 to text conversion accuracy"
+        },
+        "statistics": {
+          "title": "Character Statistics",
+          "description": "Real-time display of character count, byte count, line count and other detailed statistics during Base64 to text conversion"
+        },
+        "secure": {
+          "title": "Privacy Security",
+          "description": "Local Base64 to text processing, data not uploaded to server, protecting privacy security"
+        }
+      }
+    },
+    "useCases": {
+      "title": "Use Cases",
+      "subtitle": "Base64 to text tool widely used in development, data transmission, text processing and other scenarios",
+      "items": {
+        "data": {
+          "title": "Data Transmission",
+          "description": "Use Base64 to text for data transmission, avoiding special character issues",
+          "examples": ["URL parameters", "HTTP headers", "Email attachments"]
+        },
+        "api": {
+          "title": "API Development",
+          "description": "Base64 to text application in API development, simplifying interface design",
+          "examples": ["Data transmission", "Parameter encoding", "Response processing"]
+        },
+        "storage": {
+          "title": "Data Storage",
+          "description": "Base64 to text for data storage, preventing encoding issues",
+          "examples": ["Database storage", "Configuration files", "Temporary storage"]
+        },
+        "debug": {
+          "title": "Development Debugging",
+          "description": "Base64 to text helps development debugging, parsing encoded data",
+          "examples": ["Log analysis", "Data parsing", "Error troubleshooting"]
+        }
+      }
+    },
+    "steps": {
+      "title": "Usage Steps",
+      "subtitle": "Complete Base64 to text or text to Base64 conversion in four simple steps",
+      "items": {
+        "select": {
+          "number": "01",
+          "title": "Select Conversion Direction",
+          "description": "Choose Base64 to text or text to Base64 conversion direction"
+        },
+        "input": {
+          "number": "02",
+          "title": "Input Data",
+          "description": "Enter content for Base64 to text conversion"
+        },
+        "convert": {
+          "number": "03",
+          "title": "Execute Conversion",
+          "description": "Click convert button, system automatically processes Base64 to text"
+        },
+        "result": {
+          "number": "04",
+          "title": "Get Result",
+          "description": "Copy Base64 to text result or download as file"
+        }
+      }
+    },
+    "faq": {
+      "title": "FAQ",
+      "subtitle": "Questions and answers about Base64 to text tool usage",
+      "items": {
+        "q1": {
+          "question": "What is Base64 to text?",
+          "answer": "Base64 to text is a decoding method that converts Base64 encoded data to readable text, commonly used for transmitting binary data in text protocols."
+        },
+        "q2": {
+          "question": "Why use Base64 to text tool?",
+          "answer": "Base64 to text tool can avoid special characters in text being escaped during transmission, ensuring data integrity."
+        },
+        "q3": {
+          "question": "Does Base64 to text support Chinese characters?",
+          "answer": "Fully supports Chinese characters, our Base64 to text tool uses UTF-8 encoding to ensure correct processing of Chinese characters."
+        },
+        "q4": {
+          "question": "What's the maximum text size supported by Base64 to text tool?",
+          "answer": "Theoretically no size limit, but for good user experience, recommend single text not exceeding 1MB."
+        },
+        "q5": {
+          "question": "How is data security guaranteed in Base64 to text tool?",
+          "answer": "All Base64 to text conversion operations are completed locally in the browser, data is not uploaded to servers, completely protecting your privacy."
+        }
+      }
+    }
+  }
+} 
