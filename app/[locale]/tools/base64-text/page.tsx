@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { getTranslations } from 'next-intl/server';
 import { Metadata } from 'next';
 import Base64TextPageClient from './client';

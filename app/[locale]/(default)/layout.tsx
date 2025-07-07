@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { ReactNode } from "react";
 import Footer from "@/components/layout/footer";
 

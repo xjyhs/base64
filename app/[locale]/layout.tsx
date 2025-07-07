@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import "@/app/globals.css";
 
 import { getMessages, getTranslations } from "next-intl/server";
