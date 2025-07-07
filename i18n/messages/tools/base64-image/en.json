@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Base64 Image Converter - Online Image Base64 Encode Decode Tool",
-    "description": "Free online Base64 image converter, supports image to Base64 encoding and Base64 decoding to image. Secure, fast, no upload required, protect your privacy.",
+    "title": "Base64 Image Converter - Image to Base64 Encoder Tool",
+    "description": "Free online Base64 image converter, supports image to base64 encoding and base64 to image decoding. Secure, fast, no upload required, protect your privacy. Professional image to base64 tool with one-click base64 to image conversion.",
     "keywords": "base64 image, image to base64, base64 to image, image encoder, image decoder, online image tool, base64 encoder, image converter"
   },
   "title": "Base64 Image Converter",
@@ -72,7 +72,7 @@
     },
     "features": {
       "title": "Core Features",
-      "subtitle": "Why choose our Base64 image converter?",
+      "subtitle": "Professional image to base64 and base64 to image conversion tool",
       "items": {
         "security": {
           "title": "Privacy & Security",
@@ -102,12 +102,12 @@
     },
     "steps": {
       "title": "How to Use",
-      "subtitle": "Complete image and Base64 conversion in four simple steps",
+      "subtitle": "Complete image to base64 and base64 to image conversion in four simple steps",
       "items": {
         "select": {
           "number": "01",
           "title": "Select Function",
-          "description": "Choose image to Base64 or Base64 to image conversion based on your needs"
+          "description": "Choose image to base64 or base64 to image conversion based on your needs"
         },
         "upload": {
           "number": "02",
@@ -192,27 +192,27 @@
       "items": {
         "webEmbedding": {
           "title": "Web Image Embedding",
-          "description": "E-commerce websites need to embed images in product pages, using Base64 encoding can reduce server requests and improve page loading speed."
+          "description": "E-commerce websites need to embed images in product pages, using image to base64 encoding can reduce server requests and improve page loading speed."
         },
         "mobileOffline": {
           "title": "Mobile Offline",
-          "description": "News apps need to support offline reading of image content, converting images to Base64 for storage in local databases achieves perfect offline experience."
+          "description": "News apps need to support offline reading of image content, converting image to base64 for storage in local databases achieves perfect offline experience."
         },
         "apiIntegration": {
           "title": "Third-party API Integration",
-          "description": "CRM systems need to integrate with third-party document services, transmitting image attachments through Base64 encoding ensures secure data transmission."
+          "description": "CRM systems need to integrate with third-party document services, transmitting image attachments through base64 to image encoding ensures secure data transmission."
         },
         "emailMarketing": {
           "title": "Email Marketing",
-          "description": "Marketing platforms need to embed images in emails, using Base64 encoding ensures emails display correctly in different clients."
+          "description": "Marketing platforms need to embed images in emails, using base64 to image encoding ensures emails display correctly in different clients."
         },
         "reportSystem": {
           "title": "Enterprise Report System",
-          "description": "Enterprise ERP systems need to generate PDF reports with charts, using Base64 encoding for online report preview and permission control."
+          "description": "Enterprise ERP systems need to generate PDF reports with charts, using image to base64 encoding for online report preview and permission control."
         },
         "socialMedia": {
           "title": "Social Media",
-          "description": "Social platforms need to quickly process user-uploaded images, using Base64 encoding can simplify image processing and storage workflows."
+          "description": "Social platforms need to quickly process user-uploaded images, using base64 to image encoding can simplify image processing and storage workflows."
         }
       }
     },
@@ -226,7 +226,7 @@
         },
         "whyUseBase64": {
           "question": "Why convert images to Base64?",
-          "answer": "Base64 encoded images can be directly embedded in HTML, CSS, JSON and other text formats, convenient for web applications while avoiding compatibility issues with binary data transmission."
+          "answer": "Converting image to base64 encoding allows direct embedding in HTML, CSS, JSON and other text formats, convenient for web applications while avoiding compatibility issues with binary data transmission."
         },
         "fileSizeLimit": {
           "question": "Is there a file size limit?",
@@ -258,7 +258,7 @@
         },
         "howToUse": {
           "question": "How to use the converted Base64 encoding?",
-          "answer": "You can directly embed Base64 encoding in HTML img tags, CSS background-image properties, or transmit in JSON data."
+          "answer": "You can directly embed Base64 encoding in HTML img tags, CSS background-image properties, or transmit in JSON data for base64 to image conversion."
         }
       }
     },
