@@ -9,6 +9,197 @@
   },
   "HomePage": {
     "title": "Base64工具箱",
-    "description": "专业的Base64在线转换工具集合，支持多种格式与Base64的双向转换，保护您的数据隐私安全。"
+    "description": "专业的Base64在线转换工具集合，支持多种格式与Base64的双向转换，保护您的数据隐私安全。",
+    "hero": {
+      "badge": "专业Base64工具集合",
+      "title": "Base64工具箱",
+      "subtitle": "专业的在线Base64转换工具集合",
+      "description": "支持文本、图片、PDF、JSON、XML、Excel、Hex等多种格式与Base64的双向转换。完全在浏览器中运行，保护您的数据隐私安全。",
+      "features": ["安全可靠", "完全免费", "无需注册", "隐私保护"],
+      "cta": "立即开始使用",
+      "learnMore": "了解更多"
+    },
+    "tools": {
+      "title": "工具集合",
+      "subtitle": "专业的Base64转换工具，满足您的各种需求",
+      "viewTool": "使用工具",
+      "items": {
+        "base64-text": {
+          "title": "文本转换器",
+          "description": "支持文本与Base64的双向转换，完美处理中文、英文、特殊字符",
+          "features": ["UTF-8编码支持", "格式验证", "字符统计", "文件下载"]
+        },
+        "base64-image": {
+          "title": "图片转换器", 
+          "description": "支持图片与Base64的双向转换，支持JPG、PNG、GIF、WebP等格式",
+          "features": ["多格式支持", "预览功能", "拖拽上传", "最大100MB"]
+        },
+        "base64-pdf": {
+          "title": "PDF转换器",
+          "description": "支持PDF文件与Base64的双向转换，适用于文档处理和传输",
+          "features": ["PDF预览", "文件下载", "格式验证", "最大50MB"]
+        },
+        "base64-json": {
+          "title": "JSON转换器",
+          "description": "支持JSON数据与Base64的双向转换，提供格式化和压缩功能",
+          "features": ["语法验证", "智能格式化", "数据压缩", "统计信息"]
+        },
+        "base64-xml": {
+          "title": "XML转换器",
+          "description": "支持XML数据与Base64的双向转换，提供格式化和验证功能",
+          "features": ["语法验证", "智能格式化", "数据压缩", "元素统计"]
+        },
+        "base64-excel": {
+          "title": "Excel转换器",
+          "description": "支持Excel文件与Base64的双向转换，支持xlsx、xls格式",
+          "features": ["在线预览", "工作表支持", "数据统计", "格式兼容"]
+        },
+        "base64-hex": {
+          "title": "Hex转换器",
+          "description": "支持十六进制与Base64的双向转换，适用于开发调试",
+          "features": ["格式化支持", "大小写转换", "格式验证", "开发友好"]
+        }
+      }
+    },
+    "features": {
+      "title": "核心优势",
+      "subtitle": "为什么选择我们的Base64工具箱",
+      "items": {
+        "security": {
+          "title": "隐私安全",
+          "description": "所有转换操作都在您的浏览器中完成，数据不会上传到服务器，完全保护您的隐私安全。",
+          "icon": "Shield"
+        },
+        "speed": {
+          "title": "高速处理",
+          "description": "采用先进的算法优化，支持大文件快速处理，提供流畅的用户体验。",
+          "icon": "Zap"
+        },
+        "formats": {
+          "title": "多格式支持",
+          "description": "支持文本、图片、PDF、JSON、XML、Excel、Hex等多种格式的Base64转换。",
+          "icon": "FileType"
+        },
+        "free": {
+          "title": "完全免费",
+          "description": "所有工具完全免费使用，无需注册账号，无使用次数限制。",
+          "icon": "Gift"
+        },
+        "responsive": {
+          "title": "响应式设计",
+          "description": "完美适配桌面端、平板和手机，随时随地使用Base64转换工具。",
+          "icon": "Smartphone"
+        },
+        "opensource": {
+          "title": "开源透明",
+          "description": "代码开源，算法透明，您可以完全信任我们的工具安全性。",
+          "icon": "Code"
+        }
+      }
+    },
+    "howToUse": {
+      "title": "使用步骤",
+      "subtitle": "简单四步，完成Base64转换",
+      "steps": [
+        {
+          "number": "01",
+          "title": "选择工具",
+          "description": "根据您的需求选择相应的Base64转换工具"
+        },
+        {
+          "number": "02", 
+          "title": "输入数据",
+          "description": "粘贴文本内容或上传文件到转换器中"
+        },
+        {
+          "number": "03",
+          "title": "执行转换",
+          "description": "点击转换按钮，工具会自动处理您的数据"
+        },
+        {
+          "number": "04",
+          "title": "获取结果",
+          "description": "复制转换结果或下载文件到本地"
+        }
+      ]
+    },
+    "testimonials": {
+      "title": "用户评价",
+      "subtitle": "来自全球用户的真实反馈",
+      "items": [
+        {
+          "name": "张开发",
+          "role": "前端工程师",
+          "avatar": "👨‍💻",
+          "content": "这个Base64工具箱太好用了！支持多种格式转换，而且完全在浏览器中运行，数据安全有保障。作为开发者，我经常需要处理各种格式的Base64编码，这个工具集完美满足了我的需求。",
+          "rating": 5
+        },
+        {
+          "name": "李设计",
+          "role": "UI/UX设计师",
+          "avatar": "👩‍🎨",
+          "content": "界面设计得很专业，操作简单直观。图片转Base64的功能特别实用，支持拖拽上传，还能预览结果。最重要的是免费使用，没有任何限制。",
+          "rating": 5
+        },
+        {
+          "name": "王产品",
+          "role": "产品经理",
+          "avatar": "👨‍💼",
+          "content": "团队经常需要处理各种文件格式的Base64编码，这个工具箱提供了完整的解决方案。PDF、Excel、JSON等格式都支持，大大提高了工作效率。",
+          "rating": 5
+        },
+        {
+          "name": "陈数据",
+          "role": "数据分析师",
+          "avatar": "👩‍💻",
+          "content": "JSON和XML转Base64的功能非常实用，还提供了格式化和验证功能。数据处理过程中经常用到，工具稳定可靠，推荐给同事们使用。",
+          "rating": 5
+        }
+      ]
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "关于Base64工具箱的常见问题解答",
+      "items": [
+        {
+          "question": "什么是Base64编码？",
+          "answer": "Base64是一种用64个可打印字符来表示二进制数据的编码方法。它常用于在文本协议中传输二进制数据，如图片、文件等。Base64编码可以确保数据在传输过程中不会被损坏。"
+        },
+        {
+          "question": "为什么需要Base64转换？",
+          "answer": "Base64编码主要用于：1）在文本协议中传输二进制数据；2）在HTML、CSS、JSON等文本格式中嵌入文件；3）避免特殊字符在传输过程中被转义；4）在某些API接口中传输文件数据。"
+        },
+        {
+          "question": "工具是否安全？",
+          "answer": "是的，我们的工具完全安全。所有转换操作都在您的浏览器中完成，数据不会上传到服务器。我们不会收集、存储或传输您的任何数据，完全保护您的隐私安全。"
+        },
+        {
+          "question": "支持哪些文件格式？",
+          "answer": "我们支持多种格式：文本（支持UTF-8编码）、图片（JPG、PNG、GIF、WebP等）、PDF文档、JSON数据、XML数据、Excel文件（xlsx、xls）、十六进制（Hex）数据。"
+        },
+        {
+          "question": "有文件大小限制吗？",
+          "answer": "不同工具有不同的建议限制：图片最大100MB，PDF最大50MB，其他格式建议不超过10MB。这些限制主要是为了确保良好的用户体验和浏览器性能。"
+        },
+        {
+          "question": "工具是否免费？",
+          "answer": "是的，所有工具完全免费使用。我们不收取任何费用，也不需要注册账号。您可以无限制地使用所有功能。"
+        },
+        {
+          "question": "支持哪些浏览器？",
+          "answer": "我们支持所有现代浏览器，包括Chrome、Firefox、Safari、Edge等。建议使用最新版本的浏览器以获得最佳体验。"
+        },
+        {
+          "question": "Base64编码会增加文件大小吗？",
+          "answer": "是的，Base64编码通常会使文件大小增加约33%。这是编码过程的正常现象，解码后会恢复原始大小。这种增加是为了确保数据能够安全地在文本协议中传输。"
+        }
+      ]
+    },
+    "cta": {
+      "title": "立即开始使用",
+      "subtitle": "选择您需要的Base64转换工具，开始高效的数据处理",
+      "button": "选择工具",
+      "note": "完全免费，无需注册"
+    }
   }
-} 
+}
