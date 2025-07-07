@@ -2,12 +2,22 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import LocaleToggle from "@/components/locale/toggle";
 import { FileImage } from "lucide-react";
 import ToolsMenu from "@/components/layout/ToolsMenu";
 
 export default function Header() {
   const t = useTranslations('metadata');
+  const pathname = usePathname();
+
+  // 从路径中提取工具ID
+  const getCurrentToolId = () => {
+    const match = pathname.match(/\/tools\/([^\/]+)/);
+    return match ? match[1] : undefined;
+  };
+
+  const currentToolId = getCurrentToolId();
 
   return (
     <header className="bg-white/80 backdrop-blur-sm sticky top-0 z-50 w-full border-b border-gray-200 shadow-sm">
@@ -24,7 +34,7 @@ export default function Header() {
 
         {/* 中间：工具菜单 */}
         <div className="flex-1 flex justify-center">
-          <ToolsMenu />
+          <ToolsMenu currentToolId={currentToolId} />
         </div>
 
         {/* 右侧：语言切换 */}
