@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "Base64 JSON Converter",
-    "description": "Convert JSON data and Base64 strings bidirectionally. Online tool with formatting, syntax highlighting, and data validation support.",
-    "keywords": "base64, json, converter, encode, decode, format, online tool"
+    "title": "Base64 JSON Converter - json to base64 Encoder Tool",
+    "description": "Professional json to base64 converter, supports bidirectional conversion. Online encoding tool with perfect JSON formatting, syntax validation, and data compression features.",
+    "keywords": "base64, json, converter, encoding, decoding, formatting, online tool, base64 to json, json to base64"
   },
   "tabs": {
     "decode": "Base64 to JSON",
@@ -63,112 +63,112 @@
   },
   "page": {
     "hero": {
-      "badge": "Professional JSON Processing Tool",
+      "badge": "Professional json to base64 Tool",
       "title": "Base64 JSON Converter",
-      "description": "Professional JSON and Base64 conversion tool with formatting, validation, and compression",
-      "subtitle": "Essential tool for data processing, configuration management, and API development"
+      "description": "Professional converter tool, supports json to base64 and base64 to json bidirectional conversion, perfect for JSON data encoding and decoding",
+      "subtitle": "Free online tool, essential for data processing, configuration management, and API development"
     },
     "tool": {
       "title": "Base64 JSON Converter",
-      "description": "Start converting your JSON data"
+      "description": "Start your json to base64 or base64 to json conversion"
     },
     "features": {
-      "title": "Key Features",
-      "subtitle": "JSON processing tool designed for developers",
+      "title": "Features",
+      "subtitle": "Professional tool designed for data conversion operations",
       "items": {
         "format": {
           "title": "Smart Formatting",
-          "description": "Automatically format JSON with customizable indentation for better code readability"
+          "description": "Automatically format JSON with custom indentation during json to base64 process for better readability"
         },
         "validate": {
           "title": "Syntax Validation",
-          "description": "Real-time JSON syntax validation with quick error location"
+          "description": "Real-time JSON syntax validation to ensure conversion accuracy and base64 to json decoding process correctness"
         },
         "compress": {
           "title": "Data Compression",
-          "description": "Support JSON compression to reduce data transfer size"
+          "description": "Support JSON compression to optimize data transmission size after encoding"
         },
         "secure": {
           "title": "Privacy Security",
-          "description": "Local processing, no data uploaded to servers, protecting privacy"
+          "description": "Local json to base64 processing and decoding, data not uploaded to server, protecting privacy"
         }
       }
     },
     "useCases": {
       "title": "Use Cases",
-      "subtitle": "Widely used in development, configuration, and data processing scenarios",
+      "subtitle": "Conversion tools widely used in development, configuration, data processing scenarios",
       "items": {
         "config": {
           "title": "Configuration Management",
-          "description": "Encode configuration files for storage and transmission, avoiding special character conflicts",
-          "examples": ["App Config", "Environment Variables", "Deployment Config"]
+          "description": "Use json to base64 for configuration file encoding storage and transmission, avoiding special character conflicts",
+          "examples": ["Application Config", "Environment Variables", "Deployment Config"]
         },
         "api": {
           "title": "API Development",
-          "description": "Base64 encoding of JSON data for transmission, simplifying API interface design",
-          "examples": ["Data Transfer", "Parameter Encoding", "Response Processing"]
+          "description": "Applications in API development, simplifying interface design, with base64 to json for response processing",
+          "examples": ["Data Transmission", "Parameter Encoding", "Response Processing"]
         },
         "storage": {
           "title": "Data Storage",
-          "description": "Secure storage of JSON data, preventing injection attacks",
+          "description": "For data storage, preventing injection attacks, then base64 to json for data retrieval",
           "examples": ["Database Storage", "Cache Data", "Temporary Storage"]
         },
         "security": {
           "title": "Data Obfuscation",
-          "description": "Simple obfuscation of sensitive JSON data for enhanced security",
+          "description": "Helps simple obfuscation of sensitive data, increasing security, with base64 to json for decoding when needed",
           "examples": ["Sensitive Config", "User Data", "Business Logic"]
         }
       }
     },
     "steps": {
       "title": "Usage Steps",
-      "subtitle": "Complete JSON and Base64 conversion in four simple steps",
+      "subtitle": "Simple four steps to complete conversion process",
       "items": {
         "select": {
           "number": "01",
           "title": "Select Conversion Direction",
-          "description": "Choose 'JSON to Base64' or 'Base64 to JSON'"
+          "description": "Choose json to base64 encoding or decoding conversion direction"
         },
         "input": {
           "number": "02",
           "title": "Input Data",
-          "description": "Enter JSON data or paste Base64 string"
+          "description": "Input content that needs encoding or base64 to json decoding conversion"
         },
         "convert": {
           "number": "03",
           "title": "Execute Conversion",
-          "description": "Click convert button, system processes data automatically"
+          "description": "Click convert button, system automatically processes conversion"
         },
         "result": {
           "number": "04",
-          "title": "Get Results",
+          "title": "Get Result",
           "description": "Copy conversion result or download as file"
         }
       }
     },
     "faq": {
       "title": "FAQ",
-      "subtitle": "Answers to common questions during usage",
+      "subtitle": "Questions and answers about using the conversion tool",
       "items": {
         "q1": {
-          "question": "What is Base64 encoding?",
-          "answer": "Base64 is an encoding method that converts binary data to ASCII characters, commonly used for transmitting binary data in text protocols."
+          "question": "What is json to base64 and base64 to json conversion?",
+          "answer": "json to base64 is encoding JSON data to Base64 format, while base64 to json is decoding Base64 data back to JSON format, commonly used for transmitting structured data in text protocols."
         },
         "q2": {
-          "question": "Why encode JSON with Base64?",
-          "answer": "Base64 encoding can avoid special characters in JSON from being escaped during transmission, and can simply obfuscate sensitive data."
+          "question": "Why use conversion tools?",
+          "answer": "Conversion tools can avoid special characters in JSON being escaped during transmission, and can simply obfuscate sensitive data for security purposes."
         },
         "q3": {
-          "question": "What's the maximum JSON file size supported?",
-          "answer": "There's no theoretical size limit, but for optimal user experience, we recommend keeping individual JSON files under 10MB."
+          "question": "What's the maximum JSON file size supported for conversion?",
+          "answer": "Theoretically no size limit for processing, but for optimal user experience, we recommend single JSON files not exceed 10MB."
         },
         "q4": {
-          "question": "How to validate JSON format?",
-          "answer": "The tool automatically validates JSON syntax and displays detailed error messages if the format is incorrect."
+          "question": "How to validate JSON format before conversion?",
+          "answer": "The tool automatically validates JSON syntax before processing and displays detailed error messages if format is incorrect."
         },
         "q5": {
-          "question": "How is data security ensured?",
-          "answer": "All conversion operations are performed locally in the browser, no data is uploaded to servers, completely protecting your privacy."
+          "question": "How is data security guaranteed during operations?",
+          "answer": "All conversion operations are completed locally in the browser, data is not uploaded to servers, completely protecting your privacy."
         }
       }
     }

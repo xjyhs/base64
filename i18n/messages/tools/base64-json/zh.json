@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "Base64 JSON转换器",
-    "description": "将JSON数据和Base64字符串进行相互转换。支持格式化显示、语法高亮、数据验证的在线工具。",
-    "keywords": "base64, json, 转换器, 编码, 解码, 格式化, 在线工具"
+    "title": "Base64 JSON转换器 - json转base64编码工具",
+    "description": "专业的json转base64转换器，支持双向转换。在线编码工具，完美支持JSON数据格式化、语法验证、数据压缩功能。",
+    "keywords": "base64, json, 转换器, 编码, 解码, 格式化, 在线工具, base64转json, json转base64"
   },
   "tabs": {
     "decode": "Base64 转 JSON",
@@ -63,81 +63,81 @@
   },
   "page": {
     "hero": {
-      "badge": "专业JSON处理工具",
+      "badge": "专业json转base64工具",
       "title": "Base64 JSON转换器",
-      "description": "专业的JSON与Base64互转工具，支持格式化、验证、压缩",
-      "subtitle": "数据处理、配置管理、API开发的必备工具"
+      "description": "专业的转换器工具，支持json转base64和base64转json双向转换，完美处理JSON数据的编码解码",
+      "subtitle": "免费在线工具，数据处理、配置管理、API开发的必备工具"
     },
     "tool": {
       "title": "Base64 JSON转换器",
-      "description": "开始转换您的JSON数据"
+      "description": "开始您的json转base64或base64转json转换"
     },
     "features": {
       "title": "功能特点",
-      "subtitle": "专为开发者设计的JSON处理工具",
+      "subtitle": "专为数据转换操作设计的专业工具",
       "items": {
         "format": {
           "title": "智能格式化",
-          "description": "自动格式化JSON，支持自定义缩进，提高代码可读性"
+          "description": "自动格式化JSON，支持json转base64过程中的自定义缩进，提高代码可读性"
         },
         "validate": {
           "title": "语法验证",
-          "description": "实时验证JSON语法，快速定位错误位置"
+          "description": "实时验证JSON语法，确保转换的准确性和base64转json解码过程的正确性"
         },
         "compress": {
           "title": "数据压缩",
-          "description": "支持JSON压缩，减少数据传输大小"
+          "description": "支持JSON压缩，优化编码后的数据传输大小"
         },
         "secure": {
           "title": "隐私安全",
-          "description": "本地处理，数据不上传服务器，保护隐私安全"
+          "description": "本地处理json转base64和解码，数据不上传服务器，保护隐私安全"
         }
       }
     },
     "useCases": {
       "title": "应用场景",
-      "subtitle": "广泛应用于开发、配置、数据处理等场景",
+      "subtitle": "转换工具广泛应用于开发、配置、数据处理等场景",
       "items": {
         "config": {
           "title": "配置管理",
-          "description": "配置文件的编码存储和传输，避免特殊字符冲突",
+          "description": "使用json转base64进行配置文件的编码存储和传输，避免特殊字符冲突",
           "examples": ["应用配置", "环境变量", "部署配置"]
         },
         "api": {
           "title": "API开发",
-          "description": "JSON数据的Base64编码传输，简化API接口设计",
+          "description": "在API开发中的应用，简化接口设计，配合base64转json进行响应处理",
           "examples": ["数据传输", "参数编码", "响应处理"]
         },
         "storage": {
           "title": "数据存储",
-          "description": "JSON数据的安全存储，防止注入攻击",
+          "description": "用于数据存储，防止注入攻击，然后base64转json进行数据检索",
           "examples": ["数据库存储", "缓存数据", "临时存储"]
         },
         "security": {
           "title": "数据混淆",
-          "description": "敏感JSON数据的简单混淆，增加安全性",
+          "description": "帮助敏感数据的简单混淆，增加安全性，需要时使用base64转json进行解码",
           "examples": ["敏感配置", "用户数据", "业务逻辑"]
         }
       }
     },
     "steps": {
       "title": "使用步骤",
-      "subtitle": "简单四步完成JSON与Base64的转换",
+      "subtitle": "简单四步完成转换过程",
       "items": {
         "select": {
           "number": "01",
           "title": "选择转换方向",
-          "description": "选择「JSON转Base64」或「Base64转JSON」"
+          "description": "选择json转base64编码或解码转换方向"
         },
         "input": {
           "number": "02",
           "title": "输入数据",
-          "description": "输入JSON数据或粘贴Base64字符串"
+          "description": "输入需要进行编码或base64转json解码转换的内容"
         },
         "convert": {
           "number": "03",
           "title": "执行转换",
-          "description": "点击转换按钮，系统自动处理数据"
+          "description": "点击转换按钮，系统自动处理转换"
         },
         "result": {
           "number": "04",
@@ -148,26 +148,26 @@
     },
     "faq": {
       "title": "常见问题",
-      "subtitle": "解答使用过程中的疑问",
+      "subtitle": "转换工具使用过程中的疑问解答",
       "items": {
         "q1": {
-          "question": "什么是Base64编码？",
-          "answer": "Base64是一种将二进制数据转换为ASCII字符的编码方式，常用于在文本协议中传输二进制数据。"
+          "question": "什么是json转base64和base64转json转换？",
+          "answer": "json转base64是将JSON数据编码为Base64格式，而base64转json是将Base64数据解码回JSON格式，常用于在文本协议中传输结构化数据。"
         },
         "q2": {
-          "question": "为什么要对JSON进行Base64编码？",
-          "answer": "Base64编码可以避免JSON中的特殊字符在传输过程中被转义，同时可以简单地混淆敏感数据。"
+          "question": "为什么要使用转换工具？",
+          "answer": "转换工具可以避免JSON中的特殊字符在传输过程中被转义，同时可以简单地混淆敏感数据以提高安全性。"
         },
         "q3": {
-          "question": "支持多大的JSON文件？",
-          "answer": "理论上没有大小限制，但为了确保良好的用户体验，建议单个JSON文件不超过10MB。"
+          "question": "支持多大的JSON文件进行转换？",
+          "answer": "理论上处理没有大小限制，但为了确保良好的用户体验，建议单个JSON文件不超过10MB。"
         },
         "q4": {
-          "question": "如何验证JSON格式？",
-          "answer": "工具会自动验证JSON语法，如果格式有误会显示详细的错误信息。"
+          "question": "如何在转换前验证JSON格式？",
+          "answer": "工具会在处理前自动验证JSON语法，如果格式有误会显示详细的错误信息。"
         },
         "q5": {
-          "question": "数据安全如何保障？",
+          "question": "操作中如何保障数据安全？",
           "answer": "所有转换操作都在浏览器本地完成，数据不会上传到服务器，完全保护您的隐私。"
         }
       }

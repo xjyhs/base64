@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Base64文本转换器 - 免费在线Base64转文本工具",
-    "description": "专业的Base64文本转换器，支持base64 to text和text to base64双向转换。免费在线Base64转文本工具，完美支持中文、英文、特殊字符的编码解码，提供字符统计和文件下载功能。",
+    "title": "Base64文本转换器 - 文本转Base64编码工具",
+    "description": "专业的Base64文本转换器，支持文本转base64和base64转文本双向转换。在线文本转Base64编码工具，完美支持中文、英文、特殊字符的编码解码，提供字符统计和文件下载功能。",
     "keywords": "base64, 文本, 转换器, 编码, 解码, 字符串, 在线工具, base64 to text, text to base64, base64转文本, 文本转base64"
   },
   "tabs": {
@@ -59,112 +59,112 @@
   },
   "page": {
     "hero": {
-      "badge": "专业Base64转文本工具",
+      "badge": "专业文本转Base64工具",
       "title": "Base64文本转换器",
-      "description": "专业的Base64转文本工具，支持base64 to text和text to base64双向转换，完美处理中文、英文、特殊字符的编码解码",
-      "subtitle": "免费在线Base64转文本工具，数据传输、文本编码、开发调试的必备工具"
+      "description": "专业的文本转Base64工具，支持文本转base64和base64转文本双向转换，完美处理中文、英文、特殊字符的编码解码",
+      "subtitle": "免费在线文本转Base64工具，数据传输、文本编码、开发调试的必备工具"
     },
     "tool": {
       "title": "Base64文本转换器",
-      "description": "开始您的Base64转文本或文本转Base64转换"
+      "description": "开始您的文本转Base64或base64转文本转换"
     },
     "features": {
       "title": "功能特点",
-      "subtitle": "专为Base64转文本设计的专业转换工具",
+      "subtitle": "专为文本转Base64设计的专业转换工具",
       "items": {
         "encoding": {
           "title": "多编码支持",
-          "description": "支持UTF-8编码，完美处理Base64转文本和文本转Base64的中文、英文、特殊字符"
+          "description": "支持UTF-8编码，完美处理文本转Base64和base64转文本的中文、英文、特殊字符"
         },
         "validation": {
           "title": "格式验证",
-          "description": "实时验证Base64格式，确保Base64转文本转换的准确性"
+          "description": "实时验证Base64格式，确保文本转Base64转换的准确性"
         },
         "statistics": {
           "title": "字符统计",
-          "description": "实时显示Base64转文本过程中的字符数、字节数、行数等详细统计信息"
+          "description": "实时显示文本转Base64过程中的字符数、字节数、行数等详细统计信息"
         },
         "secure": {
           "title": "隐私安全",
-          "description": "本地处理Base64转文本，数据不上传服务器，保护隐私安全"
+          "description": "本地处理文本转Base64，数据不上传服务器，保护隐私安全"
         }
       }
     },
     "useCases": {
       "title": "应用场景",
-      "subtitle": "Base64转文本工具广泛应用于开发、数据传输、文本处理等场景",
+      "subtitle": "文本转Base64工具广泛应用于开发、数据传输、文本处理等场景",
       "items": {
         "data": {
           "title": "数据传输",
-          "description": "使用Base64转文本进行数据传输，避免特殊字符问题",
+          "description": "使用文本转Base64进行数据传输，避免特殊字符问题",
           "examples": ["URL参数", "HTTP头部", "邮件附件"]
         },
         "api": {
           "title": "API开发",
-          "description": "Base64转文本在API开发中的应用，简化接口设计",
+          "description": "文本转Base64在API开发中的应用，简化接口设计",
           "examples": ["数据传输", "参数编码", "响应处理"]
         },
         "storage": {
           "title": "数据存储",
-          "description": "Base64转文本用于数据存储，防止编码问题",
+          "description": "base64转文本用于数据存储，防止编码问题",
           "examples": ["数据库存储", "配置文件", "临时存储"]
         },
         "debug": {
           "title": "开发调试",
-          "description": "Base64转文本帮助开发调试，解析编码数据",
+          "description": "base64转文本帮助开发调试，解析编码数据",
           "examples": ["日志分析", "数据解析", "错误排查"]
         }
       }
     },
     "steps": {
       "title": "使用步骤",
-      "subtitle": "简单四步完成Base64转文本或文本转Base64转换",
+      "subtitle": "简单四步完成base64转文本或文本转Base64转换",
       "items": {
         "select": {
           "number": "01",
           "title": "选择转换方向",
-          "description": "选择Base64转文本或文本转Base64转换方向"
+          "description": "选择base64转文本或文本转Base64转换方向"
         },
         "input": {
           "number": "02",
           "title": "输入数据",
-          "description": "输入需要进行Base64转文本转换的内容"
+          "description": "输入需要进行base64转文本转换的内容"
         },
         "convert": {
           "number": "03",
           "title": "执行转换",
-          "description": "点击转换按钮，系统自动处理Base64转文本"
+          "description": "点击转换按钮，系统自动处理base64转文本"
         },
         "result": {
           "number": "04",
           "title": "获取结果",
-          "description": "复制Base64转文本结果或下载为文件"
+          "description": "复制base64转文本结果或下载为文件"
         }
       }
     },
     "faq": {
       "title": "常见问题",
-      "subtitle": "Base64转文本工具使用过程中的疑问解答",
+      "subtitle": "base64转文本工具使用过程中的疑问解答",
       "items": {
         "q1": {
-          "question": "什么是Base64转文本？",
-          "answer": "Base64转文本是一种将Base64编码数据转换为可读文本的解码方式，常用于在文本协议中传输二进制数据。"
+          "question": "什么是base64转文本？",
+          "answer": "base64转文本是一种将Base64编码数据转换为可读文本的方式，常用于在文本协议中传输二进制数据。"
         },
         "q2": {
-          "question": "为什么要使用Base64转文本工具？",
-          "answer": "Base64转文本工具可以避免文本中的特殊字符在传输过程中被转义，确保数据完整性。"
+          "question": "为什么要使用base64转文本工具？",
+          "answer": "base64转文本工具可以避免文本中的特殊字符在传输过程中被转义，确保数据完整性。"
         },
         "q3": {
-          "question": "Base64转文本支持中文字符吗？",
-          "answer": "完全支持中文字符，我们的Base64转文本工具采用UTF-8编码确保中文字符正确处理。"
+          "question": "base64转文本支持中文字符吗？",
+          "answer": "完全支持中文字符，我们的base64转文本工具采用UTF-8编码确保中文字符正确处理。"
         },
         "q4": {
-          "question": "Base64转文本工具支持多大的文本？",
+          "question": "Base64转换工具支持多大的文本？",
           "answer": "理论上没有大小限制，但为了确保良好的用户体验，建议单个文本不超过1MB。"
         },
         "q5": {
-          "question": "Base64转文本工具的数据安全如何保障？",
-          "answer": "所有Base64转文本转换操作都在浏览器本地完成，数据不会上传到服务器，完全保护您的隐私。"
+          "question": "Base64转换工具的数据安全如何保障？",
+          "answer": "所有Base64转换操作都在浏览器本地完成，数据不会上传到服务器，完全保护您的隐私。"
         }
       }
     }
